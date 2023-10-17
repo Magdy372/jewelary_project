@@ -1,4 +1,41 @@
+<?php
+   //start session
+   session_start();
+   //include database connection file
+   include_once "includes/dbh.inc.php";
+   //grab data from user and see if it exists in database
+   if($_SERVER["REQUEST_METHOD"]=="POST"){
 
+    $Email=$_POST["Email"];
+	$Password=$_POST["Pass"];
+   
+    
+   //select data from database where email and password matches
+
+    $sql = "select * from users where Email ='$Email' and Pass='$Password';";
+    $result = mysqli_query($conn,$sql);
+
+
+   //if true then use session variables to use it as long as session is started
+    if($row = mysqli_fetch_array($result)){
+      $_SESSION['id'] = $row[0];
+      $_SESSION['fname'] = $row["Fname"];
+      $_SESSION['lastname'] = $row["LName"];
+      $_SESSION['email'] = $row["Email"];
+      $_SESSION['pass'] = $row["Pass"];
+
+      header("location:index.html");
+	  exit;
+
+    }
+    else{
+      echo " invalid username or password " . "<br>";
+    }
+	
+   }
+
+ 
+ ?>
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
@@ -451,14 +488,14 @@
 								<span>If you have an account, sign in with your email address.</span>
 							</div>
 							<div class="login-form">
-								<form>									
+								<form method="post">									
 									<div class="form-group login-page">
 										<label for="exampleInputEmail1">Email <span>*</span></label>
-										<input type="text" class="form-control" id="exampleInputEmail1">
+										<input type="text" name="Email" class="form-control" id="exampleInputEmail1">
 									</div>								
 									<div class="form-group login-page">
 										<label for="exampleInputPassword1">Password <span>*</span></label>
-										<input type="Password" class="form-control" id="exampleInputPassword1">
+										<input type="Password" name= "Pass" class="form-control" id="exampleInputPassword1">
 									</div>	
 									<button type="submit" class="btn btn-default login-btn">Sign In</button>
 								</form>						
