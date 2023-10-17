@@ -53,13 +53,13 @@
 								<ul>
                                 <li class="click_menu"><a href="#">My Account <i class="fa fa-angle-down"></i></a>
 										<ul class="click_menu_show">
-											<li><a href="customer-login.html">Compare Products</a></li>
-											<li><a href="customer-login.html">My Account</a></li>
-											<li><a href="wishlist.html">My Wish List</a></li>
-											<li><a href="customer-login.html">Sign In</a></li>
+											<li><a href="customer-login.php">Compare Products</a></li>
+											<li><a href="customer-login.php">My Account</a></li>
+											<li><a href="wishlist.php">My Wish List</a></li>
+											<li><a href="customer-login.php">Sign In</a></li>
 										</ul>
 									</li>
-									<li><a href="customer-account.html">Create an Account</a></li>
+									<li><a href="customer-account.php">Create an Account</a></li>
 								</ul>
 							</div>
 						</div>
@@ -80,7 +80,7 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<div class="logo logo2">
-								<a href="index.html"><img src="img/logo-4.jpg" alt="" /></a>
+								<a href="index.php"><img src="img/logo-4.jpg" alt="" /></a>
 							</div>					
 						</div>
 						<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
@@ -121,7 +121,7 @@
 										</li>
 										<li class="total-price"><span> Total Rs 48.04 </span></li>
 										<li class="checkout-bg">
-											<a href="checkout.html">checkout <i class="fa fa-angle-right"></i></a>
+											<a href="checkout.php">checkout <i class="fa fa-angle-right"></i></a>
 										</li>
 									</ul>
 								</div>
@@ -286,23 +286,23 @@
 
 									<li><a href="#">All pages</a>
 										<ul>
-											<li><a href="wishlist.html">my wishlist</a></li>
-											<li><a href="cart.html">cart page</a></li>
-											<li><a href="checkout.html">checkout</a></li>
-											<li><a href="product-details.html">product-details</a></li>
-											<li><a href="user_accountpage.html">User account</a></li>
+											<li><a href="wishlist.php">my wishlist</a></li>
+											<li><a href="cart.php">cart page</a></li>
+											<li><a href="checkout.php">checkout</a></li>
+											<li><a href="product-details.php">product-details</a></li>
+											<li><a href="user_accountpage.php">User account</a></li>
 											<li><a href="customer-login.php">login</a></li>
                                             <li><a href='register.php'>Register</a></li>
-											<li><a href="shop.html">shop </a></li>
-											<li><a href="contact.html">contact us</a></li>
-											<li><a href="sitemap.html">Site map</a></li>
+											<li><a href="shop.php">shop </a></li>
+											<li><a href="contact.php">contact us</a></li>
+											<li><a href="sitemap.php">Site map</a></li>
 										</ul>									
 									</li>
 
 
 
 
-									<li><a href="contact.html">contact</a></li>
+									<li><a href="contact.php">contact</a></li>
 									
 								</ul>
 							</nav>
@@ -318,9 +318,9 @@
 						<div class="mobile-menu">
 							<nav id="mobile-menu">
 								<ul>
-									<li class="active"><a href="index.html">Home</a>
+									<li class="active"><a href="index.php">Home</a>
 										<ul>
-											<li><a href="index.html">home version 1</a></li>
+											<li><a href="index.php">home version 1</a></li>
 											<li><a href="index-2.html">home version 2</a></li>
 											<li><a href="index-3.html">home version 3</a></li>
 											<li><a href="index-4.html">home version 4</a></li>
@@ -429,19 +429,19 @@
 									</li>
 									<li><a href="shop.html">pages</a>
 										<ul>
-											<li><a href="wishlist.html">my wishlist</a></li>
-											<li><a href="cart.html">cart page</a></li>
-											<li><a href="checkout.html">checkout</a></li>
-											<li><a href="product-details.html">product-details</a></li>
-											<li><a href="user_accountpage.html">User account</a></li>
-											<li><a href="customer-login.html">login</a></li>
-                                            <li><a href="register.html">Register</a></li>
-											<li><a href="shop.html">shop </a></li>
-											<li><a href="contact.html">contact us</a></li>
+											<li><a href="wishlist.php">my wishlist</a></li>
+											<li><a href="cart.php">cart page</a></li>
+											<li><a href="checkout.php">checkout</a></li>
+											<li><a href="product-details.php">product-details</a></li>
+											<li><a href="user_accountpage.php">User account</a></li>
+											<li><a href="customer-login.php">login</a></li>
+                                            <li><a href="register.php">Register</a></li>
+											<li><a href="shop.php">shop </a></li>
+											<li><a href="contact.php">contact us</a></li>
 										</ul>									
 									</li>
-									<li><a href="contact.html">contact</a></li>
-									<li><a href="blog.html">blog</a></li>
+									<li><a href="contact.php">contact</a></li>
+									<li><a href="blog.php">blog</a></li>
 								</ul>
 							</nav>
 						</div>
