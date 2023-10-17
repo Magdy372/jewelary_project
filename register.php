@@ -1,3 +1,35 @@
+<?php
+  include_once "includes/dbh.inc.php" ;
+
+
+	//grap data from user if form was submitted 
+	if($_SERVER["REQUEST_METHOD"]=="POST"){ //check if form was submitted
+		$Fname=htmlspecialchars($_POST["FName"]);
+		$Lname=htmlspecialchars($_POST["LName"]);
+		$Email=htmlspecialchars($_POST["Email"]);
+		$Password=htmlspecialchars($_POST["Pass"]);
+
+		//insert it to database 
+		//if(htmlspecialchars($_POST["Pass"]) === htmlspecialchars($_POST["conPass"])){
+			$sql="insert into users(Fname,LName,Email,Pass) 
+			values('$Fname','$Lname','$Email','$Password')";
+			$result=mysqli_query($conn,$sql);
+	
+			//redirect the user back to index.php 
+			if ($result) {
+				header("Location: index.html");
+				exit(); // Important: Terminate the script after the header() call
+			} else {
+				// Handle the error in a different way (e.g., redirect to an error page)
+				header("Location: error.html");
+				exit();
+			}
+		//}else{
+		//	echo '<script>document.getElementsByClassName("con_pass")[0].textContent = "Passwords do not match";</script>';
+		//}
+	}
+		
+?>
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
@@ -450,38 +482,29 @@
 								<h3>Create New User Account</h3>
 							</div>
 							<div class="login-form">
-								<form>
+								<form method="post">
 									<div class="form-group login-page">
 										<label for="exampleInputName1">First Name <span>*</span></label>
-										<input type="text" class="form-control" id="exampleInputName1">
+										<input type="text" name="FName" class="form-control" id="exampleInputName1" required >
 									</div>
 									<div class="form-group login-page">
 										<label for="exampleInputName2">Last Name <span>*</span></label>
-										<input type="email" class="form-control" id="exampleInputName2">
-									</div>
-									<!--<div class="form-group">
-										<div class="checkbox">
-											<label>
-												<input type="checkbox"> Sign Up for Newsletter
-											</label>
-										</div>
-									</div>									
-									<div class="login-title">
-										<h3>Sign-in Information</h3>
-									</div>-->									
+										<input type="text" name="LName" class="form-control" id="exampleInputName2" required >
+									</div>					
 									<div class="form-group login-page">
 										<label for="exampleInputEmail1">Email <span>*</span></label>
-										<input type="text" class="form-control" id="exampleInputEmail1">
+										<input type="email" name="Email" class="form-control" id="exampleInputEmail1" required >
 									</div>								
 									<div class="form-group login-page">
 										<label for="exampleInputPassword1">Password <span>*</span></label>
-										<input type="Password" class="form-control" id="exampleInputPassword1">
+										<input type="Password" name="Pass" class="form-control" id="exampleInputPassword1" required >
 									</div>							
 									<div class="form-group login-page">
 										<label for="exampleInputPassword2">Confirm Password <span>*</span></label>
-										<input type="Password" class="form-control" id="exampleInputPassword2">
+										<input type="Password" name="conPass" class="form-control" id="exampleInputPassword2" required >
+										<h4 class="con_pass">l</h4>
 									</div>
-									<button type="submit" class="btn btn-default login-btn">Create an Account</button>
+									<button type="submit"  class="btn btn-default login-btn">Create an Account</button>
 								</form>						
 							</div>
 							<a href="#" class="back">back</a>
@@ -503,6 +526,9 @@
 					</div>
 				</div>
 			</div>
+
+			
+
 		<!-- contuct-form-area-end -->
 		<!-- contact-area-start -->
 		<div class="contact-area ptb-40">
@@ -658,3 +684,4 @@
         <script src="js/main.js"></script>
     </body>
 </html>
+
