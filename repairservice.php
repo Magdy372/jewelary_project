@@ -1,35 +1,3 @@
-<?php
-  include_once "includes/dbh.inc.php" ;
-
-
-	//grap data from user if form was submitted 
-	if($_SERVER["REQUEST_METHOD"]=="POST"){ //check if form was submitted
-		$Fname=htmlspecialchars($_POST["FName"]);
-		$Lname=htmlspecialchars($_POST["LName"]);
-		$Email=htmlspecialchars($_POST["Email"]);
-		$Password=htmlspecialchars($_POST["Pass"]);
-
-		//insert it to database 
-		//if(htmlspecialchars($_POST["Pass"]) === htmlspecialchars($_POST["conPass"])){
-			$sql="insert into users(Fname,LName,Email,Pass) 
-			values('$Fname','$Lname','$Email','$Password')";
-			$result=mysqli_query($conn,$sql);
-	
-			//redirect the user back to index.php 
-			if ($result) {
-				header("Location: index.html");
-				exit(); // Important: Terminate the script after the header() call
-			} else {
-				// Handle the error in a different way (e.g., redirect to an error page)
-				header("Location: error.html");
-				exit();
-			}
-		//}else{
-		//	echo '<script>document.getElementsByClassName("con_pass")[0].textContent = "Passwords do not match";</script>';
-		//}
-	}
-		
-?>
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
@@ -76,19 +44,11 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-		
 
-		
+
 		<!-- header-start -->
-		<!-- mainmenu-area-start -->
-		
 		<?php include('partials/header.php'); ?>
-
 		<!-- header-end -->
-		<!-- mainmenu-area-end -->
-
-
-
 
 
 		<!-- page-title-wrapper-start -->
@@ -97,53 +57,49 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="page-title">
-							<h3>Create New Customer Account</h3>
+							<h3>Repair Service</h3>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- page-title-wrapper-end -->
-
-
-
 		<!-- contuct-form-area-start -->
 			<div class="login-area ptb-80">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
 							<div class="login-title">
-								<h3>Create New User Account</h3>
+								<h3>Fill the Details Below</h3>
 							</div>
 							<div class="login-form">
-								<form method="post">
+								<form>
 									<div class="form-group login-page">
-										<label for="exampleInputName1">First Name <span>*</span></label>
-										<input type="text" name="FName" class="form-control" id="exampleInputName1" required >
+										<label for="">Name <span>*</span></label>
+										<input type="text" class="form-control" id="">
 									</div>
 									<div class="form-group login-page">
-										<label for="exampleInputName2">Last Name <span>*</span></label>
-										<input type="text" name="LName" class="form-control" id="exampleInputName2" required >
-									</div>					
+										<label for="">Mobile <span>*</span></label>
+										<input type="tel" class="form-control" id="">
+									</div>
 									<div class="form-group login-page">
-										<label for="exampleInputEmail1">Email <span>*</span></label>
-										<input type="email" name="Email" class="form-control" id="exampleInputEmail1" required >
+										<label for="">Email <span>*</span></label>
+										<input type="text" class="form-control" id="">
 									</div>								
 									<div class="form-group login-page">
-										<label for="exampleInputPassword1">Password <span>*</span></label>
-										<input type="Password" name="Pass" class="form-control" id="exampleInputPassword1" required >
+										<label for="exampleInputPassword1">Image Upload <span>*</span></label>
+										<input type="file" class="form-control" id="exampleInputPassword1">
 									</div>							
 									<div class="form-group login-page">
-										<label for="exampleInputPassword2">Confirm Password <span>*</span></label>
-										<input type="Password" name="conPass" class="form-control" id="exampleInputPassword2" required >
-										<h4 class="con_pass">l</h4>
+										<label for="">Message <span>*</span></label>
+										<textarea class="form-control" cols="3" rows="3"></textarea>
 									</div>
-									<button type="submit"  class="btn btn-default login-btn">Create an Account</button>
+									<button type="submit" class="btn btn-default login-btn">Send Query</button>
 								</form>						
 							</div>
-							<a href="#" class="back">back</a>
+							<!--<a href="#" class="back">back</a>-->
 						</div>
-						<div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+						<!--<div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
                         
                         <div class="login-title">
 								<h3>Sign in with Social Media Account</h3>
@@ -156,31 +112,25 @@
           <a class="btn btn-block btn-social btn-google">
             <span class="fa fa-google"></span> Sign in with Google
           </a>
-                        </div>
+                        </div>-->
 					</div>
 				</div>
 			</div>
-
-			
-
 		<!-- contuct-form-area-end -->
+
+
 		
-
-
-
 		<!-- contact-area-start -->
 		<!-- footer-area-start -->
 		<!-- .copyright-area-start -->
-		
 		<?php include('partials/footer.php'); ?>
-		
-		<!-- contact-area-end -->
 		<!-- footer-area-end -->
+		<!-- contact-area-end -->
 		<!-- .copyright-area-end -->
+
+
+
 		
-
-
-
 		<!-- all js here -->
 		<!-- jquery latest version -->
         <script src="js/vendor/jquery-1.12.0.min.js"></script>
@@ -206,4 +156,3 @@
         <script src="js/main.js"></script>
     </body>
 </html>
-

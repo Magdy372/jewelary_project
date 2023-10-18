@@ -35,7 +35,7 @@
     </head>
     <body>
 		<?php include('partials/header.php'); ?>
-		<?php include('partials/footer.php'); ?>
+		<!-- <?php //include('partials/footer.php'); ?> -->
 		<!-- mainmenu-area-end -->
 		<!-- page-title-wrapper-start -->
 		<div class="page-title-wrapper">
