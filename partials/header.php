@@ -42,6 +42,11 @@
 				<div class="container">
 					<div class="row">
 
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<div class="logo logo2">
+								<a href="index.php"><img src="./img/logo-4.jpg" alt="" /></a>
+							</div>					
+						</div>
 						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 							<div class="menu-search-box scnd-fix">
 								<form action="#">
@@ -50,11 +55,7 @@
 								</form>
 							</div>
 						</div>
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-							<div class="logo logo2">
-								<a href="index.php"><img src="./img/logo-4.jpg" alt="" /></a>
-							</div>					
-						</div>
+						
 						<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
 							<div class="header-bottom-right-4-inner">
 								<a href="#"><span class="lnr lnr-heart"></span></a>
