@@ -24,7 +24,7 @@
       $_SESSION['email'] = $row["Email"];
       $_SESSION['pass'] = $row["Pass"];
 
-      header("location:index.html");
+      header("location:index.php");
 	  exit;
 
     }
