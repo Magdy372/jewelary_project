@@ -14,8 +14,6 @@
 		<!-- all css here -->
 		<!-- bootstrap v3.3.6 css -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
-
-		
 		<!-- animate css -->
         <link rel="stylesheet" href="css/animate.css">
 		<!-- jquery-ui.min css -->

@@ -21,7 +21,7 @@ class User
 				$this->Email=$row["Email"];
 				$this->Password=$row["Password"];
 				$this->ID=$row["ID"];
-				//$this->UserType_obj=new UserType($row["UserType_id"]);
+                $this->UserType_obj = new UserType($row["UserType_id"]);
 			}
 		}
 	}
@@ -57,7 +57,7 @@ class User
 	}
 	
 	static function InsertinDB_Static($FN,$LN,$EM,$PW)	{
-		$sql="insert into users(FName,LName,Email,Password,UserType_id) values ('$FN','$LN','$$EM','$PW',2)";
+		$sql="insert into users(FName,LName,Email,Password,UserType_id) values ('$FN','$LN','$EM','$PW',2)";
 		if(mysqli_query($GLOBALS['con'],$sql))
 			return true;
 		else
@@ -83,7 +83,7 @@ class UserType {
 			if ($row = mysqli_fetch_array($result))	{
 				$this->UserTypeName=$row["Name"];
 				$this->ID=$row["ID"];
-				$sql="select PageID from UserType_Pages where UserTypeID=$this->ID";
+				$sql="select PageID from usertype_pages where UserTypeID=$this->ID";
 				$result=mysqli_query($GLOBALS['con'],$sql);
 				$i=0;
 				while($row1=mysqli_fetch_array($result)){
