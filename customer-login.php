@@ -1,40 +1,72 @@
 <?php
-   //start session
-   session_start();
-   //include database connection file
-   include_once "includes/dbh.inc.php";
-   //grab data from user and see if it exists in database
-   if($_SERVER["REQUEST_METHOD"]=="POST"){
+//    //start session
+//    session_start();
+//    //include database connection file
+//    include_once "includes/dbh.inc.php";
+//    //grab data from user and see if it exists in database
+//    if($_SERVER["REQUEST_METHOD"]=="POST"){
 
-    $Email=$_POST["Email"];
-	$Password=$_POST["Pass"];
+//     $Email=$_POST["Email"];
+// 	$Password=$_POST["Pass"];
    
     
-   //select data from database where email and password matches
+//    //select data from database where email and password matches
 
-    $sql = "select * from users where Email ='$Email' and Pass='$Password';";
-    $result = mysqli_query($conn,$sql);
+//     $sql = "select * from users where Email ='$Email' and Pass='$Password';";
+//     $result = mysqli_query($conn,$sql);
 
 
-   //if true then use session variables to use it as long as session is started
-    if($row = mysqli_fetch_array($result)){
-      $_SESSION['id'] = $row[0];
-      $_SESSION['fname'] = $row["Fname"];
-      $_SESSION['lastname'] = $row["LName"];
-      $_SESSION['email'] = $row["Email"];
-      $_SESSION['pass'] = $row["Pass"];
+//    //if true then use session variables to use it as long as session is started
+//     if($row = mysqli_fetch_array($result)){
+//       $_SESSION['id'] = $row[0];
+//       $_SESSION['fname'] = $row["Fname"];
+//       $_SESSION['lastname'] = $row["LName"];
+//       $_SESSION['email'] = $row["Email"];
+//       $_SESSION['pass'] = $row["Pass"];
 
-      header("location:index.php");
-	  exit;
+//       header("location:index.php");
+// 	  exit;
 
-    }
-    else{
-      echo " invalid username or password " . "<br>";
-    }
+//     }
+//     else{
+//       echo " invalid username or password " . "<br>";
+//     }
 	
-   }
+//    }
 
- 
+include_once "UserClass.php";
+
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+	
+	$Email=$_POST["Email"];
+	$Password=$_POST["Password"];
+	
+	$UserObject=User::login($Email,$Password);
+	if ($UserObject!==NULL)
+	{	
+		session_start();
+		$_SESSION["UserID"]=$UserObject->ID;
+		
+		
+		// if(!empty($_SESSION['UserID'])) {
+		// 	$UserObject=new User($_SESSION["UserID"]);
+		// 	echo "<h1>Welcome ".$UserObject->UserName."</h1>";
+		// }else{
+		// 	echo " Login failed <br>";
+		// }
+		//       $_SESSION['fname'] = $row["Fname"];
+		//       $_SESSION['lastname'] = $row["LName"];
+		//       $_SESSION['email'] = $row["Email"];
+		//       $_SESSION['pass'] = $row["Pass"];
+		
+		header("Location:index.php");
+	}else{
+		echo " Email or Password is incorrect <br>";
+	}
+}
+
+
+
  ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -121,9 +153,9 @@
 									</div>								
 									<div class="form-group login-page">
 										<label for="exampleInputPassword1">Password <span>*</span></label>
-										<input type="Password" name= "Pass" class="form-control" id="exampleInputPassword1">
+										<input type="Password" name= "Password" class="form-control" id="exampleInputPassword1">
 									</div>	
-									<button type="submit" class="btn btn-default login-btn">Sign In</button>
+									<button type="submit" class="btn btn-default login-btn" value="Done" name="Submit">Sign In</button>
 								</form>						
 							</div>
 							<a href="#" class="back">Forgot Your Password?</a>
@@ -133,7 +165,7 @@
 								<h3>New Customers</h3>
 								<span>Creating an account has many benefits: check out faster, keep more than one address, track orders and more.</span>
 							</div>
-								<form action="#">
+								<form action="register.php">
 									<button type="submit" class="btn btn-default login-btn">Create an Account</button>
 								</form>
 						</div>

@@ -1,39 +1,68 @@
 <?php
-include_once "includes/dbh.inc.php";
+// include_once "includes/dbh.inc.php";
 
-// Check if the form was submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $Fname = htmlspecialchars($_POST["FName"]);
-    $Lname = htmlspecialchars($_POST["LName"]);
-    $Email = htmlspecialchars($_POST["Email"]);
-    $Password = htmlspecialchars($_POST["Pass"]);
+// // Check if the form was submitted
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//     $Fname = htmlspecialchars($_POST["FName"]);
+//     $Lname = htmlspecialchars($_POST["LName"]);
+//     $Email = htmlspecialchars($_POST["Email"]);
+//     $Password = htmlspecialchars($_POST["Pass"]);
 
-    // Check if the database connection is valid
-    if ($conn) {
-        $sql = "INSERT INTO users (Fname, LName, Email, Pass) 
-                VALUES ('$Fname', '$Lname', '$Email', '$Password')";
+//     // Check if the database connection is valid
+//     if ($conn) {
+//         $sql = "INSERT INTO users (Fname, LName, Email, Pass) 
+//                 VALUES ('$Fname', '$Lname', '$Email', '$Password')";
 
-        $result = mysqli_query($conn, $sql);
+//         $result = mysqli_query($conn, $sql);
 
-        if ($result) {
-            // Successful query execution - redirect the user
-            header("Location: index.php");
-            exit(); // Important: Terminate the script after the header() call
-        } else {
-            // Handle the error in a different way (e.g., log the error and display an error page)
-            // You can log the error message and display a user-friendly error message.
-            $error_message = "An error occurred while inserting the data: " . mysqli_error($conn);
-            // Log the error to an error log or display it to the user.
-            // For now, we'll just echo the error.
-            echo $error_message;
-        }
-    } else {
-        // Handle the case where the database connection is not valid
-        // You can log the error or take appropriate action here.
-        // For now, we'll display an error message.
-        echo "Database connection is not valid.";
-    }
+//         if ($result) {
+//             // Successful query execution - redirect the user
+//             header("Location: index.php");
+//             exit(); // Important: Terminate the script after the header() call
+//         } else {
+//             // Handle the error in a different way (e.g., log the error and display an error page)
+//             // You can log the error message and display a user-friendly error message.
+//             $error_message = "An error occurred while inserting the data: " . mysqli_error($conn);
+//             // Log the error to an error log or display it to the user.
+//             // For now, we'll just echo the error.
+//             echo $error_message;
+//         }
+//     } else {
+//         // Handle the case where the database connection is not valid
+//         // You can log the error or take appropriate action here.
+//         // For now, we'll display an error message.
+//         echo "Database connection is not valid.";
+//     }
+// }
+
+
+
+
+
+include_once "UserClass.php";
+
+
+if(isset($_POST['Submit'])){ //check if form was submitted
+
+	$FN=htmlspecialchars($_POST['FName']);
+	$LN=htmlspecialchars($_POST['LName']);
+	$EM=htmlspecialchars($_POST['Email']);
+	$PW=htmlspecialchars($_POST['Password']);
+	$conpw = htmlspecialchars($_POST['conPass']);
+
+	if($PW === $conpw){
+		if(User::InsertinDB_Static($FN,$LN,$EM,$PW)){
+			header("Location:index.php");
+		}
+	}else{
+		echo "Confirm password isn't identical with Password ,Try Again <br>" ;
+	}
+	
+	
 }
+
+
+
 ?>
 
 <!doctype html>
@@ -137,14 +166,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									</div>								
 									<div class="form-group login-page">
 										<label for="exampleInputPassword1">Password <span>*</span></label>
-										<input type="Password" name="Pass" class="form-control" id="exampleInputPassword1" required >
+										<input type="Password" name="Password" class="form-control" id="exampleInputPassword1" required >
 									</div>							
 									<div class="form-group login-page">
 										<label for="exampleInputPassword2">Confirm Password <span>*</span></label>
 										<input type="Password" name="conPass" class="form-control" id="exampleInputPassword2" required >
 										<h4 class="con_pass">l</h4>
 									</div>
-									<button type="submit"  class="btn btn-default login-btn">Create an Account</button>
+									<button type="submit"  class="btn btn-default login-btn"  value="Done" name="Submit">Create an Account</button>
 								</form>						
 							</div>
 							<a href="#" class="back">back</a>
