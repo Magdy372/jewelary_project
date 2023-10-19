@@ -16,7 +16,17 @@
 					<div class="row">
 						<div class="col-lg-3 col-md-4 col-sm-5">
 							<div class="header-top-right header-top-left-4">
-								<p>FREE SHIPPING ON ORDERS OVER Rs499</p>
+								<?php 
+								session_start();
+								include_once ("UserClass.php");
+							
+								if(!empty($_SESSION['UserID'])) {
+									$UserObject=new User($_SESSION["UserID"]);
+								echo "<p>Welcome ".$UserObject->FName."</p>";
+								}
+								
+
+								?>
 							</div>
 						</div>					
 						<div class="col-lg-9 col-md-8 col-sm-7 header-top-right-4">
