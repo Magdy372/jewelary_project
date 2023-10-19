@@ -3,7 +3,7 @@ $servername = "172.232.216.8";  // Replace with the remote server's IP address o
  // Use the appropriate port for the remote MySQL server
 $username = "root";  // Replace with your MySQL username
 $password = "Omarsalah123o";  // Replace with your MySQL password
-$DB = "users"; 
+$DB = "Jewelry_project"; 
 
 
 // Create a connection
