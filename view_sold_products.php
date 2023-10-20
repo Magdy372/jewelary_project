@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Jewelry Website</title>
     <style>
@@ -7,7 +8,7 @@
         .navbar {
             width: 200px;
             height: 100%;
-            background-color: #333;
+            background-color: #bebe44;
             position: fixed;
             left: 0;
             top: 0;
@@ -16,32 +17,10 @@
         }
 
         body {
-    color: #666666;
-    font-family: 'Lato', sans-serif;
-    font-size: 15px;
-    line-height: 1.42857;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .product {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        .product h3 {
-            margin: 0;
-        }
-
-        .product p {
-            margin: 0;
+            color: #666666;
+            font-family: 'Lato', sans-serif;
+            font-size: 15px;
+            line-height: 1.42857;
         }
 
         .navbar a {
@@ -52,19 +31,54 @@
         }
 
         .content {
-            margin-left: 220px; /* Adjust based on your design */
+            margin-left: 220px;
+            /* Adjust based on your design */
             padding: 20px;
         }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            width: 30%;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
             .container {
                 width: 100%;
             }
 
             .navbar {
-                width: 100%;
-                height: auto;
-                position: static;
-                padding: 10px;
+                width: 200px;
+                height: 100%;
+                background-color: #333;
+                position: fixed;
+                left: 0;
+                top: 0;
+                color: white;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                /* Stack logo and links vertically */
+                align-items: center;
+                /* Center content horizontally */
             }
 
             .content {
@@ -72,10 +86,24 @@
             }
         }
 
+        .logo {
+            width: 150px;
+            /* Adjust the width for a larger logo */
+            height: auto;
+            /* Maintain the aspect ratio */
+            margin-bottom: 20px;
+            /* Add spacing between logo and links */
+        }
+
+        @media (max-width: 768px) {
+            /* ... Your existing responsive CSS ... */
+        }
     </style>
 </head>
+
 <body>
     <div class="navbar">
+        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
         <a href="admin.php">Admin Dashboard</a>
         <a href="add_admin.php">Add Admin</a>
         <a href="add_product.php">Add Product</a>
@@ -102,8 +130,9 @@
             <h3>Product Name 3</h3>
             <p>Units Sold: 20</p>
         </div>
-        
+
         <!-- You can add more product containers here -->
     </div>
 </body>
+
 </html>
