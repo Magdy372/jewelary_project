@@ -18,21 +18,31 @@
         <input type="text" name="ProductName" id="ProductName" required>
         <span id="nameError" class="error"></span><br>
 
-        <label for="Company">Company:</label>
-        <input type="text" name="Company" id="Company" required>
-        <span id="nameError" class="error"></span><br>
-
-        <label for="Grams">Grams:</label>
-        <input type="number" name="Grams" id="Grams" required>
-        <span id="sizeError" class="error"></span><br>
-
-        <label for="Size">Size:</label>
-        <input type="number" name="Size" id="Size" required>
-        <span id="sizeError" class="error"></span><br>
+        <label for="ProductPicture">Product Pictures:</label>
+        <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif" required>
+        <span id="pictureError" class="error"></span><br>
 
         <label for="Description">Description:</label>
         <textarea name="Description" id="Description" required></textarea>
         <span id="descriptionError" class="error"></span><br>
+
+        <label for="Weight">Weight:</label>
+        <input type="number" name="Weight" id="Weight" required>
+        <span id="weightError" class="error"></span><br>
+
+        <label for="Size">Size:</label>
+        <input type="number" name="Size" id="Size">
+        <span id="sizeError" class="error"></span><br>
+
+        <label for="Price">Price:</label>
+        <input type="number" name="Price" id="Price" required>
+        <span id="priceError" class="error"></span><br>
+
+        <label for="Availability">Availability:</label>
+        <select name="Availability">
+            <option value="1">Available</option>
+            <option value="0">Not Available</option>
+        </select><br>
 
         <label for="CategoryID">Category:</label>
         <select name="CategoryID" id="CategoryID">
@@ -49,9 +59,6 @@
             ?>
         </select><br>
 
-        <label for="ProductPicture">Product Image:</label>
-        <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif" required>
-        <span id="pictureError" class="error"></span><br>
         <input type="submit" name="submit" value="Submit">
     </form>
 
