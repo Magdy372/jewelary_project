@@ -73,7 +73,7 @@
         <a href="add_product.php">Add Product</a>
         <a href="view_sold_products.php">View Sold Products</a>
     </div>
-    
+
 <div class="container">
         <h2>Add a New Product</h2>
         <form action="process_product.php" method="POST" enctype="multipart/form-data">
@@ -83,7 +83,7 @@
             </div>
 
             <div class="form-group">
-                <label for="product_price">Price</label>
+                <label for="product_price">Grams</label>
                 <input type="number" name="product_price" id="product_price" required>
             </div>
 
