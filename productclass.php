@@ -68,6 +68,39 @@ class Product {
 
     
     
+    // Edit an existing product
+    static public function editProduct($con, $ProductID, $ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID) {
+        $ProductID = intval($ProductID);
+        $ProductName = mysqli_real_escape_string($con, $ProductName);
+        $ProductPictures = implode(',', $ProductPictures); // Convert array to a comma-separated string
+        $Description = mysqli_real_escape_string($con, $Description);
+        $Weight = $Weight;
+        $Size = $Size;
+        $Price = $Price;
+        $Availability = $Availability;
+
+        $query = "UPDATE Product SET ProductName='$ProductName', ProductPicture='$ProductPictures', Description='$Description', Weight=$Weight, Size='$Size', Price=$Price, Availability=$Availability, CategoryID=$CategoryID WHERE ProductID=$ProductID";
+
+        if (mysqli_query($con, $query)) {
+            return true; // Product updated successfully
+        } else {
+            return false; // Failed to update product
+        }
+    }
+
+    // Delete a product by ProductID
+    static public function deleteProduct($con, $ProductID) {
+        $ProductID = intval($ProductID);
+
+        $query = "DELETE FROM Product WHERE ProductID = $ProductID";
+
+        if (mysqli_query($con, $query)) {
+            return true; // Product deleted successfully
+        } else {
+            return false; // Failed to delete product
+        }
+    }
 }
+
 ?>
 

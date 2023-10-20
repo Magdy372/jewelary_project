@@ -1,149 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Product</title>
+    <title>Product Management</title>
 </head>
 <body>
-    <h2>Add Product</h2>
-    <?php
-    $con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o", "Jewelry_project");
-    if (!$con) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    ?>
-    <form method="post" enctype="multipart/form-data">
-        <label for="ProductName">Product Name:</label>
-        <input type="text" name="ProductName" required><br>
+    <h2>Product Management</h2>
+    <a href="addproduct.php">Add Product</a>
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Product Pictures</th>
+            <th>Description</th>
+            <th>Weight</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Availability</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
 
-        <label for="ProductPicture">Product Picture:</label>
-        <input type="file" name="ProductPicture" required><br>
+        <?php
+        // Replace this with your database connection logic
+        $con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o", "Jewelry_project");
 
-        <label for="Description">Description:</label>
-        <textarea name="Description" required></textarea><br>
+        if (!$con) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
 
-        <label for="Weight">Weight:</label>
-        <input type="text" name="Weight" required><br>
+        // Replace this with code to fetch products from your database
+        $query = "SELECT * FROM Product";
+        $result = mysqli_query($con, $query);
 
-        <label for="Size">Size:</label>
-        <input type="text" name="Size"><br>
+        if ($result) {
+            while ($product = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>{$product['ProductName']}</td>";
 
-        <label for="Price">Price:</label>
-        <input type="text" name="Price" required><br>
-
-        <label for="Availability">Availability:</label>
-        <select name="Availability">
-            <option value="1">Available</option>
-            <option value="0">Not Available</option>
-        </select><br>
-
-        <label for="CategoryID">Category:</label>
-        <select name="CategoryID" id="CategoryID">
-            <?php
-            // Fetch and display category names and IDs
-            $categoryQuery = "SELECT CategoryID, CategoryName FROM Categories";
-            $categoryResult = mysqli_query($con, $categoryQuery);
-
-            if ($categoryResult) {
-                while ($category = mysqli_fetch_assoc($categoryResult)) {
-                    echo "<option value='{$category['CategoryID']}'>{$category['CategoryName']}</option>";
+                $ProductPictures = explode(',', $product['ProductPicture']);
+                if (!empty($ProductPictures[0])) {
+                    $imageSrc = "uploads/" . $ProductPictures[0];
+                } else {
+                    $imageSrc = "uploads/default.jpg";
                 }
-            }
-            ?>
-        </select><br>
 
-        <input type="submit" name="submit">
-    </form>
-    <h2>Manage Products</h2>
+                echo '<td><img src="' . $imageSrc . '" width="80" height="80"></td>';
+                echo "<td>{$product['Description']}</td>";
+                echo "<td>{$product['Weight']}</td>";
+                echo "<td>{$product['Size']}</td>";
+                echo "<td>{$product['Price']}</td>";
+                echo "<td>{$product['Availability']}</td>";
 
-<table >
-    <tr>
-        <th>Product Name</th>
-        <th>Product picturw</th>
-        <th>Description</th>
-        <th>Weight</th>
-        <th>Size</th>
-        <th>Price</th>
-        <th>Availability</th>
-        <th>Category</th>
-        <th>Actions</th>
-    </tr>
+                // Fetch and display category name for the product
+                $categoryID = $product['CategoryID'];
+                $categoryQuery = "SELECT CategoryName FROM Categories WHERE CategoryID = $categoryID";
+                $categoryResult = mysqli_query($con, $categoryQuery);
+                $category = mysqli_fetch_assoc($categoryResult);
 
-    <?php
-    include_once "productclass.php";
-
-    // Fetch all products
-    $products = Product::getProducts($con);
-
-    foreach ($products as $product) {
-        echo "<tr>";
-        echo "<td>{$product['ProductName']}</td>";
-        echo "<td><img src='uploads/{$product['ProductPicture']}' alt='{$product['ProductName']}' width='100' height='100'></td>";
-
-        echo "<td>{$product['Description']}</td>";
-        echo "<td>{$product['Weight']}</td>";
-        echo "<td>{$product['Size']}</td>";
-        echo "<td>{$product['Price']}</td>";
-        echo "<td>{$product['Availability']}</td>";
-
-        // Fetch and display category name for the product
-        $categoryID = $product['CategoryID'];
-        $categoryQuery = "SELECT CategoryName FROM Categories WHERE CategoryID = $categoryID";
-        $categoryResult = mysqli_query($con, $categoryQuery);
-        $category = mysqli_fetch_assoc($categoryResult);
-        echo "<td>{$category['CategoryName']}</td>";
-
-        // Edit and Delete buttons
-        echo "<td><a href='edit_product.php?productID={$product['ProductID']}'>Edit</a> | ";
-      // Form-based Delete button
-      echo "<td>
-      <form method='post'>
-          <input type='hidden' name='productID' value='{$product['ProductID']}'>
-          <input type='submit' name='delete' value='Delete'>
-      </form>
-    </td>";
-echo "</tr>";
-        echo "</tr>";
-    }
-    ?>
-</table>
-    <?php
-    include_once "productclass.php";
-
-    if (isset($_POST['submit'])) {
-        $ProductName = $_POST['ProductName'];
-        $ProductPicture = $_FILES['ProductPicture']['name'];
-        $Description = $_POST['Description'];
-        $Weight = $_POST['Weight'];
-        $Size = $_POST['Size'];
-        $Price = $_POST['Price'];
-        $Availability = $_POST['Availability'];
-        $CategoryID = $_POST['CategoryID'];
-
-        // Check if CategoryID is not empty
-        if (empty($CategoryID)) {
-            echo "Please select a category for the product.";
-        } else {
-            if (Product::addProduct($con, $ProductName, $ProductPicture, $Description, $Weight, $Size, $Price, $Availability, $CategoryID)) {
-                echo "Product added successfully!";
-            } else {
-                echo "Failed to add the product.";
+                echo "<td>{$category['CategoryName']}</td>";
+                echo "<td>";
+                echo "<a href='viewproduct.php?id={$product['ProductID']}'>View</a> ";
+                echo "<a href='editproduct.php?id={$product['ProductID']}'>Edit</a> ";
+                echo "<a href='deleteproduct.php?id={$product['ProductID']}'>Delete</a>";
+                echo "</td>";
+                echo "</tr>";
             }
         }
 
-        // Handle file upload
-        $targetDirectory = "uploads/";
-        $targetFile = $targetDirectory . basename($_FILES['ProductPicture']['name']);
-
-        if (move_uploaded_file($_FILES['ProductPicture']['tmp_name'], $targetFile)) {
-            echo "Product picture uploaded successfully!";
-        } else {
-            echo "Failed to upload the product picture.";
-        }
-    }
-   
-
-?>
-
-    ?>
+        // Close the database connection
+        mysqli_close($con);
+        ?>
+    </table>
 </body>
 </html>
