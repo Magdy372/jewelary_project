@@ -35,13 +35,25 @@
 								<ul>
                                 <li class="click_menu"><a href="#">My Account <i class="fa fa-angle-down"></i></a>
 										<ul class="click_menu_show">
-											<li><a href="customer-login.php">Compare Products</a></li>
-											<li><a href="customer-login.php">My Account</a></li>
-											<li><a href="wishlist.php">My Wish List</a></li>
-											<li><a href="customer-login.php">Sign In</a></li>
+											<?php 
+											if(!empty($_SESSION['UserID'])){
+												 for ($i=0;$i<count($UserObject->UserType_obj->ArrayOfPages);$i++)
+												{
+													echo "<li><a href=".$UserObject->UserType_obj->ArrayOfPages[$i]->Linkaddress.">".$UserObject->UserType_obj->ArrayOfPages[$i]->FreindlyName."</a> </li>";
+												}
+											}
+											else{
+
+												echo " <li><a href='customer-login.php'>Compare Products</a></li> ";
+												echo " <li><a href='customer-login.php'>My Account</a></li> ";
+												echo " <li><a href='customer-login.php'>Sign In</a></li> ";
+												
+											}
+											?>
+											 
 										</ul>
 									</li>
-									<li><a href="customer-account.php">Create an Account</a></li>
+									<li><a href="register.php">Create an Account</a></li>
 								</ul>
 							</div>
 						</div>
