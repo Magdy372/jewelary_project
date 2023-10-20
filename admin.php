@@ -36,6 +36,7 @@
     </style>
 </head>
 <body>
+    
     <div class="navbar">
         <a href="admin_dashboard.php">Admin Dashboard</a>
         <a href="add_admin.php">Add Admin</a>
