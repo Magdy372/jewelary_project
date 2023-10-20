@@ -254,12 +254,14 @@
 						<div class="mobile-menu">
 							<nav id="mobile-menu">
 								<ul>
-									<li class="active"><a href="index.php">Home</a>
+									<li class="active"><a href="index.php">LITTLE H</a>
 										<ul>
-											<li><a href="index.php">home version 1</a></li>
-											<li><a href="index-2.html">home version 2</a></li>
-											<li><a href="index-3.html">home version 3</a></li>
-											<li><a href="index-4.html">home version 4</a></li>
+											<li><a href="#">Necklaces</a></li>
+											<li><a href="#">Pendants</a></li>
+											<li><a href="#">Rings</a></li>
+											<li><a href="#">Bracelets</a></li>
+											<li><a href="#">Earrings</a></li>
+											<li><a href="#">Colored Stones</a></li>
 										</ul>
 									</li>
 									<li><a href="shop.html">Bedroom</a>
@@ -363,7 +365,7 @@
 											</li>
 										</ul>
 									</li>
-									<li><a href="shop.html">pages</a>
+									<li><a href="#">All pages</a>
 										<ul>
 											<li><a href="wishlist.php">my wishlist</a></li>
 											<li><a href="cart.php">cart page</a></li>
@@ -371,9 +373,10 @@
 											<li><a href="product-details.php">product-details</a></li>
 											<li><a href="user_accountpage.php">User account</a></li>
 											<li><a href="customer-login.php">login</a></li>
-                                            <li><a href="register.php">Register</a></li>
+                                            <li><a href='register.php'>Register</a></li>
 											<li><a href="shop.php">shop </a></li>
 											<li><a href="contact.php">contact us</a></li>
+											<li><a href="sitemap.php">Site map</a></li>
 										</ul>									
 									</li>
 									<li><a href="contact.php">contact</a></li>

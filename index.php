@@ -640,11 +640,7 @@
 
 
 					</div>
-					<div class="col-lg-3 col-md-3 hidden-sm">
-						<div class="single-banner mar_b-30">
-							<a href="bedroom.html"><img src="img/banner/12.jpg" alt="" /></a>
-						</div>				
-					</div>
+					
 				</div>
 			</div>
 		</div>

@@ -53,9 +53,9 @@
 						<a href="#"><h3>Useful Links</h3></a>
 					</div>
 					<ul class="useful-link">
-						<li><a href="#">Contact Us</a></li>
+						<li><a href="contact.php">Contact Us</a></li>
 						<li><a href="sitemap.php">Site Map</a></li>
-						<li><a href="#">About Us</a></li>
+						<li><a href="AboutUs.php">About Us</a></li>
 						<li><a href="#">Specials</a></li>
 						<li><a href="#">My Cart</a></li>
 						<li><a href="#">Wishlist</a></li>
