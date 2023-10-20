@@ -26,12 +26,29 @@ class User
 		}
 	}
 	
-	static function login($Email,$Password){
-		$sql="SELECT * FROM users WHERE Email='$Email' and Password='$Password'";	
-		$result=mysqli_query($GLOBALS['con'],$sql);
-		if ($row=mysqli_fetch_array($result)){
-			return new User($row[0]); 		
+	// static function login($Email,$Password){
+	// 	$sql="SELECT * FROM users WHERE Email='$Email' and Password='$Password'";	
+	// 	$result=mysqli_query($GLOBALS['con'],$sql);
+	// 	if ($row=mysqli_fetch_array($result)){
+	// 		return new User($row[0]); 		
+	// 	}
+	// 	return NULL;
+	// }
+
+	static function login($Email, $Password) {
+		$sql = "SELECT * FROM users WHERE Email = '$Email'";
+		$result = mysqli_query($GLOBALS['con'], $sql);
+	
+		if ($row = mysqli_fetch_array($result)) {
+			$storedPassword = $row['Password'];
+			if (password_verify($Password , $storedPassword)) {
+				return new User($row['ID']);
+			}
+			else{
+				echo "a7aaaaaaaaaaaaa";
+			}
 		}
+	
 		return NULL;
 	}
 	
@@ -56,14 +73,19 @@ class User
 			return false;
 	}
 	
-	static function InsertinDB_Static($FN,$LN,$EM,$PW)	{
-		$sql="insert into users(FName,LName,Email,Password,UserType_id) values ('$FN','$LN','$EM','$PW',2)";
-		if(mysqli_query($GLOBALS['con'],$sql))
-			return true;
-		else
-			return false;
-	}
 	
+	static function InsertinDB_Static($FN, $LN, $EM, $PW) {
+		// Hash the password using the default algorithm (bcrypt)
+	
+		//$sql = "INSERT INTO users (FName, LName, Email, Password , UserType_id) VALUES ('$FN', '$LN', '$EM', '$hashedPW', 2)";
+		$sql = "insert into users(FName,LName,Email,Password,UserType_id) values ('$FN','$LN','$EM','$PW',2)";
+		if (mysqli_query($GLOBALS['con'], $sql)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	function UpdateMyDB(){
 		$sql="update users set UserName='".$this->UserName."' ,Password='$this->Password' where ID=".$this->ID."";
 		if(mysqli_query($GLOBALS['con'],$sql))
