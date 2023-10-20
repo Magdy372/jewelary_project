@@ -53,6 +53,22 @@
             border-radius: 5px;
             text-align: center;
         }
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+            }
+
+            .navbar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 10px;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 <body>
