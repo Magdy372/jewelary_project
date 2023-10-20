@@ -40,77 +40,27 @@
 							<div class="footer-logo">
 								<a href="#"><img src="./img/logo-4.png" alt="" /></a>
 							</div>
-							<p>We are a team of designers and developers that create high quality Magento, Prestashop, Opencart themes and provide premium and  support to our products.</p>
-							<ul>
-								<li>
-									<span>Address : </span> Delhi india
-								</li>
-								<li>
-									<span>Phone: </span> 123445689
-								</li>
-								<li>
-									<span>Email:</span> <a href="#">admin@dsfbvbbdvgz.company</a>
-								</li>
-							</ul>
+							<p>Our Social Media Accounts</p>
 							<ul class="footer-social">
 								<li><a href="https://www.facebook.com/profile.php?id=61551954653039&mibextid=LQQJ4d"><i class="fa fa-facebook"></i></a></li>
 								<li><a href="https://instagram.com/amralhedia?igshid=OGQ5ZDc2ODk2ZA%3D%3D&utm_source=qr"><i class="fa fa-instagram"></i></a></li>
-								
 							</ul>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-3 hidden-sm col-xs-12 mar_b-30">
 						<div class="footer-wrapper">
 							<div class="footer-title">
-								<a href="#"><h3>useful links</h3></a>
+								<a href="#"><h3>Useful Links</h3></a>
 							</div>
-							<div class="footer-wrapper">
-								<ul class="usefull-link">
-									<li><a href="#">Contact us</a></li>
-									<li><a href="sitemap.html">Site map</a></li>
-									<li><a href="#">About us</a></li>
-									<li><a href="#">Specials</a></li>
-									<li><a href="#">My Cart</a></li>
-									<li><a href="#">Wishlist</a></li>
-									<li><a href="#">Custom service</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 hidden-md hidden-sm col-xs-12 mar_b-30">
-						<div class="footer-wrapper">
-							<div class="footer-title">
-								<a href="#"><h3>useful links</h3></a>
-							</div>
-							<div class="footer-wrapper">
-								<ul class="usefull-link">
-									<li><a href="#">Contact us</a></li>
-									<li><a href="sitemap.html">Site map</a></li>
-									<li><a href="#">About us</a></li>
-									<li><a href="#">Specials</a></li>
-									<li><a href="#">My Cart</a></li>
-									<li><a href="#">Wishlist</a></li>
-									<li><a href="#">Custom service</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-						<div class="footer-wrapper">
-							<div class="footer-title">
-								<a href="#"><h3>useful links</h3></a>
-							</div>
-							<div class="footer-wrapper">
-								<ul class="usefull-link">
-									<li><a href="#">Contact us</a></li>
-									<li><a href="sitemap.html">Site map</a></li>
-									<li><a href="#">About us</a></li>
-									<li><a href="#">Specials</a></li>
-									<li><a href="#">My Cart</a></li>
-									<li><a href="#">Wishlist</a></li>
-									<li><a href="#">Custom service</a></li>
-								</ul>
-							</div>
+							<ul class="useful-link">
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="sitemap.html">Site Map</a></li>
+								<li><a href="#">About Us</a></li>
+								<li><a href="#">Specials</a></li>
+								<li><a href="#">My Cart</a></li>
+								<li><a href="#">Wishlist</a></li>
+								<li><a href="#">Custom Service</a></li>
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -123,7 +73,7 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mar_b-30">
 						<div class="copyright text-left">
-							<p>2016 @ All Rights Reserved - <a href="#"></a></p>
+							<p>2023 @ All Rights Reserved - <a href="#"></a></p>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
