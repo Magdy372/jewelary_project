@@ -39,7 +39,12 @@
         <label for="ProductPicture">Product Pictures:</label>
         <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif"><br>
         <span id="pictureError" class="error"></span><br>
-        
+        <?php
+        $productPictures = explode(',', $product['ProductPicture']);
+        foreach ($productPictures as $picture) {
+            echo '<img src="uploads/' . $picture . '" width="80" height="80">';
+        }
+        ?>
         <label for="Description">Description:</label>
         <textarea name="Description" id="Description" required><?php echo $product['Description']; ?></textarea>
         <span id="descriptionError" class="error"></span><br>
