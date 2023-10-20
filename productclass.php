@@ -51,6 +51,22 @@ class Product {
             return false; // Failed to add product
         }
     }
+    static public function getProducts($con) {
+        $query = "SELECT * FROM Product";
+    
+        $result = mysqli_query($con, $query);
+        $products = [];
+    
+        if ($result) {
+            while ($product = mysqli_fetch_assoc($result)) {
+                $products[] = $product;
+            }
+        }
+    
+        return $products;
+    }
+
+    
     
 }
 ?>

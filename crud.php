@@ -53,7 +53,59 @@
 
         <input type="submit" name="submit">
     </form>
+    <h2>Manage Products</h2>
 
+<table >
+    <tr>
+        <th>Product Name</th>
+        <th>Product picturw</th>
+        <th>Description</th>
+        <th>Weight</th>
+        <th>Size</th>
+        <th>Price</th>
+        <th>Availability</th>
+        <th>Category</th>
+        <th>Actions</th>
+    </tr>
+
+    <?php
+    include_once "productclass.php";
+
+    // Fetch all products
+    $products = Product::getProducts($con);
+
+    foreach ($products as $product) {
+        echo "<tr>";
+        echo "<td>{$product['ProductName']}</td>";
+        echo "<td><img src='uploads/{$product['ProductPicture']}' alt='{$product['ProductName']}' width='100' height='100'></td>";
+
+        echo "<td>{$product['Description']}</td>";
+        echo "<td>{$product['Weight']}</td>";
+        echo "<td>{$product['Size']}</td>";
+        echo "<td>{$product['Price']}</td>";
+        echo "<td>{$product['Availability']}</td>";
+
+        // Fetch and display category name for the product
+        $categoryID = $product['CategoryID'];
+        $categoryQuery = "SELECT CategoryName FROM Categories WHERE CategoryID = $categoryID";
+        $categoryResult = mysqli_query($con, $categoryQuery);
+        $category = mysqli_fetch_assoc($categoryResult);
+        echo "<td>{$category['CategoryName']}</td>";
+
+        // Edit and Delete buttons
+        echo "<td><a href='edit_product.php?productID={$product['ProductID']}'>Edit</a> | ";
+      // Form-based Delete button
+      echo "<td>
+      <form method='post'>
+          <input type='hidden' name='productID' value='{$product['ProductID']}'>
+          <input type='submit' name='delete' value='Delete'>
+      </form>
+    </td>";
+echo "</tr>";
+        echo "</tr>";
+    }
+    ?>
+</table>
     <?php
     include_once "productclass.php";
 
@@ -88,6 +140,10 @@
             echo "Failed to upload the product picture.";
         }
     }
+   
+
+?>
+
     ?>
 </body>
 </html>
