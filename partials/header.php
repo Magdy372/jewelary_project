@@ -187,88 +187,38 @@
 											<span>
 												<a href="#" class="megatitle">Gold Jewellery</a>
 												<a href="#">Necklaces</a>
-												<a href="#">bunk bed</a>
-												<a href="#">Weathered</a>
-												<a href="#">sideboard</a>
-												<a href="#">Dresses</a>
+												<a href="#">Pendants</a>
+												<a href="#">Rings</a>
+												<a href="#">Bracelets</a>
+												<a href="#">Anklets</a>
+												<a href="#">Earrings</a>
+												<a href="#">Colored Stones</a>
 											</span>
 											<span>
-												<a href="#" class="megatitle">Bootees Bags</a>
-												<a href="#">Brown Finish</a>
-												<a href="#">Distressed</a>
-												<a href="#">Tufted</a>
-												<a href="#">Cherry Finish</a>
-												<a href="#">Weathered</a>											
+												<a href="#" class="megatitle">Shop by Metal</a>
+												<a href="#">18k Gold</a>
+												<a href="#">21k Gold</a>
+												<a href="#">24k Gold</a>
+												<a href="#">Yellow Gold</a>
+												<a href="#">Rose Gold</a>									
 											</span>
-											<span>
-												<a href="#" class="megatitle">Headboards</a>
-												<a href="#">Upholstered</a>
-												<a href="#">Tufted</a>
-												<a href="#">Storage</a>
-												<a href="#">Sweaters</a>
-												<a href="#">padded</a>											
-											</span>
-											<span>
-												<a href="#" class="megatitle">Headboards</a>
-												<a href="#">Upholstered</a>
-												<a href="#">Tufted</a>
-												<a href="#">Storage</a>
-												<a href="#">Wedges</a>
-												<a href="#">padded</a>											
-											</span>
+											
 										</div>									
 									</li>
-									<li><a href="shop.html">Footware</a>
-										<div class="megamenu dining-megamenu">
-											<span>
-												<a href="#" class="megatitle">Dining tables</a>
-												<a href="#">Crochet</a>
-												<a href="#">Sleeveless</a>
-												<a href="#">Stripes</a>
-												<a href="#">Sweaters</a>
-											</span>
-											<span>
-												<a href="#" class="megatitle">Dining chairs</a>
-												<a href="#">Dining chairs</a>
-												<a href="#">Ankle</a>
-												<a href="#">Cherry Finish</a>
-												<a href="#">Weathered</a>
-											</span>
-											<span>
-												<a href="#" class="megatitle">Dining sets</a>
-												<a href="#">Upholstered</a>
-												<a href="#">Tufted</a>
-												<a href="#">Footwear</a>
-												<a href="#">Wedges</a>
-											</span>
-										</div>									
+									<li><a href="shop.html">Gold Bars</a>
+																		
 									</li>
-									<li><a href="shop.html">Accessories</a>
-										<div class="megamenu dining-megamenu">
-											<span>
-												<a href="#" class="megatitle">Dining tables</a>
-												<a href="#">Crochet</a>
-												<a href="#">Sleeveless</a>
-												<a href="#">Stripes</a>
-												<a href="#">Sweaters</a>
-											</span>
-											<span>
-												<a href="#" class="megatitle">Dining chairs</a>
-												<a href="#">Dining chairs</a>
-												<a href="#">Ankle</a>
-												<a href="#">Cherry Finish</a>
-												<a href="#">Weathered</a>
-											</span>
-											<span>
-												<a href="#" class="megatitle">Dining sets</a>
-												<a href="#">Upholstered</a>
-												<a href="#">Tufted</a>
-												<a href="#">Footwear</a>
-												<a href="#">Wedges</a>
-											</span>
-										</div>									
+									<li><a href="shop.html">Gold Coins</a>
+																		
+									</li>
+									
+									<li><a href="shop.html">Sets</a>
+																		
 									</li>
 
+									<li><a href="shop.html">Wedding Bands</a>
+																		
+									</li>
 
 									<li><a href="#">All pages</a>
 										<ul>
