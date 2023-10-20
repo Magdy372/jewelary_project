@@ -29,32 +29,32 @@
         exit;
     }
     ?>
-    <form method="post" enctype="multipart/form-data">
+    
+    <form method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         <input type="hidden" name="ProductID" value="<?php echo $product['ProductID']; ?>">
         <label for="ProductName">Product Name:</label>
-        <input type="text" name="ProductName" value="<?php echo $product['ProductName']; ?>" required><br>
+        <input type="text" name="ProductName" id="ProductName" value="<?php echo $product['ProductName']; ?>" required>
+        <span id="nameError" class="error"></span><br>
 
         <label for="ProductPicture">Product Pictures:</label>
         <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif"><br>
-        <?php
-        $productPictures = explode(',', $product['ProductPicture']);
-        foreach ($productPictures as $picture) {
-            echo '<img src="uploads/' . $picture . '" width="80" height="80">';
-        }
-        ?>
-
+        <span id="pictureError" class="error"></span><br>
+        
         <label for="Description">Description:</label>
-        <textarea name="Description" required><?php echo $product['Description']; ?></textarea><br>
+        <textarea name="Description" id="Description" required><?php echo $product['Description']; ?></textarea>
+        <span id="descriptionError" class="error"></span><br>
 
         <label for="Weight">Weight:</label>
-        <input type="text" name="Weight" value="<?php echo $product['Weight']; ?>" required><br>
+        <input type="number" name="Weight" id="Weight" value="<?php echo $product['Weight']; ?>" required>
+        <span id="weightError" class="error"></span><br>
 
         <label for="Size">Size:</label>
-        <input type="text" name="Size" value="<?php echo $product['Size']; ?>"><br>
+        <input type="number" name= "Size" id="Size" value="<?php echo $product['Size']; ?>">
+        <span id="sizeError" class="error"></span><br>
 
         <label for="Price">Price:</label>
-        <input type="text" name="Price" value="<?php echo $product['Price']; ?>" required><br>
-
+        <input type="number" name="Price" id="Price" value="<?php echo $product['Price']; ?>" required>
+        <span id="priceError" class="error"></span><br>
         <label for="Availability">Availability:</label>
         <select name="Availability">
             <option value="1" <?php echo ($product['Availability'] == 1) ? 'selected' : ''; ?>>Available</option>
@@ -121,3 +121,76 @@
     ?>
 </body>
 </html>
+<script>
+    function validateForm() {
+        var productName = document.getElementById("ProductName").value;
+        var nameError = document.getElementById("nameError");
+        var description = document.getElementById("Description").value;
+        var descriptionError = document.getElementById("descriptionError");
+        var price = parseFloat(document.getElementById("Price").value);
+        var priceError = document.getElementById("priceError");
+        var weight = parseFloat(document.getElementById("Weight").value);
+        var weightError = document.getElementById("weightError");
+        var size = parseFloat(document.getElementById("Size").value);
+        var sizeError = document.getElementById("sizeError");
+        var picture = document.querySelector('input[type="file"]').files[0];
+        var pictureError = document.getElementById("pictureError");
+
+        // Validate ProductName and Description
+        var nameDescriptionPattern = /^[A-Za-z\s]+$/;
+        if (!nameDescriptionPattern.test(productName) || productName.length < 8) {
+            nameError.textContent = " enter valid Product Name ";
+            return false;
+        } else {
+            nameError.textContent = "";
+        }
+
+        if (!nameDescriptionPattern.test(description) || description.length < 8) {
+            descriptionError.textContent = " enter valid Description .";
+            return false;
+        } else {
+            descriptionError.textContent = "";
+        }
+
+        // Validate Price, Weight, and Size
+        if (isNaN(price) || price <= 0) {
+            priceError.textContent = "Price must be a positive number.";
+            return false;
+        } else {
+            priceError.textContent = "";
+        }
+
+        if (isNaN(weight) || weight <= 0) {
+            weightError.textContent = "Weight must be a positive number.";
+            return false;
+        } else {
+            weightError.textContent = "";
+        }
+
+        if (isNaN(size) || size < 0) {
+            sizeError.textContent = "Size must be a non-negative number.";
+            return false;
+        } else {
+            sizeError.textContent = "";
+        }
+
+        // Validate ProductPicture file extension
+        if (!isValidImageFile(picture)) {
+            pictureError.textContent = "Image file must be in JPEG, PNG, GIF, or TIFF format.";
+            return false;
+        } else {
+            pictureError.textContent = "";
+        }
+
+        return true;
+    }
+
+    function isValidImageFile(file) {
+        var allowedExtensions = ["jpg", "jpeg", "png", "gif", "tiff"];
+        if (file) {
+            var fileExtension = file.name.split('.').pop().toLowerCase();
+            return allowedExtensions.indexOf(fileExtension) !== -1;
+        }
+        return false;
+    }
+</script>
