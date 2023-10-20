@@ -7,7 +7,7 @@
         .navbar {
             width: 200px;
             height: 100%;
-            background-color: #333;
+            background-color: #bebe44;
             position: fixed;
             left: 0;
             top: 0;
@@ -63,21 +63,39 @@
             }
 
             .navbar {
-                width: 100%;
-                height: auto;
-                position: static;
-                padding: 10px;
-            }
+        width: 200px;
+        height: 100%;
+        background-color: #333;
+        position: fixed;
+        left: 0;
+        top: 0;
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column; /* Stack logo and links vertically */
+        align-items: center; /* Center content horizontally */
+    }
 
             .content {
                 margin-left: 0;
             }
         }
+
+        .logo {
+        width: 150px; /* Adjust the width for a larger logo */
+        height: auto; /* Maintain the aspect ratio */
+        margin-bottom: 20px; /* Add spacing between logo and links */
+    }
+
+    @media (max-width: 768px) {
+        /* ... Your existing responsive CSS ... */
+    }
     </style>
 </head>
 <body>
-    
-    <div class="navbar">
+        
+   <div class="navbar">
+        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
         <a href="admin.php">Admin Dashboard</a>
         <a href="add_admin.php">Add Admin</a>
         <a href="add_product.php">Add Product</a>
