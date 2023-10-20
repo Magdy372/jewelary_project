@@ -88,7 +88,7 @@
 <body>
 
 <div class="navbar">
-        <a href="admin_dashboard.php">Admin Dashboard</a>
+        <a href="admin.php">Admin Dashboard</a>
         <a href="add_admin.php">Add Admin</a>
         <a href="add_product.php">Add Product</a>
         <a href="view_sold_products.php">View Sold Products</a>
