@@ -27,6 +27,18 @@
             die("Connection failed: " . mysqli_connect_error());
         }
 
+       //delete
+        include_once "productclass.php";
+        if (isset($_POST['delete_product'])) {
+            $ProductID = $_POST['delete_product'];
+            if (Product::deleteProduct($con, $ProductID)) {
+                header("Location:crud.php");
+                // You can optionally redirect the user or perform other actions after deletion.
+            } else {
+                echo "Failed to delete the product.";
+            }
+        }
+
         // Replace this with code to fetch products from your database
         $query = "SELECT * FROM Product";
         $result = mysqli_query($con, $query);
@@ -58,16 +70,22 @@
 
                 echo "<td>{$category['CategoryName']}</td>";
                 echo "<td>";
-                echo "<a href='viewproduct.php?id={$product['ProductID']}'>View</a> ";
+              
                 echo "<a href='editproduct.php?id={$product['ProductID']}'>Edit</a> ";
-                echo "<a href='deleteproduct.php?id={$product['ProductID']}'>Delete</a>";
                 echo "</td>";
+
+                // Form for delete
+                echo "<td>";
+                echo "<form method='POST'  onsubmit='return confirm(\"Are you sure you want to delete this product?\");'>";
+                echo "<input type='hidden' name='delete_product' value='{$product['ProductID']}'>";
+                echo "<button type='submit'>Delete</button>";
+                echo "</form>";
+                echo "</td>";
+
                 echo "</tr>";
             }
         }
 
-        // Close the database connection
-        mysqli_close($con);
         ?>
     </table>
 </body>

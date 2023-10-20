@@ -16,10 +16,10 @@
         }
 
         body {
-    color: #666666;
-    font-family: 'Lato', sans-serif;
-    font-size: 15px;
-    line-height: 1.42857;
+            color: #666666;
+            font-family: 'Lato', sans-serif;
+            font-size: 15px;
+            line-height: 1.42857;
         }
 
         .navbar a {
@@ -33,6 +33,26 @@
             margin-left: 220px; /* Adjust based on your design */
             padding: 20px;
         }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            width: 30%;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -44,10 +64,24 @@
         <a href="view_sold_products.php">View Sold Products</a>
     </div>
 
-    <div class="content">
-        <!-- Page content goes here -->
-        <h1>Welcome to the Jewelry Website</h1>
-        <p>This is the homepage of the jewelry website. Please select an option from the navbar on the left.</p>
+    <div class="content"> <!-- Adjusted the container to move the content to the right of the navbar -->
+        <h2>Admin Dashboard</h2>
+        <div class="stats">
+            <div class="stat-box">
+                <h3>Total Products</h3>
+                <p>100</p> <!-- Replace with actual product count -->
+            </div>
+
+            <div class="stat-box">
+                <h3>Total Sales</h3>
+                <p>$10,000</p> <!-- Replace with actual sales data -->
+            </div>
+
+            <div class="stat-box">
+                <h3>Users Online</h3>
+                <p>50</p> <!-- Replace with actual online user count -->
+            </div>
+        </div>
     </div>
 </body>
 </html>
