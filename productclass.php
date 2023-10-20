@@ -69,24 +69,25 @@ class Product {
     
     
     // Edit an existing product
-    static public function editProduct($con, $ProductID, $ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID) {
-        $ProductID = intval($ProductID);
+    static public function editProduct($con, $ProductID, $ProductName, $ProductPicture, $Description, $Weight, $Size, $Price, $Availability, $CategoryID) {
+        $ProductID = (int)$ProductID; // Ensure ProductID is an integer
         $ProductName = mysqli_real_escape_string($con, $ProductName);
-        $ProductPictures = implode(',', $ProductPictures); // Convert array to a comma-separated string
+        $ProductPicture = mysqli_real_escape_string($con, $ProductPicture);
         $Description = mysqli_real_escape_string($con, $Description);
-        $Weight = $Weight;
-        $Size = $Size;
-        $Price = $Price;
-        $Availability = $Availability;
-
-        $query = "UPDATE Product SET ProductName='$ProductName', ProductPicture='$ProductPictures', Description='$Description', Weight=$Weight, Size='$Size', Price=$Price, Availability=$Availability, CategoryID=$CategoryID WHERE ProductID=$ProductID";
-
+        $Weight = (float)$Weight; // Ensure Weight is a float
+        $Size = (float)$Size; // Ensure Size is a float
+        $Price = (float)$Price; // Ensure Price is a float
+        $Availability = (int)$Availability; // Ensure Availability is an integer
+    
+        $query = "UPDATE Product SET ProductName = '$ProductName', ProductPicture = '$ProductPicture', Description = '$Description', Weight = $Weight, Size = $Size, Price = $Price, Availability = $Availability, CategoryID = $CategoryID WHERE ProductID = $ProductID";
+    
         if (mysqli_query($con, $query)) {
-            return true; // Product updated successfully
+            return true; // Product edited successfully
         } else {
-            return false; // Failed to update product
+            return false; // Failed to edit the product
         }
     }
+    
 
     // Delete a product by ProductID
     static public function deleteProduct($con, $ProductID) {
