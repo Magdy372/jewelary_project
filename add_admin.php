@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Jewelry Website</title>
     <style>
@@ -12,6 +13,7 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+
         .form-group {
             margin-bottom: 20px;
         }
@@ -39,7 +41,7 @@
         .navbar {
             width: 200px;
             height: 100%;
-            background-color: #333;
+            background-color: #bebe44;
             position: fixed;
             left: 0;
             top: 0;
@@ -62,7 +64,8 @@
         }
 
         .content {
-            margin-left: 220px; /* Adjust based on your design */
+            margin-left: 220px;
+            /* Adjust based on your design */
             padding: 20px;
         }
 
@@ -73,28 +76,68 @@
             }
 
             .navbar {
-                width: 100%;
-                height: auto;
-                position: static;
-                padding: 10px;
+                width: 200px;
+                height: 100%;
+                background-color: #333;
+                position: fixed;
+                left: 0;
+                top: 0;
+                color: white;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                /* Stack logo and links vertically */
+                align-items: center;
+                /* Center content horizontally */
             }
 
             .content {
                 margin-left: 0;
             }
         }
+
+        .logo {
+            width: 150px;
+            /* Adjust the width for a larger logo */
+            height: auto;
+            /* Maintain the aspect ratio */
+            margin-bottom: 20px;
+            /* Add spacing between logo and links */
+        }
+
+        @media (max-width: 768px) {
+            /* ... Your existing responsive CSS ... */
+        }
+
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            width: 30%;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="navbar">
+    <div class="navbar">
+        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
         <a href="admin.php">Admin Dashboard</a>
         <a href="add_admin.php">Add Admin</a>
         <a href="add_product.php">Add Product</a>
         <a href="view_sold_products.php">View Sold Products</a>
     </div>
-    
-<div class="container">
+
+    <div class="container">
         <h2>Add a New Admin</h2>
         <form action="process_product.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
@@ -107,7 +150,7 @@
                 <input type="text" name="Password" id="Password" required>
             </div>
 
-            
+
             <div class="form-group">
                 <label for="Admin_image">Admin Image</label>
                 <input type="file" name="Admin_image" id="Admin_image" accept="image/*" required>
@@ -117,4 +160,5 @@
         </form>
     </div>
 </body>
+
 </html>
