@@ -135,67 +135,58 @@
 						<div class="mainmenu hidden-xs">
 							<nav>
 								<ul>
-									<li><a href="shop.html">Women</a>
+									<li><a href="shop.html">Little H</a>
 										<div class="megamenu">
 											<span>
-												<a href="#" class="megatitle">EXCUTIVE MODULAR  TABLES</a>
-												<a href="#">EXECUTIVE TRADITIONAL TABLES</a>
-												<a href="#">COMPUTER TABLES</a>
-												<a href="#">STEEL TABLES</a>
-												<a href="#">ACCESSORIES</a>
+												<a href="#" class="megatitle">Little H</a>
+												<a href="#">Necklaces</a>
+												<a href="#">Pendants</a>
+												<a href="#">Rings</a>
+												<a href="#">Bracelets</a>
+												<a href="#">Earrings</a>
+												<a href="#">Colored Stones</a>
 												
 											</span>
 											<span>
-												<a href="#" class="megatitle">Nightstands</a>
-												<a href="#">Brown Finish</a>
-												<a href="#">Distressed</a>
-												<a href="#">Cherry Finish</a>
-												<a href="#">Weathered</a>
-												<a href="#">Laundry</a>
+												<a href="#" class="megatitle">Shop by Metal</a>
+												<a href="#">18k Gold</a>
+												<a href="#">21k Gold</a>
+												<a href="#">24k Gold</a>
+												<a href="#">Yellow Gold</a>
+												<a href="#">Rose Gold</a>
 											</span>
-											<span>
-												<a href="#" class="megatitle">Headboards</a>
-												<a href="#">Upholstered</a>
-												<a href="#">Tufted</a>
-												<a href="#">Storage</a>
-												<a href="#">padded</a>
-												<a href="#">Outdoor</a>
-											</span>
+											
 										</div>
 									</li>
-									<li><a href="shop.html">Kids</a>
+									<li><a href="shop.html">New in</a>
 										<div class="megamenu">
 											<span>
-												<a href="#" class="megatitle">EXCUTIVE MODULAR  TABLES</a>
-												<a href="#">EXECUTIVE TRADITIONAL TABLES</a>
-												<a href="#">COMPUTER TABLES</a>
-												<a href="#">STEEL TABLES</a>
-												<a href="#">ACCESSORIES</a>
+												<a href="#" class="megatitle">New in</a>
+												<a href="#">Necklaces</a>
+												<a href="#">Pendants</a>
+												<a href="#">Rings</a>
+												<a href="#">Anklets</a>
+												<a href="#">Bracelets</a>
+												<a href="#">Earrings</a>
+												<a href="#">Colored Stones</a>
 												
 											</span>
 											<span>
-												<a href="#" class="megatitle">Nightstands</a>
-												<a href="#">Brown Finish</a>
-												<a href="#">Distressed</a>
-												<a href="#">Cherry Finish</a>
-												<a href="#">Weathered</a>
-												<a href="#">Laundry</a>
+												<a href="#" class="megatitle">Shop by Metal</a>
+												<a href="#">18k Gold</a>
+												<a href="#">21k Gold</a>
+												<a href="#">24k Gold</a>
+												<a href="#">Yellow Gold</a>
+												<a href="#">Rose Gold</a>
 											</span>
-											<span>
-												<a href="#" class="megatitle">Headboards</a>
-												<a href="#">Upholstered</a>
-												<a href="#">Tufted</a>
-												<a href="#">Storage</a>
-												<a href="#">padded</a>
-												<a href="#">Outdoor</a>
-											</span>
+											
 										</div>
 									</li>
-									<li><a href="shop.html">Artificial Jewellery</a>
+									<li><a href="shop.html">Gold Jewellery</a>
 										<div class="megamenu megamenu2 living-megamenu">
 											<span>
-												<a href="#" class="megatitle">Living Chairs</a>
-												<a href="#">mattress</a>
+												<a href="#" class="megatitle">Gold Jewellery</a>
+												<a href="#">Necklaces</a>
 												<a href="#">bunk bed</a>
 												<a href="#">Weathered</a>
 												<a href="#">sideboard</a>

@@ -53,11 +53,9 @@
 								</li>
 							</ul>
 							<ul class="footer-social">
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-youtube"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-								<li><a href="#"><i class="fa fa-flickr"></i></a></li>
+								<li><a href="https://www.facebook.com/profile.php?id=61551954653039&mibextid=LQQJ4d"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="https://instagram.com/amralhedia?igshid=OGQ5ZDc2ODk2ZA%3D%3D&utm_source=qr"><i class="fa fa-instagram"></i></a></li>
+								
 							</ul>
 						</div>
 					</div>

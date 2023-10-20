@@ -51,6 +51,17 @@ body {}
     color: #000;
     padding: 0.2em 0;
 }
+
+.logo2 {
+	max-width: 50%; 
+	float: left;
+	margin-left: -20%;
+  }
+
+.menu-search-box {
+	margin-left: -60%;
+	padding-left: -60%;
+}
 .ptb-10{padding:10px 0}
 .ptb-25{padding:25px 0}
 .ptb-40{padding:40px 0}
