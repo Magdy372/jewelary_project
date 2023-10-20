@@ -4,9 +4,13 @@
     <title>Jewelry Website</title>
     <style>
 
-        .container {
-            width: 50%;
+.container {
+            max-width: 600px;
             margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
         .form-group {
@@ -20,9 +24,18 @@
 
         input[type="text"],
         input[type="number"],
-        textarea {
+        textarea,
+        select {
             width: 100%;
             padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        select#category {
+            font-size: 16px;
+            padding: 10px;
+            background-color: #fff;
         }
 
         button {
@@ -78,6 +91,7 @@
                 margin-left: 0;
             }
         }
+        
     </style>
 </head>
 <body>
@@ -98,18 +112,27 @@
             </div>
 
             <div class="form-group">
-                <label for="Company">Company</label>
-                <input type="text" name="Company" id="Company" required>
+                <label for="company">Company</label>
+                <input type="text" name="company" id="company" required>
             </div>
 
             <div class="form-group">
-                <label for="product_price">Price</label>
-                <input type="number" name="product_price" id="product_price" required>
+                <label for="grams">Grams</label>
+                <input type="number" name="grams" id="grams" required>
             </div>
 
             <div class="form-group">
                 <label for="product_description">Description</label>
                 <textarea name="product_description" id="product_description" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+            <label for="category">Category</label>
+            <select name="category" id="category" required>
+            <option value="Necklaces">Necklaces</option>
+            <option value="Rings">Rings</option>
+            <!-- Add more options here -->
+            </select>
             </div>
 
             <div class="form-group">
