@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
@@ -71,7 +72,7 @@
           <!-- Nav tabs -->
           <ul class="nav nav-tabs tabs-left">
             <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
-             <li><a href="#chnage_passwrd" data-toggle="tab">Change Password</a></li>
+             <li><a href="change_password.php">Change Password</a></li>
             <li><a href="#deliveryaddress" data-toggle="tab">Delivery Address</a></li>
             <li><a href="#reentorders" data-toggle="tab">Recent Orders</a></li>
          <li><a href="#returnorders" data-toggle="tab">Return Orders</a></li>
@@ -83,56 +84,82 @@
           <div class="tab-content">
             <div class="tab-pane active" id="profile">
             <div class="login-form">
-								<form>
+								<form method="post">
 									<div class="form-group login-page">
+									<?php
+										//session_start();
+										//echo $_SESSION['FName'] ."<br>" . $_SESSION['LName'];
+										$UserObject = new User($_SESSION["UserID"]) ;
+										
+									?>
 										<label for="">First Name <span>*</span></label>
-										<input type="text" class="form-control" id="">
+										<input type="text" class="form-control" name = "FName" value="<?=$UserObject->FName?>" >
 									</div>
 									<div class="form-group login-page">
 										<label for="">Last Name <span>*</span></label>
-										<input type="email" class="form-control" id="">
+										<input type="text" class="form-control"  name = "LName" value="<?=$UserObject->LName?>" >
 									</div>
-									<!--<div class="form-group">
-										<div class="checkbox">
-											<label>
-												<input type="checkbox"> Sign Up for Newsletter
-											</label>
-										</div>
-									</div>									
-									<div class="login-title">
-										<h3>Sign-in Information</h3>
-									</div>-->									
 									<div class="form-group login-page">
 										<label for="">Email <span>*</span></label>
-										<input type="text" class="form-control" id="">
+										<input type="email" class="form-control" name = "Email" value="<?=$UserObject->Email?>">
 									</div>								
 									
-									<button type="submit" class="btn btn-default login-btn">Submit</button>
+									<button type="submit"name="submit" class="btn btn-default login-btn">Submit</button>
 								</form>						
 							</div>
+							<?php
+																
+								include_once "UserClass.php";
+
+								if(isset($_POST["submit"])){
+									$Fname=$_POST["FName"];
+									$Lname=$_POST["LName"];
+									$Email=$_POST["Email"];
+									
+									$UserObject=User::editinfo($Fname,$Lname,$Email,$_SESSION['UserID']);
+
+								}
+							?>
 							
             
             </div>
             
              <div class="tab-pane" id="chnage_passwrd">
-             <form>
+             <form method="POST">
 									<div class="form-group login-page">
 										<label for="">Old Password<span>*</span></label>
-										<input type="password" class="form-control" id="">
+										<input type="password" name="old_Password" class="form-control" id="">
 									</div>
 									<div class="form-group login-page">
 										<label for="">New Password<span>*</span></label>
-										<input type="password" class="form-control" id="">
+										<input type="password" name="Password" class="form-control" id="">
 									</div>
 																	
 									<div class="form-group login-page">
 										<label for="">Confirm Password<span>*</span></label>
-										<input type="password" class="form-control" id="">
+										<input type="password" name="con_Password" class="form-control" id="">
 									</div>								
 									
-									<button type="submit" class="btn btn-default login-btn">Submit</button>
+									<button type="submit"  name="changePasswordSubmit"  class="btn btn-default login-btn">Submit</button>
 								</form>	
-             
+								<?php
+									
+									// include_once "UserClass.php";
+	
+									// if(isset($_POST["changePasswordSubmit"])){
+									
+									// 	$Password=$_POST["Password"];
+            						// 	$oldPass=$_POST["old_Password"];
+									// 	$conPass= $_POST["con_Password"];
+
+									// 	if($conPass===$Password){
+									// 		$UserObject=User::editPW($oldPass,$Password,$_SESSION['UserID']);
+									// 	}else{
+									// 		echo "Confirm Password isn't match Password <br>" ;
+									// 	}
+
+									// }
+								?>
              </div>
             
             
@@ -326,3 +353,5 @@
         
     </body>
 </html>
+
+

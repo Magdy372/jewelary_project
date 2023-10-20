@@ -71,6 +71,84 @@ class User
 		else
 			return false;	
 	}	
+
+    static function editinfo ($FN , $LN , $EM , $id){
+      //check if form was submitted
+            $Fname=$FN;
+            $Lname=$LN;
+            $Email=$EM;
+
+            $sql="update  users set FName='$Fname', LName='$Lname', Email='$Email'
+            where ID ='$id' ;";
+        
+            $result=mysqli_query($GLOBALS['con'],$sql);
+            if($result)	{
+                // $_SESSION["FName"]=$Fname;
+                // $_SESSION["LName"]=$Lname;
+                // $_SESSION["Email"]=$Email;
+                // $_SESSION["Password"]=$Password;
+                
+                header("Location:user_accountpage#.php");
+                exit;
+            }
+            else {
+                echo $sql;
+            }
+    }
+
+
+    static function editPW ($oldPW , $PW , $id){
+       
+        $Password = $PW;
+        $oldPass = $oldPW;
+
+        $sql = "SELECT Password FROM users WHERE ID = $id";
+        $result = mysqli_query($GLOBALS['con'], $sql);
+
+        if (!$result) {
+            echo "Error executing SQL query.";
+            exit();
+        }
+
+        $row = mysqli_fetch_assoc($result);
+
+        if (!$row) {
+            echo "User not found.";
+            exit();
+        }
+
+        $storedPassword = $row['Password'];
+
+        // Compare the old password entered with the stored password
+        if ($oldPass === $storedPassword) {
+            // Passwords match; proceed to update the password
+            // You should hash and salt the new password for security.
+            //$hashedNewPassword = password_hash($Password, PASSWORD_DEFAULT);
+
+            $updateSql = "UPDATE users SET Password = '$Password' WHERE ID = $id";
+            $updateResult = mysqli_query($GLOBALS['con'], $updateSql);
+
+            if ($updateResult) {
+                // Password updated successfully
+                // header("Location:index.php");
+                // exit();
+                ob_start(); // Start output buffering
+
+                // Your PHP code here
+
+                // Send headers after your logic
+                //header("Location:i.php");
+
+                ob_end_flush(); // Send the buffered output to the browser
+            } else {
+                echo "Error updating password.";
+            }
+        } else {
+            echo "Old password is incorrect.";
+        }
+    
+    
+    }
 }
 class UserType {
 	public $ID;
