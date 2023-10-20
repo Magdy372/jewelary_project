@@ -3,8 +3,7 @@
 <head>
     <title>Jewelry Website</title>
     <style>
-        /* CSS for styling the navbar */
-
+        /* Base styles for the navbar and form */
         .container {
             width: 50%;
             margin: 0 auto;
@@ -46,10 +45,10 @@
         }
 
         body {
-    color: #666666;
-    font-family: 'Lato', sans-serif;
-    font-size: 15px;
-    line-height: 1.42857;
+            color: #666666;
+            font-family: 'Lato', sans-serif;
+            font-size: 15px;
+            line-height: 1.42857;
         }
 
         .navbar a {
@@ -62,6 +61,24 @@
         .content {
             margin-left: 220px; /* Adjust based on your design */
             padding: 20px;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+            }
+
+            .navbar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 10px;
+            }
+
+            .content {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
@@ -82,7 +99,6 @@
                 <input type="text" name="Username" id="Username" required>
             </div>
 
-            <form action="process_product.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="Password">Password</label>
                 <input type="text" name="Password" id="Password" required>
