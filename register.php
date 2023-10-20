@@ -51,8 +51,10 @@ if(isset($_POST['Submit'])){ //check if form was submitted
 	$conpw = htmlspecialchars($_POST['conPass']);
 
 	if($PW === $conpw){
-		if(User::InsertinDB_Static($FN,$LN,$EM,$PW)){
-			header("Location:index.php");
+		$hashedPW = password_hash($PW, PASSWORD_DEFAULT , ["cost" => 12] );
+
+		if(User::InsertinDB_Static($FN,$LN,$EM,$hashedPW)){
+			//header("Location:index.php");
 		}
 	}else{
 		echo "Confirm password isn't identical with Password ,Try Again <br>" ;
