@@ -45,7 +45,7 @@ class User
 				return new User($row['ID']);
 			}
 			else{
-				echo "a7aaaaaaaaaaaaa";
+				echo "Email or password is incorrect ;)";
 			}
 		}
 	
@@ -142,26 +142,19 @@ class User
         $storedPassword = $row['Password'];
 
         // Compare the old password entered with the stored password
-        if ($oldPass === $storedPassword) {
+		
+        if (password_verify($oldPass , $storedPassword)) {
             // Passwords match; proceed to update the password
             // You should hash and salt the new password for security.
             //$hashedNewPassword = password_hash($Password, PASSWORD_DEFAULT);
 
-            $updateSql = "UPDATE users SET Password = '$Password' WHERE ID = $id";
+			$hashedPW = password_hash($Password , PASSWORD_DEFAULT , ["cost" => 12] );
+
+            $updateSql = "UPDATE users SET Password = '$hashedPW' WHERE ID = $id";
             $updateResult = mysqli_query($GLOBALS['con'], $updateSql);
 
             if ($updateResult) {
-                // Password updated successfully
-                // header("Location:index.php");
-                // exit();
-                ob_start(); // Start output buffering
-
-                // Your PHP code here
-
-                // Send headers after your logic
-                //header("Location:i.php");
-
-                ob_end_flush(); // Send the buffered output to the browser
+                echo " Edited Successfully :)";
             } else {
                 echo "Error updating password.";
             }
