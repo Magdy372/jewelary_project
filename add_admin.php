@@ -5,10 +5,13 @@
     <style>
         /* Base styles for the navbar and form */
         .container {
-            width: 50%;
+            max-width: 600px;
             margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
-
         .form-group {
             margin-bottom: 20px;
         }

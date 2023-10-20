@@ -21,6 +21,28 @@
     font-size: 15px;
     line-height: 1.42857;
         }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .product {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .product h3 {
+            margin: 0;
+        }
+
+        .product p {
+            margin: 0;
+        }
 
         .navbar a {
             display: block;
@@ -49,6 +71,7 @@
                 margin-left: 0;
             }
         }
+
     </style>
 </head>
 <body>
@@ -59,10 +82,28 @@
         <a href="view_sold_products.php">View Sold Products</a>
     </div>
 
-    <div class="content">
-        <!-- Page content goes here -->
-        <h1>Welcome to the Jewelry Website</h1>
-        <p>This is the homepage of the jewelry website. Please select an option from the navbar on the left.</p>
+    <div class="container">
+        <h2>View Sold Products</h2>
+
+        <!-- Product 1 -->
+        <div class="product">
+            <h3>Product Name 1</h3>
+            <p>Units Sold: 50</p>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product">
+            <h3>Product Name 2</h3>
+            <p>Units Sold: 30</p>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product">
+            <h3>Product Name 3</h3>
+            <p>Units Sold: 20</p>
+        </div>
+        
+        <!-- You can add more product containers here -->
     </div>
 </body>
 </html>
