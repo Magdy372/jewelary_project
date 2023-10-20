@@ -54,7 +54,7 @@
 							</div>
 							<ul class="useful-link">
 								<li><a href="#">Contact Us</a></li>
-								<li><a href="sitemap.html">Site Map</a></li>
+								<li><a href="sitemap.php">Site Map</a></li>
 								<li><a href="#">About Us</a></li>
 								<li><a href="#">Specials</a></li>
 								<li><a href="#">My Cart</a></li>
