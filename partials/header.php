@@ -22,8 +22,15 @@
 							
 								if(!empty($_SESSION['UserID'])) {
 									$UserObject=new User($_SESSION["UserID"]);
+									
 								echo "<p>Welcome ".$UserObject->FName."</p>";
-								}
+								}else{
+									// guestes cannot access to wishlist or add any thing to it 
+									if (isset($_GET['product_id'])) {
+										header("Location:customer-login.php");
+										exit;
+									}
+								 }
 								
 
 								?>
