@@ -41,6 +41,32 @@
         
 		<!-- header-start -->
 		<?php include('partials/header.php'); ?>
+		<?php
+			if($_SESSION["UserID"]!==NULL){
+				include_once ("wishlishClass.php");
+				
+				
+				// to adding product to wishlist 
+				if (isset($_GET['product_id'])) {
+					$productID = $_GET['product_id'];
+					$userID = $_SESSION["UserID"];
+					$wishObject1=WishlistItem::addToWishlist($userID,$productID);
+					if ($wishObject1!==NULL)
+					{	
+						echo "Added Successfully :)";
+					}
+				}
+
+
+				
+
+				//to display user wishlist 
+				$wishObject=WishlistItem::dispalyWish($_SESSION["UserID"]);
+
+			?>
+
+		
+		
 		
 		<!-- mainmenu-area-end -->
 		<!-- page-title-wrapper-start -->
@@ -79,22 +105,34 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="product-remove"><a href="#">x</a></td>
-												<td class="product-thumbnail"><a href="#"><img src="img/wishlist/1.jpg" alt="" /></a></td>
-												<td class="product-name"><a href="#">Vestibulum suscipit</a></td>
-												<td class="product-price"><span class="amount">$35.00</span></td>
-												<td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-												<td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
-											</tr>
-											<tr>
-												<td class="product-remove"><a href="#">x</a></td>
-												<td class="product-thumbnail"><a href="#"><img src="img/wishlist/2.jpg" alt="" /></a></td>
-												<td class="product-name"><a href="#">Vestibulum dictum magna</a></td>
-												<td class="product-price"><span class="amount">$50.00</span></td>
-												<td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-												<td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
-											</tr>
+
+										<?php
+											if (!is_null($wishObject) && !empty($wishObject)) {
+												foreach ($wishObject as $element) { 
+													$ProductPictures = explode(',', $element->ProductPicture);
+													if (!empty($ProductPictures[0])) {
+														$imageSrc = "uploads/" . $ProductPictures[0];
+													} else {
+														$imageSrc = "uploads/default.jpg";
+													} 
+										?>
+													<tr>
+														<td class="product-remove"><a href="#">x</a></td>
+														<td class="product-thumbnail"><a href="#"><img src="<?=$imageSrc?>" alt="" /></a></td>
+														<td class="product-name"><a href="#"><?=$element->ProductName?></a></td>
+														<td class="product-price"><span class="amount">$<?=$element->Price?></span></td>
+														<td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
+														<td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
+													</tr>
+										<?php 
+												}
+											} else {
+												// Handle the case where there are no items in the wishlist
+												echo "Your wishlist is empty.";
+											}
+										?>
+
+
 										</tbody>
 										<tfoot>
 											<tr>
@@ -120,6 +158,10 @@
 				</div>
 			</div>
 		</div>
+		<?php }else{
+			header("Location:index.php");
+		}
+		?>
 		<!-- wishlist-area end -->
 		<!-- contact-area-start -->
 		<?php include('partials/footer.php'); ?>

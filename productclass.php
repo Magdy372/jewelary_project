@@ -23,15 +23,21 @@ class Product {
     public $Availability;
     public $CategoryID;
 
-    public function __construct($ProductName, $ProductPicture, $Description, $Weight, $Size, $Price, $Availability, $CategoryID) {
-        $this->ProductName = $ProductName;
-        $this->ProductPicture = $ProductPicture;
-        $this->Description = $Description;
-        $this->Weight = $Weight;
-        $this->Size = $Size;
-        $this->Price = $Price;
-        $this->Availability = $Availability;
-        $this->CategoryID = $CategoryID;
+    public function __construct($id) {
+        if ($id !=""){
+			$sql="select * from Product where 	ProductID =$id";
+			$Product = mysqli_query($GLOBALS['con'],$sql);
+			if ($row = mysqli_fetch_array($Product)){
+				$this->ProductName=$row["ProductName"];
+				$this->ProductPicture=$row["ProductPicture"];
+				$this->Description=$row["Description"];
+				$this->Weight=$row["Weight"];
+				$this->Size=$row["Size"];
+				$this->Price=$row["Price"];
+				$this->Availability=$row["Availability"];
+				$this->CategoryID=$row["CategoryID"];
+			}
+		}
     }
 
     static public function addProduct($con, $ProductName, $ProductPicture, $Description, $Weight, $Size, $Price, $Availability, $CategoryID) {

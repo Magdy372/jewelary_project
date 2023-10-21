@@ -67,16 +67,16 @@
 											$imageSrc = "uploads/" . $ProductPictures[0];
 										} else {
 											$imageSrc = "uploads/default.jpg";
-										}
-										echo '<div class="col-lg-12">
+										} ?>
+										<div class="col-lg-12">
 											<div class="single-new-product">
 												<div class="product-img">
 													<a href="product-details.html">
-														<img src="uploads/' . $ProductPictures[0] . '" class="first_img" alt="" />
+														<img src=" <?php echo $imageSrc; ?> " class="first_img" alt="" />
 													</a>
 												</div>
 												<div class="product-content text-center">
-													<a href="product-details.html"><h3>' . $product['ProductName'] . '</h3></a>
+													<a href="product-details.html"><h3><?=$product['ProductName']?></h3></a>
 													<div class="product-price-star">
 														<i class="fa fa-star"></i>
 														<i class="fa fa-star"></i>
@@ -85,7 +85,7 @@
 														<i class="fa fa-star-o"></i>
 													</div>
 													<div class="price">
-														<h4>$' . $product['Price'] . '</h4> 
+														<h4>$<?=$product['Price']?></h4> 
 														<h3 class="del-price"><del>Rs45.00</del></h3>
 													</div>
 												</div>
@@ -93,16 +93,17 @@
 													<div class="product-icon">
 														<ul>
 															<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-															<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+															<li><a href="wishlist.php?product_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a></li>
 															<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
 														</ul>
 													</div>
 												</div>
 											</div>
-										</div>';
+										</div>
+									<?php 
+										}
 									}
-								}
-								?>
+									?>
 
 								<div class="col-lg-12">
 									<div class="single-new-product">
