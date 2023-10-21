@@ -230,64 +230,53 @@
 							<div class="tab-content">
 								<div class="tab-pane active" id="viewed">
 									<div class="row">
-										<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+										<?php
+											$query = "SELECT * FROM Product";
+											$result = mysqli_query($con, $query);
+
+											
+
+											if ($result) {
+												while ($product = mysqli_fetch_assoc($result)) {
+													
+													$ProductPictures = explode(',', $product['ProductPicture']);
+													if (!empty($ProductPictures[0])) {
+														$imageSrc = "uploads/" . $ProductPictures[0];
+													} else {
+														$imageSrc = "uploads/default.jpg";
+													}
+
+										?>
 											<div class="single-new-product mt-40 category-new-product">
 												<div class="product-img">
-													<a href="product-details.html">
-														<img src="img/product/1.jpg" class="first_img" alt="" />
-														
-													</a>
-													<div class="new-product-action">
-														<!-- <a href="#"><span class="lnr lnr-sync"></span></a> -->
-														<a href="#"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
-														<a href="#"><span class="lnr lnr-heart"></span></a>
+														<a href="product-details.html">
+															<img src="<?php echo $imageSrc; ?>" class="first_img" alt="" />
+														</a>
+														<div class="new-product-action">
+															<!-- <a href="#"><span class="lnr lnr-sync"></span></a> -->
+															<a href="#"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
+															<a href="#"><span class="lnr lnr-heart"></span></a>
+														</div>
 													</div>
-												</div>
-												<div class="product-content text-center">
-													<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-													<div class="product-price-star">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o"></i>
-														<i class="fa fa-star-o"></i>
-													</div>
-													<div class="price">
-														<h4>Rs21.00</h4> 
+													<div class="product-content text-center">
+														<a href="product-details.html"><h3><?php echo  $product['ProductName']; ?></h3></a>
+														<div class="product-price-star">
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star-o"></i>
+															<i class="fa fa-star-o"></i>
+														</div>
+														<div class="price">
+															<h4>$<?=$product['Price']?></h4> 
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-											<div class="single-new-product mt-40 category-new-product">
-												<div class="product-img">
-													<a href="product-details.html">
-														<img src="img/product/3.jpg" class="first_img" alt="" />
-														
-													</a>
-													<div class="new-product-action">
-														<!-- <a href="#"><span class="lnr lnr-sync"></span></a> -->
-														<a href="#"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
-														<a href="#"><span class="lnr lnr-heart"></span></a>
-													</div>
-													<span class="new">18.4%</span>
-												</div>
-												<div class="product-content text-center">
-													<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-													<div class="product-price-star">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o"></i>
-														<i class="fa fa-star-o"></i>
-													</div>
-													<div class="price">
-														<h4>Rs33.00</h4> 
-														<h3 class="del-price"><del>Rs45.00</del></h3>
-													</div>
-												</div>
-											</div>
-										</div>
+
+										<?php }} ?>
+
+
 										<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 											<div class="single-new-product mt-40 category-new-product">
 												<div class="product-img">
