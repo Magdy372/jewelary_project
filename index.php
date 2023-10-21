@@ -54,6 +54,7 @@
 						<div class="row">
 							<div class="new-product-home-4-active">
 							<?php
+
 								$query = "SELECT * FROM Product";
 								$result = mysqli_query($con, $query);
 
@@ -93,7 +94,7 @@
 													<div class="product-icon">
 														<ul>
 															<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-															<li><a href="wishlist.php?product_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a></li>
+															<li><a href="index.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a></li>
 															<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
 														</ul>
 													</div>

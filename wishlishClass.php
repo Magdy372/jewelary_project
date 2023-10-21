@@ -18,6 +18,8 @@ class WishlistItem {
         $userID=$userID;
         $productID=$productID;
         $check = false;
+        $wishlistItems = array();
+
 
         $select_query = "SELECT * FROM Wishlist WHERE UserID = $userID";
         $result = mysqli_query($GLOBALS['con'], $select_query);

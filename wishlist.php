@@ -47,15 +47,6 @@
 				
 				
 				// to adding product to wishlist 
-				if (isset($_GET['product_id'])) {
-					$productID = $_GET['product_id'];
-					$userID = $_SESSION["UserID"];
-					$wishObject1=WishlistItem::addToWishlist($userID,$productID);
-					if ($wishObject1!==NULL)
-					{	
-						echo "Added Successfully :)";
-					}
-				}
 
 				// to delete product from Wishlist
 				if (isset($_GET['delete_id'])) {

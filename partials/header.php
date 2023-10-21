@@ -22,14 +22,30 @@
 							
 								if(!empty($_SESSION['UserID'])) {
 									$UserObject=new User($_SESSION["UserID"]);
+
+
 									
-								echo "<p>Welcome ".$UserObject->FName."</p>";
+									echo "<p>Welcome ".$UserObject->FName."</p>";
+									
+									if (isset($_GET['wishlist_id'])) {
+										include_once ("wishlishClass.php");
+										$productID = $_GET['wishlist_id'];
+										$userID = $_SESSION["UserID"];
+										$wishObject1=WishlistItem::addToWishlist($userID,$productID);
+										if ($wishObject1!==NULL)
+										{	
+											echo "Added Successfully :)";
+										}
+									}
 								}else{
 									// guestes cannot access to wishlist or add any thing to it 
-									if (isset($_GET['product_id'])) {
+									if (isset($_GET['wishlist_id'])) {
 										header("Location:customer-login.php");
 										exit;
 									}
+
+
+
 								 }
 								
 
