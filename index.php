@@ -95,7 +95,7 @@
 														<ul>
 															<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
 															<li><a href="index.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a></li>
-															<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
+															<li><a href="index.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart"></span></a></li>
 														</ul>
 													</div>
 												</div>

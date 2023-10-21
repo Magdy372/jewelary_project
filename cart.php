@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Cart</title>
+        <title>Wishlist</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -38,21 +38,48 @@
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
+        
 		<!-- header-start -->
 		<?php include('partials/header.php'); ?>
-		<!-- mainmenu-area-end -->
-		<!-- page-title-wrapper-start -->
+		<?php
+			if($_SESSION["UserID"]!==NULL){
+				include_once ("shoppingcardclass.php");
+				
+				
+				// to adding product to wishlist 
+
+				// to delete product from Wishlist
+				if (isset($_GET['delete_id'])) {
+					$deleteProductID = $_GET['delete_id'];
+					$userID = $_SESSION["UserID"];
+					
+					$ShoppingObj=ShoppingCart::deleteFromCart($userID,$deleteProductID);
+					if ($ShoppingObj!==NULL)
+					{	
+						echo "Deleted Successfully :)";
+					}
+					// Implement the code to delete the item with $deleteProductID from the wishlist.
+					// You can use your WishlistItem class to delete the item.
+
+
+				}
+
+
+            }
+
+				//to display user wishlist 
+				$cartObject=ShoppingCart::dispalyCart($_SESSION["UserID"]);
+
+
+			?>
+
+            
 		<div class="page-title-wrapper">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="page-title">
-							<h3>Cart</h3>
+							
 						</div>
 					</div>
 				</div>
@@ -91,22 +118,40 @@
 										</tr>
 									</thead>
 									<tbody>
+									<?php
+											if (!is_null($cartObject) && !empty($cartObject)) {
+												foreach ($cartObject as $element) { 
+													$ProductPictures = explode(',', $element->ProductPicture);
+													if (!empty($ProductPictures[0])) {
+														$imageSrc = "uploads/" . $ProductPictures[0];
+													} else {
+														$imageSrc = "uploads/default.jpg";
+													} 
+										?>
 										<tr>
-											<td class="product-thumbnail"><a href="#"><img src="img/wishlist/1.jpg" alt="" /></a></td>
-											<td class="product-name"><a href="#">Vestibulum suscipit</a></td>
-											<td class="product-price"><span class="amount">$165.00</span></td>
-											<td class="product-quantity"><input type="number" value="1" /></td>
-											<td class="product-subtotal">$165.00</td>
-											<td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
+										<td class="product-thumbnail"><a href="#"><img src="<?=$imageSrc?>" alt="" /></a></td>
+										<td class="product-name"><a href="#"><?=$element->ProductName?></a></td>
+										<td class="product-price">
+                                 <span class="amount">$<?=$element->Price?></span>
+                                          </td>
+										<td class="product-quantity">
+                                         <input type="number" value="1" id="quantityInput" />
+                                        </td>
+                                  <td class="total-price">
+                              <span class="amount">$<?=$element->Price?></span>
+                                       </td>
+
+										
+										<td class="product-remove"><a href="cart.php?delete_id=<?=$element->ProductID?>">x</a></td>
 										</tr>
-										<tr>
-											<td class="product-thumbnail"><a href="#"><img src="img/wishlist/2.jpg" alt="" /></a></td>
-											<td class="product-name"><a href="#">Vestibulum dictum magna</a></td>
-											<td class="product-price"><span class="amount">$50.00</span></td>
-											<td class="product-quantity"><input type="number" value="1" /></td>
-											<td class="product-subtotal">$50.00</td>
-											<td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-										</tr>
+										<?php 
+												}
+											} else {
+												// Handle the case where there are no items in the wishlist
+												echo "Your ShoppingCart is empty.";
+											}
+										?>
+										
 									</tbody>
 								</table>
 							</div>
@@ -125,38 +170,9 @@
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
 									<div class="cart_totals">
-										<h2>Cart Totals</h2>
-										<table>
-											<tbody>
-												<tr class="cart-subtotal">
-													<th>Subtotal</th>
-													<td><span class="amount">$215.00</span></td>
-												</tr>
-												<tr class="shipping">
-													<th>Shipping</th>
-													<td>
-														<ul id="shipping_method">
-															<li>
-																<input type="radio" /> 
-																<label>
-																	Flat Rate: <span class="amount">$7.00</span>
-																</label>
-															</li>
-															<li>
-																<input type="radio" /> 
-																<label>
-																	Free Shipping
-																</label>
-															</li>
-															<li></li>
-														</ul>
-														<p><a class="shipping-calculator-button" href="#">Calculate Shipping</a></p>
-													</td>
-												</tr>
-												<tr class="order-total">
-													<th>Total</th>
-													<td>
-														<strong><span class="amount">$215.00</span></strong>
+										
+													
+													<strong>Total Price: <span class="amount">$<?=$element->Price?> </span></strong>
 													</td>
 												</tr>											
 											</tbody>
@@ -205,3 +221,20 @@
         <script src="js/main.js"></script>
     </body>
 </html>
+<script>
+/* 	// Get references to the input and total price elements
+const quantityInput = document.getElementById("quantityInput");
+const productPriceElement = document.querySelector(".product-price .amount");
+const totalPriceElement = document.querySelector(".total-price .amount");
+
+// Initial total price based on the default quantity
+let total = parseFloat(productPriceElement.textContent.slice(1));
+
+// Update the total price when the quantity changes
+quantityInput.addEventListener("input", function() {
+    const quantity = parseInt(quantityInput.value);
+    total = quantity * parseFloat(productPriceElement.textContent.slice(1));
+    totalPriceElement.textContent = "$" + total.toFixed(2);
+}); */
+
+</script>

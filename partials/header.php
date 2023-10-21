@@ -19,37 +19,37 @@
 								<?php 
 								session_start();
 								include_once ("UserClass.php");
-							
-								if(!empty($_SESSION['UserID'])) {
-									$UserObject=new User($_SESSION["UserID"]);
-
-
-									
-									echo "<p>Welcome ".$UserObject->FName."</p>";
-									
+								include_once ("shoppingcardclass.php");
+								if (!empty($_SESSION['UserID'])) {
+									$UserObject = new User($_SESSION["UserID"]);
+									echo "<p>Welcome " . $UserObject->FName . "</p>";
+								
 									if (isset($_GET['wishlist_id'])) {
-										include_once ("wishlishClass.php");
+										include_once("wishlishClass.php");
 										$productID = $_GET['wishlist_id'];
 										$userID = $_SESSION["UserID"];
-										$wishObject1=WishlistItem::addToWishlist($userID,$productID);
-										if ($wishObject1!==NULL)
-										{	
-											echo "Added Successfully :)";
+										$wishObject1 = WishlistItem::addToWishlist($userID, $productID);
+								
+										if ($wishObject1 !== NULL) {
+											echo "Added to wishlist Successfully :)";
+										}
+									} elseif (isset($_GET['cart_id'])) {
+										$productID = $_GET['cart_id'];
+										$userID = $_SESSION["UserID"];
+										$cartObject1 = ShoppingCart::addToCart($userID, $productID);
+								
+										if ($cartObject1 !== NULL) {
+											echo "Added to cart Successfully :)";
 										}
 									}
-								}else{
-									// guestes cannot access to wishlist or add any thing to it 
-									if (isset($_GET['wishlist_id'])) {
-										header("Location:customer-login.php");
+								} else {
+									// Guests cannot access wishlist or add anything to it
+									if (isset($_GET['wishlist_id']) || isset($_GET['cart_id'])) {
+										header("Location: customer-login.php");
 										exit;
 									}
-
-
-
-								 }
-								
-
-								?>
+								}
+							?>								
 							</div>
 						</div>					
 						<div class="col-lg-9 col-md-8 col-sm-7 header-top-right-4">
