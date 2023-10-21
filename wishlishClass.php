@@ -75,4 +75,24 @@ class WishlistItem {
         }
     
     }
+
+
+
+
+    public static function deleteFromWishlist($userID, $productID) {
+        // Implement the code to delete the item with $productID from the wishlist of the user with $userID.
+        // You can use SQL queries to perform the deletion.
+        // Return true if the item is successfully deleted, or false if there's an error.
+
+        $delete_query = "DELETE FROM Wishlist WHERE UserID = $userID AND ProductID = $productID";
+        $result = mysqli_query($GLOBALS['con'], $delete_query);
+        
+        if ($result) {
+            // Successfully removed from the wishlist
+        } else {
+            // Error handling
+        }
+
+
+    }
 }

@@ -28,6 +28,8 @@ class Product {
 			$sql="select * from Product where 	ProductID =$id";
 			$Product = mysqli_query($GLOBALS['con'],$sql);
 			if ($row = mysqli_fetch_array($Product)){
+
+				$this->ProductID=$row["ProductID"];
 				$this->ProductName=$row["ProductName"];
 				$this->ProductPicture=$row["ProductPicture"];
 				$this->Description=$row["Description"];

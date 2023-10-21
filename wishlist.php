@@ -57,6 +57,22 @@
 					}
 				}
 
+				// to delete product from Wishlist
+				if (isset($_GET['delete_id'])) {
+					$deleteProductID = $_GET['delete_id'];
+					$userID = $_SESSION["UserID"];
+					
+					$wishObject1=WishlistItem::deleteFromWishlist($userID,$deleteProductID);
+					if ($wishObject1!==NULL)
+					{	
+						echo "Deleted Successfully :)";
+					}
+					// Implement the code to delete the item with $deleteProductID from the wishlist.
+					// You can use your WishlistItem class to delete the item.
+
+
+				}
+
 
 				
 
@@ -117,7 +133,7 @@
 													} 
 										?>
 													<tr>
-														<td class="product-remove"><a href="#">x</a></td>
+														<td class="product-remove"><a href="wishlist.php?delete_id=<?=$element->ProductID?>">x</a></td>
 														<td class="product-thumbnail"><a href="#"><img src="<?=$imageSrc?>" alt="" /></a></td>
 														<td class="product-name"><a href="#"><?=$element->ProductName?></a></td>
 														<td class="product-price"><span class="amount">$<?=$element->Price?></span></td>
