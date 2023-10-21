@@ -53,39 +53,57 @@
 						</div>	
 						<div class="row">
 							<div class="new-product-home-4-active">
-								<div class="col-lg-12">
-									<div class="single-new-product">
-										<div class="product-img">
-											<a href="product-details.html">
-												<img src="img/product/1.jpg" class="first_img" alt="" />
-												
-											</a>
-										</div>
-										<div class="product-content text-center">
-											<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-											<div class="product-price-star">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
+							<?php
+								$query = "SELECT * FROM Product";
+								$result = mysqli_query($con, $query);
+
+								
+
+								if ($result) {
+									while ($product = mysqli_fetch_assoc($result)) {
+										
+										$ProductPictures = explode(',', $product['ProductPicture']);
+										if (!empty($ProductPictures[0])) {
+											$imageSrc = "uploads/" . $ProductPictures[0];
+										} else {
+											$imageSrc = "uploads/default.jpg";
+										}
+										echo '<div class="col-lg-12">
+											<div class="single-new-product">
+												<div class="product-img">
+													<a href="product-details.html">
+														<img src="uploads/' . $ProductPictures[0] . '" class="first_img" alt="" />
+													</a>
+												</div>
+												<div class="product-content text-center">
+													<a href="product-details.html"><h3>' . $product['ProductName'] . '</h3></a>
+													<div class="product-price-star">
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star-o"></i>
+														<i class="fa fa-star-o"></i>
+													</div>
+													<div class="price">
+														<h4>$' . $product['Price'] . '</h4> 
+														<h3 class="del-price"><del>Rs45.00</del></h3>
+													</div>
+												</div>
+												<div class="product-icon-wrapper">
+													<div class="product-icon">
+														<ul>
+															<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
+															<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+															<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
+														</ul>
+													</div>
+												</div>
 											</div>
-											<div class="price">
-												<h4>Rs33.00</h4> 
-												<h3 class="del-price"><del>Rs45.00</del></h3>
-											</div>								
-										</div>
-										<div class="product-icon-wrapper">
-											<div class="product-icon">
-												<ul>
-													<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-													<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-													<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
-												</ul>								
-											</div>
-										</div>
-									</div>
-								</div>	
+										</div>';
+									}
+								}
+								?>
+
 								<div class="col-lg-12">
 									<div class="single-new-product">
 										<div class="product-img">
