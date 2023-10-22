@@ -191,7 +191,7 @@ if (isset($_GET['details_id'])) {
 						<div class="mainmenu hidden-xs">
 							<nav>
 								<ul>
-									<li><a href="shop.html">Little H</a>
+									<li><a href="shop.php">Little H</a>
 										<div class="megamenu">
 											<span>
 												<a href="#" class="megatitle">Little H</a>
@@ -214,7 +214,7 @@ if (isset($_GET['details_id'])) {
 											
 										</div>
 									</li>
-									<li><a href="shop.html">New in</a>
+									<li><a href="shop.php">New in</a>
 										<div class="megamenu">
 											<span>
 												<a href="#" class="megatitle">New in</a>
@@ -238,7 +238,7 @@ if (isset($_GET['details_id'])) {
 											
 										</div>
 									</li>
-									<li><a href="shop.html">Gold Jewellery</a>
+									<li><a href="shop.php">Gold Jewellery</a>
 										<div class="megamenu megamenu2 living-megamenu">
 											<span>
 												<a href="#" class="megatitle">Gold Jewellery</a>
@@ -261,18 +261,18 @@ if (isset($_GET['details_id'])) {
 											
 										</div>									
 									</li>
-									<li><a href="shop.html">Gold Bars</a>
+									<li><a href="shop.php">Gold Bars</a>
 																		
 									</li>
-									<li><a href="shop.html">Gold Coins</a>
+									<li><a href="shop.php">Gold Coins</a>
 																		
 									</li>
 									
-									<li><a href="shop.html">Sets</a>
+									<li><a href="shop.php">Sets</a>
 																		
 									</li>
 
-									<li><a href="shop.html">Wedding Bands</a>
+									<li><a href="shop.php">Wedding Bands</a>
 																		
 									</li>
 
@@ -320,7 +320,7 @@ if (isset($_GET['details_id'])) {
 											<li><a href="#">Colored Stones</a></li>
 										</ul>
 									</li>
-									<li><a href="shop.html">Bedroom</a>
+									<li><a href="shop.php">Bedroom</a>
 										<ul>
 											<li><a href="#">Beds</a>
 												<ul>
@@ -351,7 +351,7 @@ if (isset($_GET['details_id'])) {
 											</li>
 										</ul>
 									</li>
-									<li><a href="shop.html">Living Room	</a>
+									<li><a href="shop.php">Living Room	</a>
 										<ul>
 											<li><a href="#">Beds</a>
 												<ul>
@@ -391,7 +391,7 @@ if (isset($_GET['details_id'])) {
 											</li>
 										</ul>
 									</li>
-									<li><a href="shop.html">Dining Room</a>
+									<li><a href="shop.php">Dining Room</a>
 										<ul>
 											<li><a href="#">Dining tables</a>
 												<ul>
