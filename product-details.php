@@ -42,7 +42,7 @@
     <?php include('partials/header.php'); 
 if (isset($_GET['details_id'])) {
     $productID = $_GET['details_id'];
-    $productData = Product::getProductByID($con, $productID);
+    $productData = Product::getProductID($con, $productID);
 
     if ($productData) {
 ?>
