@@ -10,165 +10,157 @@
 
         <link rel="icon" href="img/favicon.png" />
         <!-- Place favicon.ico in the root directory -->
-		<!-- google-font -->
-		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> 
-		<!-- all css here -->
-		<!-- bootstrap v3.3.6 css -->
+        <!-- google-font -->
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> 
+        <!-- all css here -->
+        <!-- bootstrap v3.3.6 css -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
-		<!-- animate css -->
+        <!-- animate css -->
         <link rel="stylesheet" href="css/animate.css">
-		<!-- jquery-ui.min css -->
+        <!-- jquery-ui.min css -->
         <link rel="stylesheet" href="css/jquery-ui.min.css">
-		<!-- meanmenu css -->
+        <!-- meanmenu css -->
         <link rel="stylesheet" href="css/meanmenu.min.css">
-		<!-- owl.carousel css -->
+        <!-- owl.carousel css -->
         <link rel="stylesheet" href="css/owl.carousel.css">
-		<!-- nivo-slider css -->
-        <link rel="stylesheet" href="css/nivo-slider.css">	
-		<!-- magnific-popup css -->
-        <link rel="stylesheet" href="css/magnific-popup.css">		
-		<!--linearicons css -->
+        <!-- nivo-slider css -->
+        <link rel="stylesheet" href="css/nivo-slider.css">  
+        <!-- magnific-popup css -->
+        <link rel="stylesheet" href="css/magnific-popup.css">       
+        <!--linearicons css -->
         <link rel="stylesheet" href="css/linearicons-icon-font.min.css">
-		<!-- font-awesome css -->
+        <!-- font-awesome css -->
         <link rel="stylesheet" href="css/font-awesome.min.css">
-		<!-- style css -->
-		<link rel="stylesheet" href="style.css">
-		<!-- responsive css -->
+        <!-- style css -->
+        <link rel="stylesheet" href="css/style.css">
+        <!-- responsive css -->
         <link rel="stylesheet" href="css/responsive.css" />
-		<!-- modernizr css -->
+        <!-- modernizr css -->
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
-        <?php include('partials/header.php'); ?>
-		<!-- mainmenu-area-end -->
-		<!-- page-title-wrapper-start -->
-		<div class="page-title-wrapper">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="page-title">
-							<h3>Product Details</h3>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- page-title-wrapper-end -->
-		<!-- all-hyperion-page-start -->
-		<div class="all-hyperion-page">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-						<!-- product-simple-area-start -->
-						<div class="product-simple-area ptb-80">
-							<div class="row">
-								<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-									<div class="tab-content">
-										<div class="tab-pane active" id="view1">
-											<a class="image-link" href="img/product/15.jpg"><img style="width:800px; height:800px " src="img/product/15.jpg" alt=""></a>
-										</div>							
-										<div class="tab-pane" id="view2">
-											<a class="image-link" href="img/product/2.jpg"><img src="img/product/2.jpg" alt=""></a>							
-										</div>
-										<div class="tab-pane" id="view3">
-											<a class="image-link" href="img/product/3.jpg"><img src=	"img/product/3.jpg" alt=""></a>							
-										</div>
-										<div class="tab-pane" id="view4">
-											<a class="image-link" href="img/product/13.jpg"><img src="img/product/13.jpg" alt=""></a>							
-										</div>
-										<div class="tab-pane" id="view5">
-											<a class="image-link" href="img/product/6.jpg"><img src="img/product/6.jpg" alt=""></a>							
-										</div>
-									</div>
-									  <!-- Nav tabs -->
-									<ul class="sinple-tab-menu" role="tablist">
-										<li class=" active"><a href="#view1" data-toggle="tab"><img style="width:79px; height:99px;" src="img/product/15.jpg" alt="" /></a></li>
-										<li><a href="#view2" data-toggle="tab"><img src="img/product/tab/2.jpg" alt="" /></a></li>
-										<li><a href="#view3" data-toggle="tab"><img src="img/product/tab/1.jpg" alt="" /></a></li>
-										<li><a href="#view4" data-toggle="tab"><img src="img/product/tab/4.jpg" alt="" /></a></li>
-										<li><a href="#view5" data-toggle="tab"><img src="img/product/tab/5.jpg" alt="" /></a></li>
-									</ul>									
-							   </div>
-								<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-									<div class="product-simple-content">
-										<div class="sinple-c-title">
-											<h3>Bruno Compete Hoodie</h3>
-										</div>
-										<div class="checkbox">
-											<span><i class="fa fa-check-square" aria-hidden="true"></i>In stock</span>
-										</div>
-										<span> SKU:MH03</span>
-										<div class="product-price-star star-2">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-											<span>(1Review)&nbsp;&nbsp;|&nbsp;&nbsp; Add Your Review </span>
-										</div>
-											<h4>Rs33.00</h4>
-										<div class="quick-add-to-cart">
-											<form method="post" class="cart">
-												<div class="numbers-row">
-													<label for="french-hens">Qty:</label>
-													<input type="number" id="french-hens" value="3">
-												</div>
-                                                
-                                                
-												
-											</form>
-										</div>
-                                        <br/>
+    <?php include('partials/header.php'); 
+if (isset($_GET['details_id'])) {
+    $productID = $_GET['details_id'];
+    $productData = Product::getProductByID($con, $productID);
+
+    if ($productData) {
+?>
+    <div class="page-title-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="page-title">
+                    <h3>Product Details </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- page-title-wrapper-end -->
+<!-- all-hyperion-page-start -->
+<div class="all-hyperion-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <!-- product-simple-area-start -->
+                <div class="product-simple-area ptb-80">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="tab-content">
+                                <?php
+                                $productImages = explode(',', $productData['ProductPicture']);
+                                foreach ($productImages as $index => $image) {
+                                ?>
+                                    <div class="tab-pane<?php echo ($index === 0) ? ' active' : ''; ?>" id="view<?php echo $index + 1; ?>">
+                                        <a class="image-link" href="uploads/<?php echo $image; ?>"><img src="uploads/<?php echo $image; ?>" alt=""></a>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                            <!-- Nav tabs -->
+                            <ul class="sinple-tab-menu" role="tablist">
+                                <?php
+                                foreach ($productImages as $index => $image) {
+                                ?>
+                                    <li class="<?php echo ($index === 0) ? 'active' : ''; ?>">
+                                        <a href="#view<?php echo $index + 1; ?>" data-toggle="tab">
+                                            <img style="width: 79px; height: 99px;" src="uploads/<?php echo $image; ?>" alt="" />
+                                        </a>
+                                    </li>
+                                <?php
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                            <div class="product-simple-content">
+                                <div class="sinple-c-title">
+                                    <h3><?php echo $productData['ProductName']; ?></h3>
+                                </div>
+                                <div class="checkbox">
+                                    <span><i class="fa fa-check-square" aria-hidden="true"></i><?php echo ($productData['Availability'] ? 'In stock' : 'Out of stock'); ?></span>
+                                </div>
+                              	<?php
+                              try {
+                                  // Replace this with the actual CategoryID you want to search for
+                                  $categoryId = $productData['CategoryID'];
+                                  
+                                  $stmt = $con->prepare("SELECT CategoryName FROM Categories WHERE CategoryID = ?");
+                                  $stmt->bind_param('i', $categoryId); // 'i' represents an integer
+                                  $stmt->execute();
+                                  $stmt->bind_result($categoryName);
+                                  
+                                  if ($stmt->fetch()) {
+                                      echo '<span style ="font-size: 30px;
+									  font-weight: 900;
+									  margin-bottom: 20px; color:black">  ' . $categoryName . '</span>';
+                                  } else {
+                                      echo '<span>Category not found</span>';
+                                  }
+                                  
+                                  $stmt->close();
+                              } catch (mysqli_sql_exception $e) {
+                                  echo 'Database query error: ' . $e->getMessage();
+                              }
+                              ?>
+                              
+                              
+								
+                                <h4>EGP<?php echo $productData['Price']; ?></h4>
+                                <div class="quick-add-to-cart">
+                                    <form method="post" class="cart">
                                         
-                                        
-                                       
-                                        <br/>
-                                        
-                                        <div class="quick-add-to-cart">
-											<form method="post" class="cart">
-												
-												<button class="btn btn-lg btn-success" type="submit"><span class="lnr lnr-cart"></span>Add to Cart</button>
-                                                
-                                                <!-- <button data-toggle="modal" data-target="#myModal" class="single_add_to_cart_button hyper-page" type="button"><span class="lnr lnr-cart"></span>Bulk Order</button> -->
-											</form>
-										</div>
-                                          <br/>
-                                        
-                                        <div class="quick-add-to-cart">
-											
-											<button type="button" class="btn btn-lg btn-warning col-sm-12"><span class="lnr lnr-cart"></span>Buy Now</button>	
-												
-                                                
-                                                
-										</div>
-                                        
-                                        
-										<div class="action-heiper">
+                                        <button class="btn btn-lg btn-success" type="submit"><span class="lnr lnr-cart"></span>Add to Cart</button>
+                                    </form>
+                                </div>
+                                <br />
+                                <br />
+                                <div class="quick-add-to-cart">
+                                    <form method="post" class="cart">
+                                        <button type="button" class="btn btn-lg btn-warning col-sm-12">
+                                            <span class="lnr lnr-cart"></span>Buy Now
+                                        </button>
+                                    </form>
+									<div class="action-heiper">
 											<!--<a href="#"><span class="lnr lnr-sync"></span></a>-->
 											<a href="#"><span class="lnr lnr-cart"></span></a>
 											<a href="#"><span class="lnr lnr-heart"></span></a>
 										</div>	
-										<p>Stay comfortable and stay in the race no matter what the weather's up to. The Bruno Compete Hoodie's water-repellent exterior shields you from the elements, while advanced fabric technology inside wicks moisture to keep you dry.</p>
-									</div>
-								</div>
-							</div>							
-						</div>
-						<!-- product-simple-area-end -->
-						<div class="product-info-detailed pb-80">
-							<div class="row">
-								<div class="col-lg-12">
-									<div class="product-info-tab">
-										<!-- Nav tabs -->
-										<ul class="product-info-tab-menu" role="tablist">
-											<li class="active"><a href="#details" data-toggle="tab">details</a></li>
-                                            <li><a href="#property" data-toggle="tab">Properties</a></li>
-                                            <!-- <li><a href="#careinstru" data-toggle="tab">Care Instruction</a></li> -->
-                                              <li><a href="#warranty" data-toggle="tab">Warranty</a></li>
-                                              <!--  <li><a href="#return" data-toggle="tab">Return</a></li> -->
-											<li><a href="#reviews" data-toggle="tab">reviews 1</a></li>
-										</ul>
-											<!-- Tab panes -->
-										<div class="tab-content">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- product-simple-area-end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tab panes -->
+<div class="tab-content">
 											<div class="tab-pane active" id="details">
 												<div class="product-info-tab-content">
 													<p>Chilly weather is just an excuse to throw on your toasty, handsome new Oslo Trek Hoodie. It features an adjustable drawstring hood and a kangaroo pocket for extra hand warmth. The ultra-soft, cozy lining will have you wishing for more brisk days.</p>
@@ -181,286 +173,43 @@
 													</ul>
 												</div>
 											</div>
-                                            
-                                            <div class="tab-pane" id="property">
-												<div class="product-info-tab-content">
-													<p>Chilly property is just an excuse to throw on your toasty, handsome new Oslo Trek Hoodie. It features an adjustable drawstring hood and a kangaroo pocket for extra hand warmth. The ultra-soft, cozy lining will have you wishing for more brisk days.</p>
-													<ul>
-														<li> Brown hoodie with black detail.</li>
-														<li>Pullover.</li>
-														<li>Adjustable drawstring hood.</li>
-														<li>Ribbed cuffs/waistband.</li>
-														<li>Machine wash/dry.</li>
-													</ul>
-												</div>
-											</div>
-                                            
-                                            
-                                            <!-- <div class="tab-pane" id="careinstru">
-												<div class="product-info-tab-content">
-													<p>Chilly careinstru is just an excuse to throw on your toasty, handsome new Oslo Trek Hoodie. It features an adjustable drawstring hood and a kangaroo pocket for extra hand warmth. The ultra-soft, cozy lining will have you wishing for more brisk days.</p>
-													<ul>
-														<li> Brown hoodie with black detail.</li>
-														<li>Pullover.</li>
-														<li>Adjustable drawstring hood.</li>
-														<li>Ribbed cuffs/waistband.</li>
-														<li>Machine wash/dry.</li>
-													</ul>
-												</div>
-											</div> -->
-                                            
-                                            
-                                            <div class="tab-pane" id="warranty">
-												<div class="product-info-tab-content">
-													<p>Chilly warranty is just an excuse to throw on your toasty, handsome new Oslo Trek Hoodie. It features an adjustable drawstring hood and a kangaroo pocket for extra hand warmth. The ultra-soft, cozy lining will have you wishing for more brisk days.</p>
-													<ul>
-														<li> Brown hoodie with black detail.</li>
-														<li>Pullover.</li>
-														<li>Adjustable drawstring hood.</li>
-														<li>Ribbed cuffs/waistband.</li>
-														<li>Machine wash/dry.</li>
-													</ul>
-												</div>
-											</div>
-                                            
-                                            <!-- <div class="tab-pane" id="return">
-												<div class="product-info-tab-content">
-													<p>Chilly return is just an excuse to throw on your toasty, handsome new Oslo Trek Hoodie. It features an adjustable drawstring hood and a kangaroo pocket for extra hand warmth. The ultra-soft, cozy lining will have you wishing for more brisk days.</p>
-													<ul>
-														<li> Brown hoodie with black detail.</li>
-														<li>Pullover.</li>
-														<li>Adjustable drawstring hood.</li>
-														<li>Ribbed cuffs/waistband.</li>
-														<li>Machine wash/dry.</li>
-													</ul>
-												</div>
-											</div> -->
-                                            
-											<div class="tab-pane" id="reviews">
-												<div class="customer-review-top">
-													<h3>Customer Reviews</h3>
-													<h4>Plazathemes</h4>
-													<div class="cus-review-left">
-														<div class="single-customer-rating">
-															<span>Quality</span>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="single-customer-rating">
-															<span>Price</span>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="single-customer-rating">
-															<span>Value</span>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-														</div>
-													</div>
-													<div class="cus-review-left">
-														<p>Plazathemes</p>
-														<span> Review by Plazathemes </span>
-														<span> Posted on 7/21/16 </span>
-													</div>
-												</div>
-												<div class="customer-review-bottom fix">
-													<h2>You're reviewing:</h2>
-													<h2>Bruno Compete Hoodie</h2>
-													<p>Your Rating <span>*</span></p>
-													<div class="cus-review-left">
-														<div class="single-customer-rating">
-															<span>Price</span>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="single-customer-rating">
-															<span>Value</span>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="single-customer-rating">
-															<span> Quality</span>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-														</div>
-													</div>	
-												</div>
-												<div class="customer-review-form">
-													<form>
-														<div class="form-group contuct_f">
-															<label for="exampleInputEmail1">Nickname <span>*</span></label>
-															<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Name">
-														</div>
-														<div class="form-group contuct_f">
-															<label for="exampleInputPassword1">Summary <span>*</span></label>
-															<input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
-														</div>
-														<div class="form-group contuct_f">
-															<label for="exampleInputPassword1">Review <span>*</span></label>
-															<textarea class="form-control" rows="3"></textarea>
-														</div>
-														<button type="submit" class="btn btn-default contact-btn">Submit Review</button>
-													</form>	
-												</div>												
-											</div>
-										</div>										
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-						<div class="hyper-banner pt-80 pb-40">
-							<div class="row">
-								<div class="col-lg-12">
-									<div class="single-banner">
-										<a href="#"></a>
-									</div>
-								</div>
-							</div>						
-						</div>
-						
-
-						<!--<div class="row">
-							<div class="col-lg-12">
-								<div class="bedroom-sideber mt-40">
-									<div class="bedroom-title text-uppercase">
-										<h4>Compare Products</h4>		
-									</div>
-									<p>You have no items to compare.</p>
-								</div>	
-								<div class="bedroom-sideber mt-40">
-									<div class="bedroom-title text-uppercase">
-										<h4>My Wish List</h4>
-									</div>
-									<p>You have no items in your wish list.</p>
-								</div>								
-							</div>
-						</div>-->
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- all-hyperion-page-end -->
-        
-        <!-- Related product Start -->
-        <section>
-        <div class="container">
-        <div class="upsell-product">
-							<div class="upsell-product-title">
-								<h3 class="text-uppercase">Related Products</h3>
-							</div>
-							<div class="row dotted-style3">
-								<div class="upsell-product-active">
-									<div class="col-lg-12">
-										<div class="single-new-product">
-											<div class="product-img">
-												<a href="#">
-													<img src="img/product/5.jpg" class="first_img" alt="" />
-													<img src="img/product/12.jpg" class="seceond_img" alt="" />
-												</a>
-												<div class="new-product-action feature-action">
-												<!--	<a href="#"><span class="lnr lnr-sync"></span></a>-->
-													<a href="#"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
-													<a href="#"><span class="lnr lnr-heart"></span></a>
-												</div>
-											</div>
-											<div class="product-content text-center">
-												<a href="#"><h3>Beaumont Summit</h3></a>
-												<div class="product-price-star">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<h4>Rs44.00</h4>
-											</div>
-										</div>
-									</div>
-                                    
-                                    
-                                    
-                                    
-                                    
-									<div class="col-lg-12">
-										<div class="single-new-product">
-											<div class="product-img">
-												<a href="#">
-													<img src="img/product/3.jpg" class="first_img" alt="" />
-													<img src="img/product/5.jpg" class="seceond_img" alt="" />
-												</a>
-												<div class="new-product-action feature-action">
-													<!--<a href="#"><span class="lnr lnr-sync"></span></a>-->
-													<a href="#"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
-													<a href="#"><span class="lnr lnr-heart"></span></a>
-												</div>
-											</div>
-											<div class="product-content text-center">
-												<a href="#"><h3>Beaumont Summit</h3></a>
-												<div class="product-price-star">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<h4>Rs23.00</h4>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-12">
-										<div class="single-new-product">
-											<div class="product-img">
-												<a href="#">
-													<img src="img/product/10.jpg" class="first_img" alt="" />
-													<img src="img/product/5.jpg" class="seceond_img" alt="" />
-												</a>
-												<div class="new-product-action feature-action">
-												<!--	<a href="#"><span class="lnr lnr-sync"></span></a>-->
-													<a href="#"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
-													<a href="#"><span class="lnr lnr-heart"></span></a>
-												</div>
-											</div>
-											<div class="product-content text-center">
-												<a href="#"><h3>Beaumont Summit</h3></a>
-												<div class="product-price-star">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<h4>Rs88.00</h4>
-											</div>
-										</div>
-									</div>							
-								</div>
-							</div>						
-						</div>
+                        <!-- Product Description Tab -->
+                        <div class="product-info-detailed pb-80">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="product-info-tab">
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="details">
+                                                <div class="product-info-tab-content">
+                                                    <p><?php echo $productData['Description']; ?></p>
+                                                    <!-- Additional product details can be displayed here -->
+                                                </div>
+                                            </div>
+                                            <!-- Add similar tab content for other product details as needed -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        </section><!-- Related product end -->
-        
+    </div>
+</div>
+<?php
+    } else {
+        echo 'Product not found';
+    }
+} else {
+    echo 'Product ID not provided';
+}
+?>
+
+                                            
+                                          
+        <!-- all-hyperion-page-end -->
         <!-- Icons related start -->
         <section class="icon_section">
         <div class="container">
@@ -479,11 +228,8 @@
           <h4 style="padding:5px 0;"><img src="img/002-cash-money.png"></h4>
         <h5 style="padding:5px 0;">C.O.D</h5>
         <p>You can pay by Cash or Card at the time of delivery.</p></div>
-          
-           <div class="col-md-3 col-sm-3">
-           <h4 style="padding:5px 0;"><img src="img/001-tools.png"></h4>
-        <h5 style="padding:5px 0;">Free Installation</h5>
-        <p>We assemble the product, and clear away the packaging.</p></div>
+      
+      
         </div>
         </div>
         </section>
@@ -493,31 +239,33 @@
          
          
         
-		<!-- contact-area-start -->
-		<?php include('partials/footer.php'); ?>
-		
-		<!-- all js here -->
-		<!-- jquery latest version -->
+        <!-- contact-area-start -->
+        <?php include('partials/footer.php'); ?>
+        
+        <!-- all js here -->
+        <!-- jquery latest version -->
         <script src="js/vendor/jquery-1.12.0.min.js"></script>
-		<!-- bootstrap js -->
+        <!-- bootstrap js -->
         <script src="js/bootstrap.min.js"></script>
-		<!-- owl.carousel js -->
+        <!-- owl.carousel js -->
         <script src="js/owl.carousel.min.js"></script>
-		<!-- meanmenu js -->
+        <!-- meanmenu js -->
         <script src="js/jquery.meanmenu.js"></script>
-		<!-- jquery-ui js -->
+        <!-- jquery-ui js -->
         <script src="js/jquery-ui.min.js"></script>
-		<!-- wow js -->
-        <script src="js/wow.min.js"></script>	
-		<!-- nivo.slider js -->
-        <script src="js/jquery.nivo.slider.js"></script>		
-		<!-- magnific-popup js -->
-        <script src="js/jquery.magnific-popup.min.js"></script>	
-		<!-- scrolly js -->
-        <script src="js/jquery.scrolly.js"></script>			
-		<!-- plugins js -->
+        <!-- wow js -->
+        <script src="js/wow.min.js"></script>   
+        <!-- nivo.slider js -->
+        <script src="js/jquery.nivo.slider.js"></script>        
+        <!-- magnific-popup js -->
+        <script src="js/jquery.magnific-popup.min.js"></script> 
+        <!-- scrolly js -->
+        <script src="js/jquery.scrolly.js"></script>            
+        <!-- plugins js -->
         <script src="js/plugins.js"></script>
-		<!-- main js -->
+        <!-- main js -->
         <script src="js/main.js"></script>
     </body>
 </html>
+
+

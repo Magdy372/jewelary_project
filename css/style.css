@@ -2682,6 +2682,7 @@ ul.sinple-tab-menu li.active a{
 	width: 40px;
 	color:#fff;
 	margin-left:6px;
+	margin: 10px;
 }
 .product-simple-content .action-heiper a:first-child {
     margin-left: 0;

@@ -20,6 +20,7 @@
 								session_start();
 								include_once ("UserClass.php");
 								include_once ("shoppingcardclass.php");
+								include_once ("productclass.php");
 								if (!empty($_SESSION['UserID'])) {
 									$UserObject = new User($_SESSION["UserID"]);
 									echo "<p>Welcome " . $UserObject->FName . "</p>";
@@ -50,6 +51,33 @@
 										exit;
 									}
 								}
+								if (isset($_GET['wishlist_id']) || isset($_GET['cart_id'])) {
+									header("Location: customer-login.php");
+									exit;
+								}
+								if (isset($_GET['product_id']) || isset($_GET['cart_id'])) {
+									$productObject1 = Product::getProductID($userID, $productID);
+									
+									
+								}
+								if (isset($_GET['details_id'])) {
+									$productID = $_GET['details_id'];
+									$productData = Product::getProductByID($con, $productID);
+								
+									if ($productData) {
+										// Display product details here
+										echo 'Product Name: ' . $productData['ProductName'] . '<br>';
+										echo 'Description: ' . $productData['Description'] . '<br>';
+										echo 'Price: ' . $productData['Price'] . '<br>';
+										// Add more product details as needed
+									} else {
+										echo 'Product not found';
+									}
+								} else {
+									echo 'Product ID not provided';
+								}
+								
+
 							?>								
 							</div>
 						</div>					

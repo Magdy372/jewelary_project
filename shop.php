@@ -246,8 +246,8 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="single-new-product mt-40 category-new-product">
                     <div class="product-img">
-                        <a href="product-details.html">
-                            <img src="<?php echo $imageSrc; ?>" class="first_img" alt="" />
+                        <a href="shop.php?product_id=<?= $product['ProductID']; ?>">
+                            <img src="<?php echo $imageSrc; ?>" class="first_img" alt=""  />
                         </a>
                         <div class="new-product-action">
                             <!-- Uncomment the following line if needed -->
