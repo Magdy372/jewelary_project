@@ -124,18 +124,18 @@ class Product {
         }
     }
 
-static public function getProductByID($con, $ProductID) {
-    $ProductID = (int)$ProductID; // Ensure ProductID is an integer
-    $query = "SELECT * FROM Product WHERE ProductID = $ProductID";
+    public static function getProductID($con, $ProductID) {
+        $ProductID = (int)$ProductID; // Ensure ProductID is an integer
+        $query = "SELECT * FROM Product WHERE ProductID = $ProductID";
 
-    $result = mysqli_query($con, $query);
-    if ($result) {
-        $productData = mysqli_fetch_assoc($result);
-        return $productData;
-    } else {
-        return false; // Failed to retrieve product
+        $result = mysqli_query($con, $query);
+        if ($result) {
+            $productData = mysqli_fetch_assoc($result);
+            return $productData;
+        } else {
+            return false; // Failed to retrieve the product
+        }
     }
-}
 }
 
 ?>

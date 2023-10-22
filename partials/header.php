@@ -16,69 +16,73 @@
 					<div class="row">
 						<div class="col-lg-3 col-md-4 col-sm-5">
 							<div class="header-top-right header-top-left-4">
-								<?php 
-								session_start();
-								include_once ("UserClass.php");
-								include_once ("shoppingcardclass.php");
-								include_once ("productclass.php");
-								if (!empty($_SESSION['UserID'])) {
-									$UserObject = new User($_SESSION["UserID"]);
-									echo "<p>Welcome " . $UserObject->FName . "</p>";
-								
-									if (isset($_GET['wishlist_id'])) {
-										include_once("wishlishClass.php");
-										$productID = $_GET['wishlist_id'];
-										$userID = $_SESSION["UserID"];
-										$wishObject1 = WishlistItem::addToWishlist($userID, $productID);
-								
-										if ($wishObject1 !== NULL) {
-											echo "Added to wishlist Successfully :)";
-										}
-									} elseif (isset($_GET['cart_id'])) {
-										$productID = $_GET['cart_id'];
-										$userID = $_SESSION["UserID"];
-										$cartObject1 = ShoppingCart::addToCart($userID, $productID);
-								
-										if ($cartObject1 !== NULL) {
-											echo "Added to cart Successfully :)";
-											echo "$cartObject1";
-										}
-									}
-								} else {
-									// Guests cannot access wishlist or add anything to it
-									if (isset($_GET['wishlist_id']) || isset($_GET['cart_id'])) {
-										header("Location: customer-login.php");
-										exit;
-									}
-								}
-								if (isset($_GET['wishlist_id']) || isset($_GET['cart_id'])) {
-									header("Location: customer-login.php");
-									exit;
-								}
-								if (isset($_GET['product_id']) || isset($_GET['cart_id'])) {
-									$productObject1 = Product::getProductID($userID, $productID);
-									
-									
-								}
-								if (isset($_GET['details_id'])) {
-									$productID = $_GET['details_id'];
-									$productData = Product::getProductByID($con, $productID);
-								
-									if ($productData) {
-										// Display product details here
-										echo 'Product Name: ' . $productData['ProductName'] . '<br>';
-										echo 'Description: ' . $productData['Description'] . '<br>';
-										echo 'Price: ' . $productData['Price'] . '<br>';
-										// Add more product details as needed
-									} else {
-										echo 'Product not found';
-									}
-								} else {
-									echo 'Product ID not provided';
-								}
-								
+							<?php
+session_start();
+include_once("UserClass.php");
+include_once("shoppingcardclass.php");
+include_once("productclass.php");
+include_once("wishlishClass.php");
+// Check if a user is logged in
+if (!empty($_SESSION['UserID'])) {
+    $userID = $_SESSION['UserID'];
+    $UserObject = new User($userID);
+    echo "<p>Welcome " . $UserObject->FName . "</p";
 
-							?>								
+    if (isset($_GET['wishlist_id'])) {
+        
+        $productID = $_GET['wishlist_id'];
+        $wishObject1 = WishlistItem::addToWishlist($userID, $productID);
+
+        if ($wishObject1 !== NULL) {
+            echo "Added to wishlist Successfully :)";
+        }
+    } elseif (isset($_GET['cart_id'])) {
+        $productID = $_GET['cart_id'];
+        $cartObject1 = ShoppingCart::addToCart($userID, $productID);
+
+        if ($cartObject1 !== NULL) {
+            echo "Added to cart Successfully :)";
+            echo "$cartObject1";
+        }
+    }
+} else {
+    // Guests cannot access wishlist or add anything to it
+    if (isset($_GET['wishlist_id']) || isset($_GET['cart_id'])) {
+        header("Location: customer-login.php");
+        exit;
+    }
+}
+
+if (isset($_GET['product_id']) || isset($_GET['cart_id'])) {
+    if (isset($_GET['product_id'])) {
+        $productID = $_GET['product_id'];
+    } else {
+        $productID = $_GET['cart_id'];
+    }
+    
+    // Assuming Product::getProductID is a method to get product details
+    $productObject1 = Product::getProductID($con, $productID);
+}
+
+
+if (isset($_GET['details_id'])) {
+    $productID = $_GET['details_id'];
+    $productData = Product::getProductByID($con, $productID);
+
+    if ($productData) {
+        // Display product details here
+        echo 'Product Name: ' . $productData['ProductName'] . '<br>';
+        echo 'Description: ' . $productData['Description'] . '<br>';
+        echo 'Price: ' . $productData['Price'] . '<br>';
+        // Add more product details as needed
+    } else {
+        echo 'Product not found';
+    }
+} else {
+    echo 'Product ID not provided';
+}
+?>
+			
 							</div>
 						</div>					
 						<div class="col-lg-9 col-md-8 col-sm-7 header-top-right-4">
