@@ -17,7 +17,7 @@
             $Price = $_POST['Price'];
             $Availability = $_POST['Availability'];
             $CategoryID = $_POST['CategoryID'];
-
+            $MetalID =$_POST['MetalID'];
             // Check if CategoryID is not empty
             if (empty($CategoryID)) {
                 echo "Please select a category for the product.";
@@ -41,7 +41,7 @@
             // Convert uploaded files array to a comma-separated string
             $ProductPictures = implode(',', $uploadedFiles);
 
-            if (Product::addProduct($con, $ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID)) {
+            if (Product::addProduct($con, $ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID,$MetalID)) {
                 header("Location:addproduct.php");
             } else {
                 echo "Failed to add the product.";
@@ -96,6 +96,22 @@
                 <option value="1">Available</option>
                 <option value="0">Not Available</option>
             </select><br>
+            <label for="MetalID">Metal:</label>
+              <select name="MetalID" id="MetalID">
+                  <?php
+                
+              
+                  // Fetch and display metal names and IDs
+                  $metalQuery = "SELECT MetalID, MetalName FROM Metal";
+                  $metalResult = mysqli_query($con, $metalQuery);
+              
+                  if ($metalResult) {
+                      while ($metal = mysqli_fetch_assoc($metalResult)) {
+                          echo "<option value='{$metal['MetalID']}'>{$metal['MetalName']}</option>";
+                      }
+                  }
+                  ?>
+              </select>
 
             <label for="CategoryID">Category:</label>
             <select name="CategoryID" id="CategoryID">

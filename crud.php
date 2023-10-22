@@ -15,6 +15,7 @@
             <th>Size</th>
             <th>Price</th>
             <th>Availability</th>
+            <th>MetalID</th>
             <th>Category</th>
             <th>Actions</th>
         </tr>
@@ -61,6 +62,12 @@
                 echo "<td>{$product['Size']}</td>";
                 echo "<td>{$product['Price']}</td>";
                 echo "<td>{$product['Availability']}</td>";
+                $metalID = $product['MetalID'];
+                $metalQuery = "SELECT MetalName FROM Metal WHERE MetalID = $metalID";
+                $metalResult = mysqli_query($con, $metalQuery);
+                $metal = mysqli_fetch_assoc($metalResult);
+                
+                echo "<td>{$metal['MetalName']}</td>";
 
                 // Fetch and display category name for the product
                 $categoryID = $product['CategoryID'];
