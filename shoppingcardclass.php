@@ -1,52 +1,62 @@
 <?php
-
 class ShoppingCart
 {
     private $userID;
-    private $conn; // The database connection
+    private $productID;
+     // Use a static property to store the total price
 
-    public function __construct($userID, $databaseConnection)
+    public function __construct($userID, $productID)
     {
         $this->userID = $userID;
-        $this->conn = $databaseConnection;
+        $this->productID = $productID;
     }
-    static function addToCart($userID, $productID) {
+
+    public static function addToCart($userID, $productID)
+    {
         $userID = $userID;
         $productID = $productID;
         $check = false;
         $cartItems = array();
-        $totalprice = 0; // Initialize total price
-    
+
         $select_query = "SELECT * FROM ShoppingCart WHERE UserID = $userID";
         $result = mysqli_query($GLOBALS['con'], $select_query);
-    
+
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
-                // Append each row to the $wishlistItems array
+                // Append each row to the $cartItems array
                 $cartItems[] = $row;
             }
+
             foreach ($cartItems as $element) {
                 if ($element['ProductID'] == $productID) {
                     $check = true;
-                    $totalprice += $element['Price']; // Calculate the total price
+                    break;
                 }
             }
-            if ($check) {
-                echo "Product is already in the cart ;)";
-            } else {
-                echo "Product is not in the cart :)";
-    
-                $query = "INSERT INTO ShoppingCart  (UserID, ProductID) VALUES ($userID, $productID)";
-    
-                if (mysqli_query($GLOBALS['con'], $query)) {
-                    
-                    return  $totalprice ;
+
+         
+
+                if ($check) {
+                    echo "Product is already in the cart ;)";
                 } else {
-                    return false; // Failed to add the product
+                    $query = "INSERT INTO ShoppingCart (UserID, ProductID) VALUES ($userID, $productID)";
+
+                    if (mysqli_query($GLOBALS['con'], $query)) {
+                        // Calculate the total price after adding the product
+                       
+                        return true ;// Return the updated total price
+                    } else {
+                        return false; // Failed to add the product
+                    }
                 }
+            } else {
+                return false; // Failed to fetch product price
             }
         }
-    }
+    
+
+
+    
     static function dispalyCart($userID){
        
         include_once ("productClass.php");

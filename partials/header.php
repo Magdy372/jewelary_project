@@ -40,6 +40,7 @@
 								
 										if ($cartObject1 !== NULL) {
 											echo "Added to cart Successfully :)";
+											echo "$cartObject1";
 										}
 									}
 								} else {

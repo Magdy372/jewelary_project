@@ -119,9 +119,12 @@
 									</thead>
 									<tbody>
 									<?php
+									$sum=0;
+									
 											if (!is_null($cartObject) && !empty($cartObject)) {
 												foreach ($cartObject as $element) { 
 													$ProductPictures = explode(',', $element->ProductPicture);
+													$sum+=$element->Price;
 													if (!empty($ProductPictures[0])) {
 														$imageSrc = "uploads/" . $ProductPictures[0];
 													} else {
@@ -134,13 +137,13 @@
 										<td class="product-price">
                                  <span class="amount">$<?=$element->Price?></span>
                                           </td>
-										<td class="product-quantity">
-                                         <input type="number" value="1" id="quantityInput" />
-                                        </td>
-                                  <td class="total-price">
-                              <span class="amount">$<?=$element->Price?></span>
-                                       </td>
-
+										  <td class="product-quantity">
+										  <input type="number" value="1" class="quantityInput" oninput="(() => { validateQuantity(this); updateTotal(this); })();" />
+                                  </td>
+										  <td class="totalproduct">
+                                      <span class="totalproduct">$<?=$element->Price?></span>
+                                  </td>
+                            
 										
 										<td class="product-remove"><a href="cart.php?delete_id=<?=$element->ProductID?>">x</a></td>
 										</tr>
@@ -172,7 +175,9 @@
 									<div class="cart_totals">
 										
 													
-													<strong>Total Price: <span class="amount">$<?=$element->Price?> </span></strong>
+													<!-- Add a container for the total price -->
+                                <strong>Total Price: <span id="totalPrice" class="amount"> $<?= $sum ?></span></strong>
+
 													</td>
 												</tr>											
 											</tbody>
@@ -192,7 +197,46 @@
 		<!-- contact-area-start -->
 		<?php include('partials/footer.php'); ?>
 		<!-- footer-area-end -->
-		<!-- .copyright-area-start -->
+	
+    </body>
+</html>
+<script>
+function updateTotal(input) {
+	const quantity = parseInt(input.value);
+	const pricePerItem = parseFloat(input.closest('tr').querySelector('.product-price span').textContent.slice(1)); // Get the price for the current row
+	const total = quantity * pricePerItem;
+
+	const totalElement = input.closest('tr').querySelector('.totalproduct');
+	totalElement.textContent = '$' + total.toFixed(2);
+	updateGrandTotal();
+}
+
+function updateGrandTotal() {
+	const totalElements = document.querySelectorAll('.totalproduct');
+	let grandTotal = 0;
+	
+	totalElements.forEach(totalElement => {
+		const totalValue = parseFloat(totalElement.textContent.slice(1));
+		if (!isNaN(totalValue)) {
+			grandTotal += totalValue;
+		}
+	});
+
+	document.getElementById('totalPrice').textContent = '$' + grandTotal.toFixed(2);
+}
+function validateQuantity(input) {
+    // Get the current value of the input field
+    var quantity = parseInt(input.value, 10);
+
+    // Check if the quantity is less than 1
+    if (quantity < 1) {
+        // If it's less than 1, set it to 1
+        input.value = 1;
+    }
+}
+</script>
+
+	<!-- .copyright-area-start -->
 	
 		<!-- .copyright-area-end -->
 		
@@ -219,22 +263,3 @@
         <script src="js/plugins.js"></script>
 		<!-- main js -->
         <script src="js/main.js"></script>
-    </body>
-</html>
-<script>
-/* 	// Get references to the input and total price elements
-const quantityInput = document.getElementById("quantityInput");
-const productPriceElement = document.querySelector(".product-price .amount");
-const totalPriceElement = document.querySelector(".total-price .amount");
-
-// Initial total price based on the default quantity
-let total = parseFloat(productPriceElement.textContent.slice(1));
-
-// Update the total price when the quantity changes
-quantityInput.addEventListener("input", function() {
-    const quantity = parseInt(quantityInput.value);
-    total = quantity * parseFloat(productPriceElement.textContent.slice(1));
-    totalPriceElement.textContent = "$" + total.toFixed(2);
-}); */
-
-</script>
