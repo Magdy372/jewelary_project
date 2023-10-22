@@ -67,7 +67,7 @@ if (isset($_GET['product_id']) || isset($_GET['cart_id'])) {
 
 if (isset($_GET['details_id'])) {
     $productID = $_GET['details_id'];
-    $productData = Product::getProductByID($con, $productID);
+    $productData = Product::getProductID($con, $productID);
 
     if ($productData) {
         // Display product details here
