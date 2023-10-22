@@ -2,10 +2,148 @@
 <html>
 <head>
     <title>Product Management</title>
+
+     <style>
+            .navbar {
+            width: 200px;
+            height: 100%;
+            background-color: #bebe44;
+            position: fixed;
+            left: 0;
+            top: 0;
+            color: white;
+            padding: 20px;
+        }
+
+        body {
+            color: #666666;
+            font-family: 'Lato', sans-serif;
+            font-size: 15px;
+            line-height: 1.42857;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 10px 0;
+            text-decoration: none;
+            color: white;
+        }
+
+
+   
+
+  
+
+       
+
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+            }
+
+            .navbar {
+                width: 200px;
+                height: 100%;
+                background-color: #333;
+                position: fixed;
+                left: 0;
+                top: 0;
+                color: white;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                /* Stack logo and links vertically */
+                align-items: center;
+                /* Center content horizontally */
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+
+        .logo {
+            width: 150px;
+            /* Adjust the width for a larger logo */
+            height: auto;
+            /* Maintain the aspect ratio */
+            margin-bottom: 20px;
+            /* Add spacing between logo and links */
+        }
+
+        @media (max-width: 768px) {
+            /* ... Your existing responsive CSS ... */
+        }
+
+
+
+
+
+        table {
+    width: 80%; /* Reduce the table width */
+    border-collapse: collapse;
+    margin: 0 auto 0 20%; /* Shift the table to the right by adding a left margin */
+}
+
+th, td {
+    text-align: center;
+    padding: 5px; /* Reduce the padding inside table cells */
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+img {
+    max-width: 60px; /* Reduce the maximum width of images */
+    max-height: 60px; /* Reduce the maximum height of images */
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+}
+
+.add-product-button {
+    display: inline-block;
+    padding: 5px 10px; /* Reduce the button padding */
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+}
+
+
+.add-product-button:hover {
+    background-color: #0056b3;
+}
+
+.center-h2 {
+    text-align: center;
+    position: absolute;
+    top: 55%;
+    right:50%;
+    /* transform: translate(-50%, -50%); */
+}
+
+
+    </style>
 </head>
 <body>
+<div class="navbar">
+        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo">
+        <!-- Logo inside the navbar -->
+        <a href="admin.php">Admin Dashboard</a>
+        <a href="add_admin.php">Add Admin</a>
+        <a href="addproduct.php">Add Product</a>
+        <a href="view_sold_products.php">View Sold Products</a>
+    </div>
     <h2>Product Management</h2>
-    <a href="addproduct.php">Add Product</a>
     <table>
         <tr>
             <th>Product Name</th>
@@ -95,5 +233,7 @@
 
         ?>
     </table>
+    <a class="add-product-button" href="addproduct.php">Add Product</a>
+
 </body>
 </html>
