@@ -140,7 +140,7 @@ img {
         <!-- Logo inside the navbar -->
         <a href="admin.php">Admin Dashboard</a>
         <a href="add_admin.php">Add Admin</a>
-        <a href="addproduct.php">Add Product</a>
+        <a href="crud.php">Product</a>
         <a href="view_sold_products.php">View Sold Products</a>
     </div>
     <h2>Product Management</h2>
