@@ -114,7 +114,7 @@
 									<ul>
 										<li>
 											<div class="cart-img">
-												<a href="#"><img src="./img/cart/1.jpg" alt="" /></a>
+												<a href="cart.php"><img src="./img/cart/1.jpg" alt="" /></a>
 											</div>
 											<div class="cart-content">
 												<h4><a href="#">1 x Faded...</a></h4>

@@ -174,7 +174,7 @@
 								<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
 									<div class="buttons-cart">
 										<input type="submit" value="Update Cart" />
-										<a href="#">Continue Shopping</a>
+										<a href="shop.php">Continue Shopping</a>
 									</div>
 									<div class="coupon">
 										<h3>Coupon</h3>
