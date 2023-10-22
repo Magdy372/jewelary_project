@@ -129,7 +129,7 @@
 														<td class="product-name"><a href="#"><?=$element->ProductName?></a></td>
 														<td class="product-price"><span class="amount">$<?=$element->Price?></span></td>
 														<td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-														<td class="product-add-to-cart"><a href=""> Add to Cart</a></td>
+														<td class="product-add-to-cart"><a href="wishlist.php?cart_id=<?= $element->ProductID ?>">Add to Cart</a></td>
 													</tr>
 										<?php 
 												}

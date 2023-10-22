@@ -63,13 +63,25 @@
 
 
 				}
-
-
-            }
+				if (isset($_GET['cart_id'])) {
+					$productID = $_GET['cart_id'];
+					$userID = $_SESSION["UserID"];
+					$cartObject1 = ShoppingCart::addToCart($userID, $productID);
+				
+					if ($cartObject1 !== NULL) {
+						echo "Added to cart successfully!";
+						// Redirect the user to the cart page or any other desired page
+						
+						
+					} else {
+						echo "Error adding to cart";
+					}
+				}
 
 				//to display user wishlist 
 				$cartObject=ShoppingCart::dispalyCart($_SESSION["UserID"]);
-
+		}
+	
 
 			?>
 
