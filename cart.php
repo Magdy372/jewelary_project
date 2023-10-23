@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Cart</title>
+        <title>Wishlist</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -38,21 +38,60 @@
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
+        
 		<!-- header-start -->
 		<?php include('partials/header.php'); ?>
-		<!-- mainmenu-area-end -->
-		<!-- page-title-wrapper-start -->
+		<?php
+			if($_SESSION["UserID"]!==NULL){
+				include_once ("shoppingcardclass.php");
+				
+				
+				// to adding product to wishlist 
+
+				// to delete product from Wishlist
+				if (isset($_GET['delete_id'])) {
+					$deleteProductID = $_GET['delete_id'];
+					$userID = $_SESSION["UserID"];
+					
+					$ShoppingObj=ShoppingCart::deleteFromCart($userID,$deleteProductID);
+					if ($ShoppingObj!==NULL)
+					{	
+						echo "Deleted Successfully :)";
+					}
+					// Implement the code to delete the item with $deleteProductID from the wishlist.
+					// You can use your WishlistItem class to delete the item.
+
+
+				}
+				if (isset($_GET['cart_id'])) {
+					$productID = $_GET['cart_id'];
+					$userID = $_SESSION["UserID"];
+					$cartObject1 = ShoppingCart::addToCart($userID, $productID);
+				
+					if ($cartObject1 !== NULL) {
+						echo "Added to cart successfully!";
+						// Redirect the user to the cart page or any other desired page
+						
+						
+					} else {
+						echo "Error adding to cart";
+					}
+				}
+
+				//to display user wishlist 
+				$cartObject=ShoppingCart::dispalyCart($_SESSION["UserID"]);
+		}
+	
+
+			?>
+
+            
 		<div class="page-title-wrapper">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="page-title">
-							<h3>Cart</h3>
+							
 						</div>
 					</div>
 				</div>
@@ -91,22 +130,43 @@
 										</tr>
 									</thead>
 									<tbody>
+									<?php
+									$sum=0;
+									
+											if (!is_null($cartObject) && !empty($cartObject)) {
+												foreach ($cartObject as $element) { 
+													$ProductPictures = explode(',', $element->ProductPicture);
+													$sum+=$element->Price;
+													if (!empty($ProductPictures[0])) {
+														$imageSrc = "uploads/" . $ProductPictures[0];
+													} else {
+														$imageSrc = "uploads/default.jpg";
+													} 
+										?>
 										<tr>
-											<td class="product-thumbnail"><a href="#"><img src="img/wishlist/1.jpg" alt="" /></a></td>
-											<td class="product-name"><a href="#">Vestibulum suscipit</a></td>
-											<td class="product-price"><span class="amount">$165.00</span></td>
-											<td class="product-quantity"><input type="number" value="1" /></td>
-											<td class="product-subtotal">$165.00</td>
-											<td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
+										<td class="product-thumbnail"><a href="#"><img src="<?=$imageSrc?>" alt="" /></a></td>
+										<td class="product-name"><a href="#"><?=$element->ProductName?></a></td>
+										<td class="product-price">
+                                 <span class="amount">$<?=$element->Price?></span>
+                                          </td>
+										  <td class="product-quantity">
+										  <input type="number" value="1" class="quantityInput" oninput="(() => { validateQuantity(this); updateTotal(this); })();" />
+                                  </td>
+										  <td class="totalproduct">
+                                      <span class="totalproduct">$<?=$element->Price?></span>
+                                  </td>
+                            
+										
+										<td class="product-remove"><a href="cart.php?delete_id=<?=$element->ProductID?>">x</a></td>
 										</tr>
-										<tr>
-											<td class="product-thumbnail"><a href="#"><img src="img/wishlist/2.jpg" alt="" /></a></td>
-											<td class="product-name"><a href="#">Vestibulum dictum magna</a></td>
-											<td class="product-price"><span class="amount">$50.00</span></td>
-											<td class="product-quantity"><input type="number" value="1" /></td>
-											<td class="product-subtotal">$50.00</td>
-											<td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-										</tr>
+										<?php 
+												}
+											} else {
+												// Handle the case where there are no items in the wishlist
+												echo "Your ShoppingCart is empty.";
+											}
+										?>
+										
 									</tbody>
 								</table>
 							</div>
@@ -114,7 +174,7 @@
 								<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
 									<div class="buttons-cart">
 										<input type="submit" value="Update Cart" />
-										<a href="#">Continue Shopping</a>
+										<a href="shop.php">Continue Shopping</a>
 									</div>
 									<div class="coupon">
 										<h3>Coupon</h3>
@@ -125,38 +185,11 @@
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
 									<div class="cart_totals">
-										<h2>Cart Totals</h2>
-										<table>
-											<tbody>
-												<tr class="cart-subtotal">
-													<th>Subtotal</th>
-													<td><span class="amount">$215.00</span></td>
-												</tr>
-												<tr class="shipping">
-													<th>Shipping</th>
-													<td>
-														<ul id="shipping_method">
-															<li>
-																<input type="radio" /> 
-																<label>
-																	Flat Rate: <span class="amount">$7.00</span>
-																</label>
-															</li>
-															<li>
-																<input type="radio" /> 
-																<label>
-																	Free Shipping
-																</label>
-															</li>
-															<li></li>
-														</ul>
-														<p><a class="shipping-calculator-button" href="#">Calculate Shipping</a></p>
-													</td>
-												</tr>
-												<tr class="order-total">
-													<th>Total</th>
-													<td>
-														<strong><span class="amount">$215.00</span></strong>
+										
+													
+													<!-- Add a container for the total price -->
+                                <strong>Total Price: <span id="totalPrice" class="amount"> $<?= $sum ?></span></strong>
+
 													</td>
 												</tr>											
 											</tbody>
@@ -176,7 +209,46 @@
 		<!-- contact-area-start -->
 		<?php include('partials/footer.php'); ?>
 		<!-- footer-area-end -->
-		<!-- .copyright-area-start -->
+	
+    </body>
+</html>
+<script>
+function updateTotal(input) {
+	const quantity = parseInt(input.value);
+	const pricePerItem = parseFloat(input.closest('tr').querySelector('.product-price span').textContent.slice(1)); // Get the price for the current row
+	const total = quantity * pricePerItem;
+
+	const totalElement = input.closest('tr').querySelector('.totalproduct');
+	totalElement.textContent = '$' + total.toFixed(2);
+	updateGrandTotal();
+}
+
+function updateGrandTotal() {
+	const totalElements = document.querySelectorAll('.totalproduct');
+	let grandTotal = 0;
+	
+	totalElements.forEach(totalElement => {
+		const totalValue = parseFloat(totalElement.textContent.slice(1));
+		if (!isNaN(totalValue)) {
+			grandTotal += totalValue;
+		}
+	});
+
+	document.getElementById('totalPrice').textContent = '$' + grandTotal.toFixed(2);
+}
+function validateQuantity(input) {
+    // Get the current value of the input field
+    var quantity = parseInt(input.value, 10);
+
+    // Check if the quantity is less than 1
+    if (quantity < 1) {
+        // If it's less than 1, set it to 1
+        input.value = 1;
+    }
+}
+</script>
+
+	<!-- .copyright-area-start -->
 	
 		<!-- .copyright-area-end -->
 		
@@ -203,5 +275,3 @@
         <script src="js/plugins.js"></script>
 		<!-- main js -->
         <script src="js/main.js"></script>
-    </body>
-</html>

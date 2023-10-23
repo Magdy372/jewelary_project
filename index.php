@@ -72,9 +72,9 @@
 										<div class="col-lg-12">
 											<div class="single-new-product">
 												<div class="product-img">
-													<a href="product-details.html">
-														<img src=" <?php echo $imageSrc; ?> " class="first_img" alt="" />
-													</a>
+												<a href="product-details.php?details_id=<?=$product['ProductID'];?>">
+                                                    <img src="<?= $imageSrc ?>" class="first_img" alt="" />
+                                                   </a>
 												</div>
 												<div class="product-content text-center">
 													<a href="product-details.html"><h3><?=$product['ProductName']?></h3></a>
@@ -95,7 +95,7 @@
 														<ul>
 															<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
 															<li><a href="index.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a></li>
-															<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
+															<li><a href="index.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart"></span></a></li>
 														</ul>
 													</div>
 												</div>

@@ -16,40 +16,73 @@
 					<div class="row">
 						<div class="col-lg-3 col-md-4 col-sm-5">
 							<div class="header-top-right header-top-left-4">
-								<?php 
-								session_start();
-								include_once ("UserClass.php");
-							
-								if(!empty($_SESSION['UserID'])) {
-									$UserObject=new User($_SESSION["UserID"]);
+							<?php
+session_start();
+include_once("UserClass.php");
+include_once("shoppingcardclass.php");
+include_once("productclass.php");
+include_once("wishlishClass.php");
+// Check if a user is logged in
+if (!empty($_SESSION['UserID'])) {
+    $userID = $_SESSION['UserID'];
+    $UserObject = new User($userID);
+    echo "<p>Welcome " . $UserObject->FName . "</p";
+
+    if (isset($_GET['wishlist_id'])) {
+        
+        $productID = $_GET['wishlist_id'];
+        $wishObject1 = WishlistItem::addToWishlist($userID, $productID);
+
+        if ($wishObject1 !== NULL) {
+            echo "Added to wishlist Successfully :)";
+        }
+    } elseif (isset($_GET['cart_id'])) {
+        $productID = $_GET['cart_id'];
+        $cartObject1 = ShoppingCart::addToCart($userID, $productID);
+
+        if ($cartObject1 !== NULL) {
+            echo "Added to cart Successfully :)";
+            echo "$cartObject1";
+        }
+    }
+} else {
+    // Guests cannot access wishlist or add anything to it
+    if (isset($_GET['wishlist_id']) || isset($_GET['cart_id'])) {
+        header("Location: customer-login.php");
+        exit;
+    }
+}
+
+if (isset($_GET['product_id']) || isset($_GET['cart_id'])) {
+    if (isset($_GET['product_id'])) {
+        $productID = $_GET['product_id'];
+    } else {
+        $productID = $_GET['cart_id'];
+    }
+    
+    // Assuming Product::getProductID is a method to get product details
+    $productObject1 = Product::getProductID($con, $productID);
+}
 
 
-									
-									echo "<p>Welcome ".$UserObject->FName."</p>";
-									
-									if (isset($_GET['wishlist_id'])) {
-										include_once ("wishlishClass.php");
-										$productID = $_GET['wishlist_id'];
-										$userID = $_SESSION["UserID"];
-										$wishObject1=WishlistItem::addToWishlist($userID,$productID);
-										if ($wishObject1!==NULL)
-										{	
-											echo "Added Successfully :)";
-										}
-									}
-								}else{
-									// guestes cannot access to wishlist or add any thing to it 
-									if (isset($_GET['wishlist_id'])) {
-										header("Location:customer-login.php");
-										exit;
-									}
+if (isset($_GET['details_id'])) {
+    $productID = $_GET['details_id'];
+    $productData = Product::getProductID($con, $productID);
 
-
-
-								 }
-								
-
-								?>
+    if ($productData) {
+        // Display product details here
+        echo 'Product Name: ' . $productData['ProductName'] . '<br>';
+        echo 'Description: ' . $productData['Description'] . '<br>';
+        echo 'Price: ' . $productData['Price'] . '<br>';
+        // Add more product details as needed
+    } else {
+        echo 'Product not found';
+    }
+} else {
+    echo 'Product ID not provided';
+}
+?>
+			
 							</div>
 						</div>					
 						<div class="col-lg-9 col-md-8 col-sm-7 header-top-right-4">
@@ -113,7 +146,7 @@
 									<ul>
 										<li>
 											<div class="cart-img">
-												<a href="#"><img src="./img/cart/1.jpg" alt="" /></a>
+												<a href="cart.php"><img src="./img/cart/1.jpg" alt="" /></a>
 											</div>
 											<div class="cart-content">
 												<h4><a href="#">1 x Faded...</a></h4>
@@ -158,7 +191,7 @@
 						<div class="mainmenu hidden-xs">
 							<nav>
 								<ul>
-									<li><a href="shop.html">Little H</a>
+									<li><a href="shop.php">Little H</a>
 										<div class="megamenu">
 											<span>
 												<a href="#" class="megatitle">Little H</a>
@@ -181,7 +214,7 @@
 											
 										</div>
 									</li>
-									<li><a href="shop.html">New in</a>
+									<li><a href="shop.php">New in</a>
 										<div class="megamenu">
 											<span>
 												<a href="#" class="megatitle">New in</a>
@@ -205,7 +238,7 @@
 											
 										</div>
 									</li>
-									<li><a href="shop.html">Gold Jewellery</a>
+									<li><a href="shop.php">Gold Jewellery</a>
 										<div class="megamenu megamenu2 living-megamenu">
 											<span>
 												<a href="#" class="megatitle">Gold Jewellery</a>
@@ -228,18 +261,18 @@
 											
 										</div>									
 									</li>
-									<li><a href="shop.html">Gold Bars</a>
+									<li><a href="shop.php">Gold Bars</a>
 																		
 									</li>
-									<li><a href="shop.html">Gold Coins</a>
+									<li><a href="shop.php">Gold Coins</a>
 																		
 									</li>
 									
-									<li><a href="shop.html">Sets</a>
+									<li><a href="shop.php">Sets</a>
 																		
 									</li>
 
-									<li><a href="shop.html">Wedding Bands</a>
+									<li><a href="shop.php">Wedding Bands</a>
 																		
 									</li>
 
@@ -287,7 +320,7 @@
 											<li><a href="#">Colored Stones</a></li>
 										</ul>
 									</li>
-									<li><a href="shop.html">Bedroom</a>
+									<li><a href="shop.php">Bedroom</a>
 										<ul>
 											<li><a href="#">Beds</a>
 												<ul>
@@ -318,7 +351,7 @@
 											</li>
 										</ul>
 									</li>
-									<li><a href="shop.html">Living Room	</a>
+									<li><a href="shop.php">Living Room	</a>
 										<ul>
 											<li><a href="#">Beds</a>
 												<ul>
@@ -358,7 +391,7 @@
 											</li>
 										</ul>
 									</li>
-									<li><a href="shop.html">Dining Room</a>
+									<li><a href="shop.php">Dining Room</a>
 										<ul>
 											<li><a href="#">Dining tables</a>
 												<ul>

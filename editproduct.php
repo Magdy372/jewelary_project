@@ -65,7 +65,23 @@
             <option value="1" <?php echo ($product['Availability'] == 1) ? 'selected' : ''; ?>>Available</option>
             <option value="0" <?php echo ($product['Availability'] == 0) ? 'selected' : ''; ?>>Not Available</option>
         </select><br>
-
+     
+            <label for="MetalID">Metal:</label>
+              <select name="MetalID" id="MetalID">
+                  <?php
+                
+              
+                  // Fetch and display metal names and IDs
+                  $metalQuery = "SELECT MetalID, MetalName FROM Metal";
+                  $metalResult = mysqli_query($con, $metalQuery);
+              
+                  if ($metalResult) {
+                      while ($metal = mysqli_fetch_assoc($metalResult)) {
+                          echo "<option value='{$metal['MetalID']}'>{$metal['MetalName']}</option>";
+                      }
+                  }
+                  ?>
+              </select>
         <label for="CategoryID">Category:</label>
         <select name="CategoryID" id="CategoryID">
             <?php
@@ -97,7 +113,7 @@
         $productPrice = $_POST['Price'];
         $productAvailability = $_POST['Availability'];
         $productCategoryID = $_POST['CategoryID'];
-
+        $MetalID =$_POST['MetalID'];
         // Handle file upload
         $targetDirectory = "uploads/";
         $uploadedFiles = [];
@@ -117,7 +133,7 @@
         $productPictures = implode(',', $uploadedFiles);
 
         // Update the product in the database
-        if (Product::editProduct($con, $productID, $productName, $productPictures, $productDescription, $productWeight, $productSize, $productPrice, $productAvailability, $productCategoryID)) {
+        if (Product::editProduct($con, $productID, $productName, $productPictures, $productDescription, $productWeight, $productSize, $productPrice, $productAvailability, $productCategoryID, $MetalID )) {
             header("Location:crud.php");
         } else {
             echo "Failed to update the product.";

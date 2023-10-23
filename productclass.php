@@ -10,6 +10,19 @@ class Categories {
         $this->CategoryName = $CategoryName;
     }
 }
+class Metal
+{
+    private $metalID;
+    private $metalName;
+
+    public function __construct($metalID, $metalName)
+    {
+        $this->metalID = $metalID;
+        $this->metalName = $metalName;
+    }
+
+    
+}
 
 
 class Product {
@@ -22,6 +35,7 @@ class Product {
     public $Price;
     public $Availability;
     public $CategoryID;
+    public $MetalID;
 
     public function __construct($id) {
         if ($id !=""){
@@ -42,7 +56,7 @@ class Product {
 		}
     }
 
-    static public function addProduct($con, $ProductName, $ProductPicture, $Description, $Weight, $Size, $Price, $Availability, $CategoryID) {
+    static public function addProduct($con, $ProductName, $ProductPicture, $Description, $Weight, $Size, $Price, $Availability, $CategoryID,$MetalID) {
         $ProductName = mysqli_real_escape_string($con, $ProductName);
         $ProductPicture = mysqli_real_escape_string($con, $ProductPicture);
         $Description = mysqli_real_escape_string($con, $Description);
@@ -51,7 +65,7 @@ class Product {
         $Price = $Price;
         $Availability = $Availability;
     
-        $query = "INSERT INTO Product (ProductName, ProductPicture, Description, Weight, Size, Price, Availability, CategoryID) VALUES ('$ProductName', '$ProductPicture', '$Description', $Weight, $Size, $Price, $Availability, $CategoryID)";
+        $query = "INSERT INTO Product (ProductName, ProductPicture, Description, Weight, Size, Price, Availability, CategoryID,MetalID) VALUES ('$ProductName', '$ProductPicture', '$Description', $Weight, $Size, $Price, $Availability, $CategoryID,$MetalID)";
     
         if (mysqli_query($GLOBALS['con'], $query)) {
             return true; // Product added successfully
@@ -77,7 +91,7 @@ class Product {
     
     
     // Edit an existing product
-    static public function editProduct($con, $ProductID, $ProductName, $ProductPicture, $Description, $Weight, $Size, $Price, $Availability, $CategoryID) {
+    static public function editProduct($con, $ProductID, $ProductName, $ProductPicture, $Description, $Weight, $Size, $Price, $Availability, $CategoryID,$MetalID) {
         $ProductID = (int)$ProductID; // Ensure ProductID is an integer
         $ProductName = mysqli_real_escape_string($con, $ProductName);
         $ProductPicture = mysqli_real_escape_string($con, $ProductPicture);
@@ -86,8 +100,8 @@ class Product {
         $Size = (float)$Size; // Ensure Size is a float
         $Price = (float)$Price; // Ensure Price is a float
         $Availability = (int)$Availability; // Ensure Availability is an integer
-    
-        $query = "UPDATE Product SET ProductName = '$ProductName', ProductPicture = '$ProductPicture', Description = '$Description', Weight = $Weight, Size = $Size, Price = $Price, Availability = $Availability, CategoryID = $CategoryID WHERE ProductID = $ProductID";
+        
+        $query = "UPDATE Product SET ProductName = '$ProductName', ProductPicture = '$ProductPicture', Description = '$Description', Weight = $Weight, Size = $Size, Price = $Price, Availability = $Availability, CategoryID = $CategoryID  ,MetalID=$MetalID WHERE ProductID = $ProductID  ";
     
         if (mysqli_query($con, $query)) {
             return true; // Product edited successfully
@@ -107,6 +121,19 @@ class Product {
             return true; // Product deleted successfully
         } else {
             return false; // Failed to delete product
+        }
+    }
+
+    public static function getProductID($con, $ProductID) {
+        $ProductID = (int)$ProductID; // Ensure ProductID is an integer
+        $query = "SELECT * FROM Product WHERE ProductID = $ProductID";
+
+        $result = mysqli_query($con, $query);
+        if ($result) {
+            $productData = mysqli_fetch_assoc($result);
+            return $productData;
+        } else {
+            return false; // Failed to retrieve the product
         }
     }
 }
