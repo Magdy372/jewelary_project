@@ -1,42 +1,19 @@
 <?php
-// include_once "includes/dbh.inc.php";
+function isStrongPassword($password) {
+    // Password requirements: at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character
+    $pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/';
+    return preg_match($pattern, $password);
+}
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
-// // Check if the form was submitted
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//     $Fname = htmlspecialchars($_POST["FName"]);
-//     $Lname = htmlspecialchars($_POST["LName"]);
-//     $Email = htmlspecialchars($_POST["Email"]);
-//     $Password = htmlspecialchars($_POST["Pass"]);
-
-//     // Check if the database connection is valid
-//     if ($conn) {
-//         $sql = "INSERT INTO users (Fname, LName, Email, Pass) 
-//                 VALUES ('$Fname', '$Lname', '$Email', '$Password')";
-
-//         $result = mysqli_query($conn, $sql);
-
-//         if ($result) {
-//             // Successful query execution - redirect the user
-//             header("Location: index.php");
-//             exit(); // Important: Terminate the script after the header() call
-//         } else {
-//             // Handle the error in a different way (e.g., log the error and display an error page)
-//             // You can log the error message and display a user-friendly error message.
-//             $error_message = "An error occurred while inserting the data: " . mysqli_error($conn);
-//             // Log the error to an error log or display it to the user.
-//             // For now, we'll just echo the error.
-//             echo $error_message;
-//         }
-//     } else {
-//         // Handle the case where the database connection is not valid
-//         // You can log the error or take appropriate action here.
-//         // For now, we'll display an error message.
-//         echo "Database connection is not valid.";
-//     }
-// }
-
-
-
+$FnameErr = $LnameErr = $EmailErr = $passwordErr = $confirmErr = ""; 
+$emailTaken = false;
 
 
 include_once "UserClass.php";
@@ -44,23 +21,86 @@ include_once "UserClass.php";
 
 if(isset($_POST['Submit'])){ //check if form was submitted
 
-	$FN=htmlspecialchars($_POST['FName']);
-	$LN=htmlspecialchars($_POST['LName']);
-	$EM=htmlspecialchars($_POST['Email']);
-	$PW=htmlspecialchars($_POST['Password']);
-	$conpw = htmlspecialchars($_POST['conPass']);
+	// Validate the first name field
+    if (empty($_POST["FName"])) {
+        $FnameErr = "First Name is required";
+    } else {
+        $name = test_input($_POST["FName"]);
+        // check if name only contains letters and whitespace
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
+            $FnameErr = "Only letters and white space allowed";
+        }
+    }
 
-	if($PW === $conpw){
-		$hashedPW = password_hash($PW, PASSWORD_DEFAULT , ["cost" => 12] );
+	// Validate the last name field
+    if (empty($_POST["LName"])) {
+        $LnameErr = "last Name is required";
+    } else {
+        $name = test_input($_POST["LName"]);
+        // check if name only contains letters and whitespace
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
+            $LnameErr = "Only letters and white space allowed";
+        }
+    }
 
-		if(User::InsertinDB_Static($FN,$LN,$EM,$hashedPW)){
-			//header("Location:index.php");
+    // Validate the email field
+    if (empty($_POST["Email"])) {
+        $emailErr = "Email is required";
+    } else {
+        $email = test_input($_POST["Email"]);
+        // check if e-mail address is well-formed
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Invalid Email format";
+        }
+    }
+    $email = test_input($_POST["Email"]);
+    $sql = "SELECT * FROM users WHERE Email = '$email'";
+    $result = mysqli_query($GLOBALS['con'], $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $emailErr = "Email is already taken. please, login";
+        $emailTaken = true;
+    }
+
+    // Validate the password field
+  // Validate the password field
+    if (empty($_POST["Password"])) {
+    $passwordErr = "Password is required";
+    } elseif (!isStrongPassword($_POST["Password"])) {
+    $passwordErr = "Password must be at least 8 characters long and contain one uppercase letter, one lowercase letter, one number, and one special character";
+    }
+
+    // Validate the confirm password field
+    if (empty($_POST["conPass"])) {
+        $confirmErr = "Confirm is required";
+    } else {
+        $confirm = test_input($_POST["conPass"]);
+
+        if ($_POST["Password"] !== $_POST["conPass"]) {
+            $confirmErr = "Passwords don't match";
+        }
+    }
+
+
+	if (empty($nameErr) && empty($emailErr) && empty($passwordErr) && empty($confirmErr) && empty($birthErr)&& 
+    !$emailTaken) {
+		$FN=htmlspecialchars($_POST['FName']);
+		$LN=htmlspecialchars($_POST['LName']);
+		$EM=htmlspecialchars($_POST['Email']);
+		$PW=htmlspecialchars($_POST['Password']);
+		$conpw = htmlspecialchars($_POST['conPass']);
+
+		if($PW === $conpw){
+			$hashedPW = password_hash($PW, PASSWORD_DEFAULT , ["cost" => 12] );
+
+			if(User::InsertinDB_Static($FN,$LN,$EM,$hashedPW)){
+				header("Location:index.php");
+			}
+		}else{
+			echo "Confirm password isn't identical with Password ,Try Again <br>" ;
 		}
-	}else{
-		echo "Confirm password isn't identical with Password ,Try Again <br>" ;
+	
+	
 	}
-	
-	
 }
 
 
@@ -107,6 +147,9 @@ if(isset($_POST['Submit'])){ //check if form was submitted
 		<!-- modernizr css -->
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
+	<style>
+	.error {color:#FF0000;}
+	</style>
     <body>
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -157,23 +200,27 @@ if(isset($_POST['Submit'])){ //check if form was submitted
 									<div class="form-group login-page">
 										<label for="exampleInputName1">First Name <span>*</span></label>
 										<input type="text" name="FName" class="form-control" id="exampleInputName1" required >
+										<span class="error"> <?php echo $FnameErr;?></span>
 									</div>
 									<div class="form-group login-page">
 										<label for="exampleInputName2">Last Name <span>*</span></label>
 										<input type="text" name="LName" class="form-control" id="exampleInputName2" required >
+										<span class="error"> <?php echo $LnameErr;?></span>
 									</div>					
 									<div class="form-group login-page">
 										<label for="exampleInputEmail1">Email <span>*</span></label>
 										<input type="email" name="Email" class="form-control" id="exampleInputEmail1" required >
+										<span class="error"> <?php echo $emailErr;?></span>
 									</div>								
 									<div class="form-group login-page">
 										<label for="exampleInputPassword1">Password <span>*</span></label>
 										<input type="Password" name="Password" class="form-control" id="exampleInputPassword1" required >
+										<span class="error"> <?php echo $passwordErr;?></span>
 									</div>							
 									<div class="form-group login-page">
 										<label for="exampleInputPassword2">Confirm Password <span>*</span></label>
 										<input type="Password" name="conPass" class="form-control" id="exampleInputPassword2" required >
-										<h4 class="con_pass">l</h4>
+										<span class="error"> <?php echo $confirmErr;?></span>
 									</div>
 									<button type="submit"  class="btn btn-default login-btn"  value="Done" name="Submit">Create an Account</button>
 								</form>						
