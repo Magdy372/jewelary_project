@@ -14,7 +14,7 @@
         font-family: 'Open Sans', sans-serif;
         text-transform: uppercase;
         font-size: 18px;
-       
+        /* Other CSS styles for the mobile menu */
     }
 </style>
     </head>
@@ -199,22 +199,22 @@ if (isset($_GET['details_id'])) {
 									<li><a href="shop.php">Little H</a>
 										<div class="megamenu">
 											<span>
-												<a href="#" class="megatitle">Little H</a>
-												<a href="#">Necklaces</a>
-												<a href="#">Pendants</a>
-												<a href="#">Rings</a>
-												<a href="#">Bracelets</a>
-												<a href="#">Earrings</a>
-												<a href="#">Colored Stones</a>
+												<a href="shop.php" class="megatitle">Little H</a>
+												<a href="shop.php">Necklaces</a>
+												<a href="shop.php">Pendants</a>
+												<a href="shop.php">Rings</a>
+												<a href="shop.php">Bracelets</a>
+												<a href="shop.php">Earrings</a>
+												<a href="shop.php">Colored Stones</a>
 												
 											</span>
 											<span>
-												<a href="#" class="megatitle">Shop by Metal</a>
-												<a href="#">18k Gold</a>
-												<a href="#">21k Gold</a>
-												<a href="#">24k Gold</a>
-												<a href="#">Yellow Gold</a>
-												<a href="#">Rose Gold</a>
+												<a href="shop.php" class="megatitle">Shop by Metal</a>
+												<a href="shop.php">18k Gold</a>
+												<a href="shop.php">21k Gold</a>
+												<a href="shop.php">24k Gold</a>
+												<a href="shop.php">Yellow Gold</a>
+												<a href="shop.php">Rose Gold</a>
 											</span>
 											
 										</div>
@@ -222,23 +222,23 @@ if (isset($_GET['details_id'])) {
 									<li><a href="shop.php">New in</a>
 										<div class="megamenu">
 											<span>
-												<a href="#" class="megatitle">New in</a>
-												<a href="#">Necklaces</a>
-												<a href="#">Pendants</a>
-												<a href="#">Rings</a>
-												<a href="#">Anklets</a>
-												<a href="#">Bracelets</a>
-												<a href="#">Earrings</a>
-												<a href="#">Colored Stones</a>
+												<a href="shop.php" class="megatitle">New in</a>
+												<a href="shop.php">Necklaces</a>
+												<a href="shop.php">Pendants</a>
+												<a href="shop.php">Rings</a>
+												<a href="shop.php">Anklets</a>
+												<a href="shop.php">Bracelets</a>
+												<a href="shop.php">Earrings</a>
+												<a href="shop.php">Colored Stones</a>
 												
 											</span>
 											<span>
-												<a href="#" class="megatitle">Shop by Metal</a>
-												<a href="#">18k Gold</a>
-												<a href="#">21k Gold</a>
-												<a href="#">24k Gold</a>
-												<a href="#">Yellow Gold</a>
-												<a href="#">Rose Gold</a>
+												<a href="shop.php" class="megatitle">Shop by Metal</a>
+												<a href="shop.php">18k Gold</a>
+												<a href="shop.php">21k Gold</a>
+												<a href="shop.php">24k Gold</a>
+												<a href="shop.php">Yellow Gold</a>
+												<a href="shop.php">Rose Gold</a>
 											</span>
 											
 										</div>
@@ -246,22 +246,22 @@ if (isset($_GET['details_id'])) {
 									<li><a href="shop.php">Gold Jewellery</a>
 										<div class="megamenu megamenu2 living-megamenu">
 											<span>
-												<a href="#" class="megatitle">Gold Jewellery</a>
-												<a href="#">Necklaces</a>
-												<a href="#">Pendants</a>
-												<a href="#">Rings</a>
-												<a href="#">Bracelets</a>
-												<a href="#">Anklets</a>
-												<a href="#">Earrings</a>
-												<a href="#">Colored Stones</a>
+												<a href="shop.php" class="megatitle">Gold Jewellery</a>
+												<a href="shop.php">Necklaces</a>
+												<a href="shop.php">Pendants</a>
+												<a href="shop.php">Rings</a>
+												<a href="shop.php">Bracelets</a>
+												<a href="shop.php">Anklets</a>
+												<a href="shop.php">Earrings</a>
+												<a href="shop.php">Colored Stones</a>
 											</span>
 											<span>
-												<a href="#" class="megatitle">Shop by Metal</a>
-												<a href="#">18k Gold</a>
-												<a href="#">21k Gold</a>
-												<a href="#">24k Gold</a>
-												<a href="#">Yellow Gold</a>
-												<a href="#">Rose Gold</a>									
+												<a href="shop.php" class="megatitle">Shop by Metal</a>
+												<a href="shop.php">18k Gold</a>
+												<a href="shop.php">21k Gold</a>
+												<a href="shop.php">24k Gold</a>
+												<a href="shop.php">Yellow Gold</a>
+												<a href="shop.php">Rose Gold</a>									
 											</span>
 											
 										</div>									
@@ -319,56 +319,56 @@ if (isset($_GET['details_id'])) {
 									<ul>
 											<li><a href="shop.php">Necklaces</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
 											<li><a href="#">Pendants</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Rings</a>
+											<li><a href="shop.php">Rings</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Bracelets</a>
+											<li><a href="shop.php">Bracelets</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Earrings</a>
+											<li><a href="shop.php">Earrings</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Colored Stone</a>
+											<li><a href="shop.php">Colored Stone</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
 										</ul>
@@ -377,56 +377,56 @@ if (isset($_GET['details_id'])) {
 									<ul>
 											<li><a href="shop.php">Necklaces</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Pendants</a>
+											<li><a href="shop.php">Pendants</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Rings</a>
+											<li><a href="shop.php">Rings</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Bracelets</a>
+											<li><a href="shop.php">Bracelets</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Earrings</a>
+											<li><a href="shop.php">Earrings</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Colored Stone</a>
+											<li><a href="shop.php">Colored Stone</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
 										</ul>
@@ -435,56 +435,56 @@ if (isset($_GET['details_id'])) {
 										<ul>
 											<li><a href="shop.php">Necklaces</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Pendants</a>
+											<li><a href="shop.php">Pendants</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Rings</a>
+											<li><a href="shop.php">Rings</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Bracelets</a>
+											<li><a href="shop.php">Bracelets</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Earrings</a>
+											<li><a href="shop.php">Earrings</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Colored Stone</a>
+											<li><a href="shop.php">Colored Stone</a>
 												<ul>
-													<li><a href="#">18k Gold</a></li>
-													<li><a href="#">21k Gold</a></li>
-													<li><a href="#">24k Gold</a></li>
-													<li><a href="#">Yellow Gold</a></li>
-													<li><a href="#">Rose Gold</a></li>
+													<li><a href="shop.php">18k Gold</a></li>
+													<li><a href="shop.php">21k Gold</a></li>
+													<li><a href="shop.php">24k Gold</a></li>
+													<li><a href="shop.php">Yellow Gold</a></li>
+													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
 										</ul>
