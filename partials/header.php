@@ -310,116 +310,191 @@ if (isset($_GET['details_id'])) {
 						<div class="mobile-menu">
 							<nav id="mobile-menu">
 								<ul>
-									<li class="active"><a href="index.php">LITTLE H</a>
-										<ul>
-											<li><a href="#">Necklaces</a></li>
-											<li><a href="#">Pendants</a></li>
-											<li><a href="#">Rings</a></li>
-											<li><a href="#">Bracelets</a></li>
-											<li><a href="#">Earrings</a></li>
-											<li><a href="#">Colored Stones</a></li>
-										</ul>
-									</li>
-									<li><a href="shop.php">Bedroom</a>
-										<ul>
-											<li><a href="#">Beds</a>
+									<li class="active"><a href="shop.php">LITTLE H</a>
+									<ul>
+											<li><a href="shop.php">Necklaces</a>
 												<ul>
-													<li><a href="#">Platform Beds</a></li>
-													<li><a href="#">Storage Beds</a></li>
-													<li><a href="#">Regular Beds</a></li>
-													<li><a href="#">Sleigh Beds</a></li>
-													<li><a href="#">modern beds</a></li>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Nightstands</a>
+											<li><a href="#">Pendants</a>
 												<ul>
-													<li><a href="#">Brown Finish</a></li>
-													<li><a href="#">Distressed</a></li>
-													<li><a href="#">Cherry Finish</a></li>
-													<li><a href="#">Weathered</a></li>
-													<li><a href="#">Laundry</a></li>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Headboards</a>
+											<li><a href="#">Rings</a>
 												<ul>
-													<li><a href="#">Upholstered</a></li>
-													<li><a href="#">Tufted</a></li>
-													<li><a href="#">Platform Beds</a></li>
-													<li><a href="#">Platform Beds</a></li>
-													<li><a href="#">Platform Beds</a></li>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
 												</ul>
 											</li>
-										</ul>
-									</li>
-									<li><a href="shop.php">Living Room	</a>
-										<ul>
-											<li><a href="#">Beds</a>
+											<li><a href="#">Bracelets</a>
 												<ul>
-													<li><a href="#">Platform Beds</a></li>
-													<li><a href="#">Storage Beds</a></li>
-													<li><a href="#">Regular Beds</a></li>
-													<li><a href="#">Sleigh Beds</a></li>
-													<li><a href="#">modern beds</a></li>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Nightstands</a>
+											<li><a href="#">Earrings</a>
 												<ul>
-													<li><a href="#">Brown Finish</a></li>
-													<li><a href="#">Distressed</a></li>
-													<li><a href="#">Cherry Finish</a></li>
-													<li><a href="#">Weathered</a></li>
-													<li><a href="#">Laundry</a></li>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Headboards</a>
+											<li><a href="#">Colored Stone</a>
 												<ul>
-													<li><a href="#">Upholstered</a></li>
-													<li><a href="#">Tufted</a></li>
-													<li><a href="#">Platform Beds</a></li>
-													<li><a href="#">Platform Beds</a></li>
-													<li><a href="#">Platform Beds</a></li>
-												</ul>
-											</li>
-											<li><a href="#">Headboards</a>
-												<ul>
-													<li><a href="#">Upholstered</a></li>
-													<li><a href="#">Tufted</a></li>
-													<li><a href="#">Platform Beds</a></li>
-													<li><a href="#">Platform Beds</a></li>
-													<li><a href="#">Platform Beds</a></li>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
 												</ul>
 											</li>
 										</ul>
 									</li>
-									<li><a href="shop.php">Dining Room</a>
-										<ul>
-											<li><a href="#">Dining tables</a>
+									<li><a href="shop.php">New IN</a>
+									<ul>
+											<li><a href="shop.php">Necklaces</a>
 												<ul>
-													<li><a href="#">Crochet</a></li>
-													<li><a href="#">Sleeveless</a></li>
-													<li><a href="#">Regular Beds</a></li>
-													<li><a href="#">Stripes</a></li>
-													<li><a href="#">Sweaters</a></li>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Dining chairs</a>
+											<li><a href="#">Pendants</a>
 												<ul>
-													<li><a href="#">Ankle</a></li>
-													<li><a href="#">Distressed</a></li>
-													<li><a href="#">Cherry Finish</a></li>
-													<li><a href="#">Weathered</a></li>
-													<li><a href="#">Laundry</a></li>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="#">Headboards</a>
+											<li><a href="#">Rings</a>
 												<ul>
-													<li><a href="#">Upholstered</a></li>
-													<li><a href="#">Tufted</a></li>
-													<li><a href="#">Phery Finiss</a></li>
-													<li><a href="#">Platform Beds</a></li>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Bracelets</a>
+												<ul>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Earrings</a>
+												<ul>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Colored Stone</a>
+												<ul>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
 												</ul>
 											</li>
 										</ul>
+									</li>
+									<li><a href="shop.php">Gold Jewellery</a>
+										<ul>
+											<li><a href="shop.php">Necklaces</a>
+												<ul>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Pendants</a>
+												<ul>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Rings</a>
+												<ul>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Bracelets</a>
+												<ul>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Earrings</a>
+												<ul>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Colored Stone</a>
+												<ul>
+													<li><a href="#">18k Gold</a></li>
+													<li><a href="#">21k Gold</a></li>
+													<li><a href="#">24k Gold</a></li>
+													<li><a href="#">Yellow Gold</a></li>
+													<li><a href="#">Rose Gold</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li><a href="shop.php">Gold Bars</a>
+										
+									</li>
+									<li><a href="shop.php">Gold Coins</a>
+										
+									</li>
+									<li><a href="shop.php">Sets</a>
+										
+									</li>
+									<li><a href="shop.php">Wedding Bands</a>
+										
 									</li>
 									<li><a href="#">All pages</a>
 										<ul>
