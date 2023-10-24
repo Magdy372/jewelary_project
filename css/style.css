@@ -389,8 +389,7 @@ body {}
 }
 
 /* ---------3.Mainmenu-Area-Start---------- */
-.mainmenu{}
-.mainmenu ul{}
+
 .mainmenu ul li{
 	display:inline-block;
 	position:relative;
@@ -913,7 +912,7 @@ h3.del-price {
 }
 .new-product-area.home-page-2 .single-new-product .product-icon ul li a:hover {
 	background: #ffffff none repeat scroll 0 0;
-	color: #e73b49;
+	color: #bebe44;
 }
 .product-icon a:hover{
 	background:#bebe44;
@@ -1125,7 +1124,7 @@ a.shopnow{
     background: #f9a0ae none repeat scroll 0 0;
 }
 .feature-preduct-area.dotted-style4.home-page-2.feature-area-2 .single-new-product .new-product-action > a:hover {
-    background: #e73b49 none repeat scroll 0 0 !important;
+    background: #bebe44 none repeat scroll 0 0 !important;
 }
 
 /* ---------10.Blog-Area-Start---------- */
@@ -1770,7 +1769,7 @@ ul.tab_menu li.active a {
 	border-bottom: 1px solid #e1e1e1;
 }
 .header-top-area.home-page-2 .header-top-left ul li.click_menu li a:hover, .header-top-area.home-page-2 .header-left-menu ul li a:hover, .header-top-area.home-page-2 .header-left-menu button:hover, .header-top-area.home-page-2 .header-top-left ul li a:hover, .header-top-area.home-page-2 .header-top-right ul li a:hover, .header-bottom-area.home-page-2 .header-bottom-right .shop-cart a:hover{
-    color: #e73b49;
+    color: #bebe44;
 }
 .mainmenu-area.home-page-2 .mainmenu{
 	border-top:1px solid#ebebeb;
@@ -1793,7 +1792,7 @@ ul.tab_menu li.active a {
     color: #e73b49;
 }
 .mainmenu-area.home-page-2 .mainmenu ul li a:hover{
-    color: #e73b49;	
+    color: #bebe44;	
 }
 .header-bottom-area.home-page-2 .menu-search-box {
     /*margin-top: 2px;*/
@@ -1844,13 +1843,13 @@ ul.tab_menu li.active a {
 	top: 7px;
 }
 .new-product-area.dotted-style4.home-page-2 .single-new-product .product-content a h3:hover, .new-product-area.home-page-2 .single-new-product .product-price-star i, .feature-preduct-area.dotted-style4.home-page-2.feature-area-2 .single-new-product .product-content a h3:hover, .feature-preduct-area.dotted-style4.home-page-2.feature-area-2 .single-new-product .product-price-star i, .blog-area.blog-area-2 .blog-info a h2:hover,.blog-area.blog-area-2 .blog-info a:hover,.footer-area.footer-area-2 ul.usefull-link li a:hover, .footer-area.footer-area-2 .wrapper-strong-span a:hover, .footer-area.footer-area-2 .footer-wrapper a:hover{
-    color: #e73b49;
+    color: #bebe44;
 }
 .footer-area.footer-area-2 .footer-wrapper .footer-title::before {
-    background: #e73b49 none repeat scroll 0 0;
+    background: #bebe44 none repeat scroll 0 0;
 }
 .copyright-area.copyright-area-2 .copyright.text-left a:hover {
-  color: #e73b49;
+  color: #bebe44;
 }
 /* ---------18.Home-3-Start ---------*/
 .header-top-3 {
