@@ -9,14 +9,7 @@
 		<link rel="stylesheet" href="./css/style.css">
     </head>
     <body>
-       
-		<header>
-			<div class="header-top-area ptb-10 hidden-xs header-top-area-4">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-3 col-md-4 col-sm-5">
-							<div class="header-top-right header-top-left-4">
-							<?php
+	<?php
 session_start();
 include_once("UserClass.php");
 include_once("shoppingcardclass.php");
@@ -78,41 +71,43 @@ if (isset($_GET['details_id'])) {
     } else {
         echo 'Product not found';
     }
-} else {
-    echo 'Product ID not provided';
-}
+} 
 ?>
+		<header>
+			<div class="header-top-area ptb-10 hidden-xs header-top-area-4">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sm-5">
+							<div class="header-top-right header-top-left-4">
+						
 			
 							</div>
 						</div>					
 						<div class="col-lg-9 col-md-8 col-sm-7 header-top-right-4">
-						
-							<div class="header-top-left">
-								<ul>
-                                <li class="click_menu"><a href="#">My Account <i class="fa fa-angle-down"></i></a>
-										<ul class="click_menu_show">
-											<?php 
-											if(!empty($_SESSION['UserID'])){
-												 for ($i=0;$i<count($UserObject->UserType_obj->ArrayOfPages);$i++)
-												{
-													echo "<li><a href=".$UserObject->UserType_obj->ArrayOfPages[$i]->Linkaddress.">".$UserObject->UserType_obj->ArrayOfPages[$i]->FreindlyName."</a> </li>";
-												}
-											}
-											else{
+    <div class="header-top-left">
+        <ul>
+            <?php if(!empty($_SESSION['UserID'])): ?>
+                <li><a href="register.php">Create an Account</a></li>
+                <li class="click_menu">
+                    <a href="#">My Account <i class="fa fa-angle-down"></i></a>
+                    <ul class="click_menu_show">
+                        <?php 
+                        for ($i = 0; $i < count($UserObject->UserType_obj->ArrayOfPages); $i++) {
+                            echo "<li><a href=" . $UserObject->UserType_obj->ArrayOfPages[$i]->Linkaddress . ">" . $UserObject->UserType_obj->ArrayOfPages[$i]->FreindlyName . "</a></li>";
+                        }
+                        ?>
+                    </ul>
+                </li>
+            <?php else: ?>
+                <li><a href="customer-login.php">Compare Products</a></li>
+                <li><a href="customer-login.php">Sign In</a></li>
+                <li><a href="customer-login.php">My Account</a></li>
+                <li><a href="register.php">Create an Account</a></li>
+            <?php endif; ?>
+        </ul>
+    </div>
+</div>
 
-												echo " <li><a href='customer-login.php'>Compare Products</a></li> ";
-												echo " <li><a href='customer-login.php'>My Account</a></li> ";
-												echo " <li><a href='customer-login.php'>Sign In</a></li> ";
-												
-											}
-											?>
-											 
-										</ul>
-									</li>
-									<li><a href="register.php">Create an Account</a></li>
-								</ul>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
