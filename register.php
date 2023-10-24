@@ -45,19 +45,19 @@ if(isset($_POST['Submit'])){ //check if form was submitted
 
     // Validate the email field
     if (empty($_POST["Email"])) {
-        $emailErr = "Email is required";
+        $EmailErr = "Email is required";
     } else {
         $email = test_input($_POST["Email"]);
         // check if e-mail address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Invalid Email format";
+            $EmailErr = "Invalid Email format";
         }
     }
     $email = test_input($_POST["Email"]);
     $sql = "SELECT * FROM users WHERE Email = '$email'";
     $result = mysqli_query($GLOBALS['con'], $sql);
     if (mysqli_num_rows($result) > 0) {
-        $emailErr = "Email is already taken. please, login";
+        $EmailErr = "Email is already taken. please, login";
         $emailTaken = true;
     }
 
@@ -210,7 +210,7 @@ if(isset($_POST['Submit'])){ //check if form was submitted
 									<div class="form-group login-page">
 										<label for="exampleInputEmail1">Email <span>*</span></label>
 										<input type="email" name="Email" class="form-control" id="exampleInputEmail1" required >
-										<span class="error"> <?php echo $emailErr;?></span>
+										<span class="error"> <?php echo $EmailErr;?></span>
 									</div>								
 									<div class="form-group login-page">
 										<label for="exampleInputPassword1">Password <span>*</span></label>
