@@ -1,6 +1,8 @@
+
+
 <!doctype html>
 <html class="no-js" lang="en">
-    <head>
+<head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Shop</title>
@@ -34,22 +36,8 @@
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
-		<?php include('partials/header.php'); ?>
-		<!-- <?php //include('partials/footer.php'); ?> -->
-		<!-- mainmenu-area-end -->
-		<!-- page-title-wrapper-start -->
-		<div class="page-title-wrapper">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="page-title">
-							<h3>Shop</h3>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- page-title-wrapper-end -->
+        <?php include('partials/header.php'); ?>
+        	<!-- page-title-wrapper-end -->
 		<!-- bedroom-all-product-area-start -->
 		<div class="bedroom-all-product-area ptb-80">
 			<div class="container">
@@ -174,82 +162,92 @@
 									</div>
 								</div>
 							</div>
-							<div class="tab-content">
-    <div class="tab-pane active" id="viewed">
-        <div class="row">
-            <?php
-            $query = "SELECT * FROM Product";
-            $result = mysqli_query($con, $query);
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="viewed">
+                                    <div class="row">
+                                        <?php
+                                        // Include your database connection code here (e.g., $con)
 
-            if ($result) {
-                while ($product = mysqli_fetch_assoc($result)) {
-                    $ProductPictures = explode(',', $product['ProductPicture']);
-                    if (!empty($ProductPictures[0])) {
-                        $imageSrc = "uploads/" . $ProductPictures[0];
-                    } else {
-                        $imageSrc = "uploads/default.jpg";
-                    }
-            ?>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <div class="single-new-product mt-40 category-new-product">
-                    <div class="product-img">
-                        <a href="shop.php?product_id=<?= $product['ProductID']; ?>">
-                            <img src="<?php echo $imageSrc; ?>" class="first_img" alt=""  />
-                        </a>
-                        <div class="new-product-action">
-                            <!-- Uncomment the following line if needed -->
-                            <!-- <a href="#"><span class="lnr lnr-sync"></span></a> -->
-                            <a href="shop.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
-                            <a href="shop.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a>
-                        </div>
-                    </div>
-                    <div class="product-content text-center">
-                        <a href="product-details.html"><h3><?php echo  $product['ProductName']; ?></h3></a>
-                        <div class="product-price-star">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                        <div class="price">
-                            <h4>$<?=$product['Price']?></h4>
+                                       
+
+                                        // Get the category from the URL query parameter
+                                        if (isset($_GET['category'])) {
+											$categoryName = $_GET['category'];
+											
+											// Find the CategoryID based on the category name
+											$categoryQuery = "SELECT CategoryID FROM Categories WHERE CategoryName = '$categoryName'";
+											$categoryResult = mysqli_query($con, $categoryQuery);
+										
+											if ($categoryResult && $category = mysqli_fetch_assoc($categoryResult)) {
+												$categoryID = $category['CategoryID'];
+												
+												
+												$query = "SELECT * FROM Product WHERE CategoryID = $categoryID";
+											} else {
+												echo '<div style="text-align: center; margin-top: 125px;">No products found for category: ' . $categoryName . '</div>';
+											}
+										} else {
+											// If no category is selected, display all products
+											$query = "SELECT * FROM Product";
+											$result = mysqli_query($con, $query);
+
+                                        if ($result) {
+                                            while ($product = mysqli_fetch_assoc($result)) {
+                                                $ProductPictures = explode(',', $product['ProductPicture']);
+                                                if (!empty($ProductPictures[0])) {
+                                                    $imageSrc = "uploads/" . $ProductPictures[0];
+                                                } else {
+                                                    $imageSrc = "uploads/default.jpg";
+                                                }
+											
+										}
+										
+                                        ?>
+                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="single-new-product mt-40 category-new-product">
+                                                <div class="product-img">
+                                                    <a href="shop.php?product_id=<?= $product['ProductID']; ?>">
+                                                        <img src="<?php echo $imageSrc; ?>" class="first_img" alt="" />
+                                                    </a>
+                                                    <div class="new-product-action">
+                                                        <!-- Uncomment the following line if needed -->
+                                                        <!-- <a href="#"><span class="lnr lnr-sync"></span></a> -->
+                                                        <a href="shop.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
+                                                        <a href="shop.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content text-center">
+                                                    <a href="product-details.html"><h3><?php echo  $product['ProductName']; ?></h3></a>
+                                                    <div class="product-price-star">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </div>
+                                                    <div class="price">
+                                                        <h4>$<?=$product['Price']?></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bedroom-pagination">
+                                <!-- ... Your existing code ... -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <?php
-                }
-            }
-            ?>
         </div>
-    </div>
-</div>
-
-							<div class="bedroom-pagination">
-								<nav aria-label="Page navigation">
-									<ul class="pagination">
-										<li><a href="#">Page</a></li>
-										<li><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li>
-											<a href="#" aria-label="Next">
-											<span aria-hidden="true">&raquo;</span>
-											</a>
-										</li>
-									</ul>
-								</nav>							
-							</div>
-						</div>
-						<!-- pagination-area-end -->
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- bedroom-all-product-area-end -->
-		<?php include('partials/footer.php'); ?>
-		<!-- .copyright-area-end -->
+        <?php include('partials/footer.php'); ?>
+      <!-- .copyright-area-end -->
 		
 		<!-- all js here -->
 		<!-- jquery latest version -->
@@ -276,3 +274,4 @@
         <script src="js/main.js"></script>
     </body>
 </html>
+

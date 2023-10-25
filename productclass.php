@@ -136,6 +136,36 @@ class Product {
             return false; // Failed to retrieve the product
         }
     }
+    static public function getProductsByCategory($con, $CategoryID) {
+        $CategoryID = (int)$CategoryID; // Ensure CategoryID is an integer
+        $query = "SELECT * FROM Product WHERE CategoryID = $CategoryID";
+
+        $result = mysqli_query($con, $query);
+        $products = [];
+
+        if ($result) {
+            while ($product = mysqli_fetch_assoc($result)) {
+                $products[] = $product;
+            }
+        }
+
+        return $products;
+    }
+    static public function getProductsByMetal($con, $MetalID) {
+        $MetalID = (int)$MetalID; // Ensure MetalID is an integer
+        $query = "SELECT * FROM Product WHERE MetalID = $MetalID";
+
+        $result = mysqli_query($con, $query);
+        $products = [];
+
+        if ($result) {
+            while ($product = mysqli_fetch_assoc($result)) {
+                $products[] = $product;
+            }
+        }
+
+        return $products;
+    }
 }
 
 ?>
