@@ -6,29 +6,45 @@
     <style>
         /* CSS for styling the navbar */
         .navbar {
-            width: 200px;
-            height: 100%;
-            background-color: #bebe44;
-            position: fixed;
-            left: 0;
-            top: 0;
-            color: white;
-            padding: 20px;
-        }
+    width: 250px;
+    height: 100%;
+    background-color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
         body {
-            color: #666666;
+            color: black;
+            background: #D3D3D3;
             font-family: 'Lato', sans-serif;
             font-size: 15px;
             line-height: 1.42857;
         }
 
         .navbar a {
-            display: block;
-            padding: 10px 0;
-            text-decoration: none;
-            color: white;
-        }
+    display: block;
+    width: 60%; /* Set a fixed width for all buttons */
+    padding: 10px 20px;
+    text-decoration: none;
+    text-align: center; /* Center the text */
+    color: white;
+    font-weight: bold;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: gray;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #0056b3;
+}
 
         .content {
             margin-left: 220px;
@@ -86,18 +102,31 @@
             }
         }
 
-        .logo {
-            width: 150px;
-            /* Adjust the width for a larger logo */
-            height: auto;
-            /* Maintain the aspect ratio */
-            margin-bottom: 20px;
-            /* Add spacing between logo and links */
-        }
 
-        @media (max-width: 768px) {
-            /* ... Your existing responsive CSS ... */
-        }
+        .logo {
+    width: 150px;
+    height: auto;
+    margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        width: 100%;
+        background-color: #007BFF;
+        padding: 10px;
+        align-items: flex-start;
+    }
+
+    .navbar a {
+        padding: 10px 20px;
+        margin: 10px 0;
+    }
+
+    .logo {
+        width: 100px;
+        margin: 10px 0;
+    }
+}
     </style>
 </head>
 
