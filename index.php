@@ -139,197 +139,59 @@
 				</div>
 				<div class="row">
 					<div class="new-product-home-2-active">
-						<div class="col-lg-12">
-							<div class="single-new-product">
-								<div class="product-img">
-									<a href="product-details.html">
-										<img src="img/product/1.jpg" class="first_img" alt="" />
+						<?php
+
+								$query = "SELECT * FROM Product";
+								$result = mysqli_query($con, $query);
+
+								
+
+								if ($result) {
+									while ($product = mysqli_fetch_assoc($result)) {
 										
-									</a>
-								</div>
-								<div class="product-content text-center">
-									<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-									<div class="product-price-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
-									<div class="price">
-										<h4>Rs45.00</h4> 
-										<h3 class="del-price"><del>Rs60.00</del></h3>
-									</div>								
-								</div>
-								<div class="product-icon-wrapper">
-									<div class="product-icon">
-										<ul>
-											<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
-										</ul>								
-									</div>
-								</div>
-							</div>
-						</div>	
-						<div class="col-lg-12">
-							<div class="single-new-product">
-								<div class="product-img">
-									<a href="product-details.html">
-										<img src="img/product/2.jpg" class="first_img" alt="" />
-										
-									</a>
-								</div>
-								<div class="product-content text-center">
-									<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-									<div class="product-price-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
-									<h4>Rs40.00</h4>							
-								</div>
-								<div class="product-icon-wrapper">
-									<div class="product-icon">
-										<ul>
-											<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
-										</ul>								
-									</div>
-								</div>
-							</div>
-						</div>	
-						<div class="col-lg-12">
-							<div class="single-new-product">
-								<div class="product-img">
-									<a href="product-details.html">
-										<img src="img/product/4.jpg" class="first_img" alt="" />
-										
-									</a>
-								</div>
-								<div class="product-content text-center">
-									<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-									<div class="product-price-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div> 
-									<h4>Rs30.00</h4>								
-								</div>
-								<div class="product-icon-wrapper">
-									<div class="product-icon">
-										<ul>
-											<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
-										</ul>								
-									</div>
-								</div>
-							</div>
-						</div>	
-						<div class="col-lg-12">
-							<div class="single-new-product">
-								<div class="product-img">
-									<a href="product-details.html">
-										<img src="img/product/6.jpg" class="first_img" alt="" />
-																			</a>
-								</div>
-								<div class="product-content text-center">
-									<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-									<div class="product-price-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
-									<div class="price">
-										<h4>Rs40.00</h4> 
-										<h3 class="del-price"><del>Rs55.00</del></h3>
-									</div>								
-								</div>
-								<div class="product-icon-wrapper">
-									<div class="product-icon">
-										<ul>
-											<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
-										</ul>								
-									</div>
-								</div>
-							</div>
-						</div>	
-						<div class="col-lg-12">
-							<div class="single-new-product">
-								<div class="product-img">
-									<a href="product-details.html">
-										<img src="img/product/8.jpg" class="first_img" alt="" />
-										
-									</a>
-								</div>
-								<div class="product-content text-center">
-									<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-									<div class="product-price-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
-									<div class="price">
-										<h4>Rs30.00</h4> 
-										<h3 class="del-price"><del>Rs65.00</del></h3>
-									</div>								
-								</div>
-								<div class="product-icon-wrapper">
-									<div class="product-icon">
-										<ul>
-											<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
-										</ul>								
-									</div>
-								</div>
-							</div>
-						</div>	
-						<div class="col-lg-12">
-							<div class="single-new-product">
-								<div class="product-img">
-									<a href="product-details.html">
-										<img src="img/product/1.jpg" class="first_img" alt="" />
-										
-									</a>
-								</div>
-								<div class="product-content text-center">
-									<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-									<div class="product-price-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
-									<div class="price">
-										<h4>Rs20.00</h4> 
-										<h3 class="del-price"><del>Rs55.00</del></h3>
-									</div>								
-								</div>
-								<div class="product-icon-wrapper">
-									<div class="product-icon">
-										<ul>
-											<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#"><span class="lnr lnr-cart"></span></a></li>
-										</ul>								
-									</div>
-								</div>
-							</div>
-						</div>					
+										$ProductPictures = explode(',', $product['ProductPicture']);
+										if (!empty($ProductPictures[0])) {
+											$imageSrc = "uploads/" . $ProductPictures[0];
+										} else {
+											$imageSrc = "uploads/default.jpg";
+										} ?>
+										<div class="col-lg-12">
+											<div class="single-new-product">
+												<div class="product-img">
+												<a href="product-details.php?details_id=<?=$product['ProductID'];?>">
+                                                    <img src="<?= $imageSrc ?>" class="first_img" alt="" />
+                                                   </a>
+												</div>
+												<div class="product-content text-center">
+													<a href="product-details.html"><h3><?=$product['ProductName']?></h3></a>
+													<div class="product-price-star">
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star-o"></i>
+														<i class="fa fa-star-o"></i>
+													</div>
+													<div class="price">
+														<h4>EGP<?=$product['Price']?></h4> 
+														
+													</div>
+												</div>
+												<div class="product-icon-wrapper">
+													<div class="product-icon">
+														<ul>
+															<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
+															<li><a href="index.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a></li>
+															<li><a href="index.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart"></span></a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									<?php 
+										}
+									}
+									?>
+	
 					</div>
 				</div>	
 			</div>
@@ -368,105 +230,58 @@
 					</div>				
 					<div class="col-lg-9 col-md-9">
 						<div class="feature-home-2-active feature-home-4-active">
-							<div class="single-product-items">
-								<div class="single-new-product">
-									<div class="product-img">
-										<a href="product-details.html">
-											<img src="img/product/1.jpg" class="first_img" alt="" />
-											
-										</a>
-									</div>
-									<div class="product-content text-center">
-										<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-										<div class="product-price-star">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-										<h4>Rs45.00</h4>
-									</div>
-								</div>
-								
-													
-							</div>	
+						<?php
 
-							<div class="single-product-items">
-								<div class="single-new-product">
-									<div class="product-img">
-										<a href="product-details.html">
-											<img src="img/product/1.jpg" class="first_img" alt="" />
-											
-										</a>
-									</div>
-									<div class="product-content text-center">
-										<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-										<div class="product-price-star">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-										<h4>Rs45.00</h4>
-									</div>
-								</div>
-								
-													
-							</div>	
+$query = "SELECT * FROM Product";
+$result = mysqli_query($con, $query);
 
 
-							<div class="single-product-items">
-								<div class="single-new-product">
-									<div class="product-img">
-										<a href="product-details.html">
-											<img src="img/product/1.jpg" class="first_img" alt="" />
-											
-										</a>
-									</div>
-									<div class="product-content text-center">
-										<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-										<div class="product-price-star">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-										<h4>Rs45.00</h4>
-									</div>
-								</div>
-								
-													
-							</div>	
 
-
-							<div class="single-product-items">
-								<div class="single-new-product">
-									<div class="product-img">
-										<a href="product-details.html">
-											<img src="img/product/1.jpg" class="first_img" alt="" />
-											
-										</a>
-									</div>
-									<div class="product-content text-center">
-										<a href="product-details.html"><h3>Beaumont Summit</h3></a>
-										<div class="product-price-star">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-										<h4>Rs45.00</h4>
-									</div>
-								</div>
-								
-													
-							</div>	
-
-
+if ($result) {
+	while ($product = mysqli_fetch_assoc($result)) {
+		
+		$ProductPictures = explode(',', $product['ProductPicture']);
+		if (!empty($ProductPictures[0])) {
+			$imageSrc = "uploads/" . $ProductPictures[0];
+		} else {
+			$imageSrc = "uploads/default.jpg";
+		} ?>
+		<div class="col-lg-12">
+			<div class="single-new-product">
+				<div class="product-img">
+				<a href="product-details.php?details_id=<?=$product['ProductID'];?>">
+					<img src="<?= $imageSrc ?>" class="first_img" alt="" />
+				   </a>
+				</div>
+				<div class="product-content text-center">
+					<a href="product-details.html"><h3><?=$product['ProductName']?></h3></a>
+					<div class="product-price-star">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					</div>
+					<div class="price">
+						<h4>EGP<?=$product['Price']?></h4> 
+						
+					</div>
+				</div>
+				<div class="product-icon-wrapper">
+					<div class="product-icon">
+						<ul>
+							<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
+							<li><a href="index.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a></li>
+							<li><a href="index.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart"></span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php 
+		}
+	}
+	?>
 
 												
 												
