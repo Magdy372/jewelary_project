@@ -165,79 +165,76 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="viewed">
                                     <div class="row">
-                                        <?php
-                                        // Include your database connection code here (e.g., $con)
+									<?php
+                // Include your database connection code here (e.g., $con)
 
-                                       
+                // Get the category from the URL query parameter
+				if (isset($_GET['category'])) {
+                    $categoryName = $_GET['category'];
 
-                                        // Get the category from the URL query parameter
-                                        if (isset($_GET['category'])) {
-											$categoryName = $_GET['category'];
-											
-											// Find the CategoryID based on the category name
-											$categoryQuery = "SELECT CategoryID FROM Categories WHERE CategoryName = '$categoryName'";
-											$categoryResult = mysqli_query($con, $categoryQuery);
-										
-											if ($categoryResult && $category = mysqli_fetch_assoc($categoryResult)) {
-												$categoryID = $category['CategoryID'];
-												
-												
-												$query = "SELECT * FROM Product WHERE CategoryID = $categoryID";
-											} else {
-												echo '<div style="text-align: center; margin-top: 125px;">No products found for category: ' . $categoryName . '</div>';
-											}
-										} else {
-											// If no category is selected, display all products
-											$query = "SELECT * FROM Product";
-											$result = mysqli_query($con, $query);
+                    // Find the CategoryID based on the category name
+                    $categoryQuery = "SELECT CategoryID FROM Categories WHERE CategoryName = '$categoryName'";
+                    $categoryResult = mysqli_query($con, $categoryQuery);
 
-                                        if ($result) {
-                                            while ($product = mysqli_fetch_assoc($result)) {
-                                                $ProductPictures = explode(',', $product['ProductPicture']);
-                                                if (!empty($ProductPictures[0])) {
-                                                    $imageSrc = "uploads/" . $ProductPictures[0];
-                                                } else {
-                                                    $imageSrc = "uploads/default.jpg";
-                                                }
-											
-										}
-										
-                                        ?>
-                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                            <div class="single-new-product mt-40 category-new-product">
-                                                <div class="product-img">
-                                                    <a href="shop.php?product_id=<?= $product['ProductID']; ?>">
-                                                        <img src="<?php echo $imageSrc; ?>" class="first_img" alt="" />
-                                                    </a>
-                                                    <div class="new-product-action">
-                                                        <!-- Uncomment the following line if needed -->
-                                                        <!-- <a href="#"><span class="lnr lnr-sync"></span></a> -->
-                                                        <a href="shop.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
-                                                        <a href="shop.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-content text-center">
-                                                    <a href="product-details.html"><h3><?php echo  $product['ProductName']; ?></h3></a>
-                                                    <div class="product-price-star">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </div>
-                                                    <div class="price">
-                                                        <h4>$<?=$product['Price']?></h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
+                    if ($categoryResult && $category = mysqli_fetch_assoc($categoryResult)) {
+                        $categoryID = $category['CategoryID'];
+                        $query = "SELECT * FROM Product WHERE CategoryID = $categoryID";
+                    } else {
+                        echo '<div style="text-align: center; margin-top: 125px;">No products found for category: ' . $categoryName . '</div>';
+                    }
+                } else {
+                    // If no category is selected, display all products
+                    $query = "SELECT * FROM Product";
+                }
+
+                $result = mysqli_query($con, $query);
+
+                if ($result && mysqli_num_rows($result) > 0) {
+                    while ($product = mysqli_fetch_assoc($result)) {
+                        $ProductPictures = explode(',', $product['ProductPicture']);
+                        if (!empty($ProductPictures[0])) {
+                            $imageSrc = "uploads/" . $ProductPictures[0];
+                        } else {
+                            $imageSrc = "uploads/default.jpg";
+                        }
+                ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="single-new-product mt-40 category-new-product">
+                        <div class="product-img">
+                            <a href="shop.php?product_id=<?= $product['ProductID']; ?>">
+                                <img src="<?php echo $imageSrc; ?>" class="first_img" alt="" />
+                            </a>
+                            <div class="new-product-action">
+                                <!-- Uncomment the following line if needed -->
+                                <!-- <a href="#"><span class="lnr lnr-sync"></span></a> -->
+                                <a href="shop.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
+                                <a href="shop.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a>
                             </div>
+                        </div>
+                        <div class= "product-content text-center">
+                            <a href="product-details.html"><h3><?php echo  $product['ProductName']; ?></h3></a>
+                            <div class="product-price-star">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <div class="price">
+                                <h4>$<?=$product['Price']?></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                    }
+                } else {
+                    echo '<div style="text-align: center; margin-top: 125px;">No products found.</div>';
+                }
+                ?>
+            </div>
+        </div>
+    </div>
                             <div class="bedroom-pagination">
                                 <!-- ... Your existing code ... -->
                             </div>
