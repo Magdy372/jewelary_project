@@ -35,9 +35,14 @@ class WishlistItem {
                 }
             }
             if($check){
-                echo " product is already exists ;)";
+                echo '<div style="    background-color: #ffffff;
+                color: #f00;
+                padding: 10px;
+                text-align: center;
+                font-weight: bold;">Product is already exists ;)</div>';
+            }
             }else{
-                echo " product is not exists :)";
+               
 
                 $query = "INSERT INTO Wishlist (UserID, ProductID) VALUES ($userID, $productID)";
     
@@ -48,7 +53,7 @@ class WishlistItem {
                 }
             }
         }
-    }
+    
 
     static function dispalyWish($userID){
        

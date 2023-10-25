@@ -37,17 +37,11 @@ if (!empty($_SESSION['UserID'])) {
         $productID = $_GET['wishlist_id'];
         $wishObject1 = WishlistItem::addToWishlist($userID, $productID);
 
-        if ($wishObject1 !== NULL) {
-            echo "Added to wishlist Successfully :)";
-        }
     } else if (isset($_GET['cart_id'])) {
         $productID = $_GET['cart_id'];
         $cartObject1 = ShoppingCart::addToCart($userID, $productID);
 
-        if ($cartObject1 !== NULL) {
-            echo "Added to cart Successfully :)";
-            echo "$cartObject1";
-        }
+       
     }
 } else {
     // Guests cannot access wishlist or add anything to it
