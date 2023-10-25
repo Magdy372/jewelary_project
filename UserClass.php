@@ -168,6 +168,32 @@ class User
     
     
     }
+
+
+	
+    static function editinfoinadmin ($FN , $LN , $EM , $id){
+		//check if form was submitted
+			  $Fname=$FN;
+			  $Lname=$LN;
+			  $Email=$EM;
+  
+			  $sql="update  users set FName='$Fname', LName='$Lname', Email='$Email'
+			  where ID ='$id' ;";
+		  
+			  $result=mysqli_query($GLOBALS['con'],$sql);
+			  if($result)	{
+				  // $_SESSION["FName"]=$Fname;
+				  // $_SESSION["LName"]=$Lname;
+				  // $_SESSION["Email"]=$Email;
+				  // $_SESSION["Password"]=$Password;
+				  
+				  header("Location:usercrud.php");
+				  exit;
+			  }
+			  else {
+				  echo $sql;
+			  }
+	  }
 }
 class UserType {
 	public $ID;

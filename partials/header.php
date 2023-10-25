@@ -181,15 +181,14 @@ if (isset($_GET['details_id'])) {
 												</li>
 												
 											<?php
-
 											endforeach;
-											endif;
-											endif;
 											?>
 											<li class="total-price"><span>Total $<?=$sum?></span></li>
 											<li class="checkout-bg">
 												<a href="checkout.php">checkout <i class="fa fa-angle-right"></i></a>
 											</li>
+											<?php endif;
+											endif;?>
 										</ul>
 									</div>
 									
