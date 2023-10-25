@@ -6,49 +6,48 @@
     <style>
         /* CSS for styling the navbar */
         .navbar {
-    width: 250px;
-    height: 100%;
-    background-color: white;
-    position: fixed;
-    left: 0;
-    top: 0;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-        body {
-            color: black;
-            background: #D3D3D3;
-            font-family: 'Lato', sans-serif;
-            font-size: 15px;
-            line-height: 1.42857;
+            width: 250px;
+            height: 100%;
+            background-color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .navbar a {
-    display: block;
-    width: 60%; /* Set a fixed width for all buttons */
-    padding: 10px 20px;
-    text-decoration: none;
-    text-align: center; /* Center the text */
-    color: white;
-    font-weight: bold;
-    margin: 10px 0;
-    border-radius: 5px;
-    background-color: gray;
-    transition: background-color 0.3s, color 0.3s;
+        body {
+    color: black;
+    background: #D3D3D3;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    line-height: 1.42857;
+    margin-left: 300px; /* Increase the margin to shift the content further right */
 }
 
-.navbar a:hover {
-    background-color: #0056b3;
-}
+        .navbar a {
+            display: block;
+            width: 60%;
+            padding: 10px 20px;
+            text-decoration: none;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: gray;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #0056b3;
+        }
 
         .content {
-            margin-left: 220px;
-            /* Adjust based on your design */
+            margin-left: 0;
             padding: 20px;
         }
 
@@ -92,9 +91,7 @@
                 padding: 20px;
                 display: flex;
                 flex-direction: column;
-                /* Stack logo and links vertically */
                 align-items: center;
-                /* Center content horizontally */
             }
 
             .content {
@@ -102,31 +99,31 @@
             }
         }
 
-
         .logo {
-    width: 150px;
-    height: auto;
-    margin: 20px 0;
-}
+            width: 150px;
+            height: auto;
+            margin: 20px 0;
+        }
 
-@media (max-width: 768px) {
-    .navbar {
-        width: 100%;
-        background-color: #007BFF;
-        padding: 10px;
-        align-items: flex-start;
-    }
+        @media (max-width: 768px) {
+            .navbar {
+                width: 100%;
+                background-color: #007BFF;
+                padding: 10px;
+                align-items: flex-start;
+            }
 
-    .navbar a {
-        padding: 10px 20px;
-        margin: 10px 0;
-    }
+            .navbar a {
+                padding: 10px 20px;
+                margin: 10px 0;
+            }
 
-    .logo {
-        width: 100px;
-        margin: 10px 0;
-    }
-}
+            .logo {
+                width: 100px;
+                margin: 10px 0;
+            }
+        }
+
     </style>
 </head>
 
@@ -138,7 +135,7 @@
         <a href="admin.php">Admin Dashboard</a>
         <a href="add_admin.php">Add Admin</a>
         <a href="crud.php">Product</a>
-        <a href="view_sold_products.php">View Sold Products</a>
+        <!-- <a href="view_sold_products.php">View Sold Products</a> -->
     </div>
 
     <div class="content"> <!-- Adjusted the container to move the content to the right of the navbar -->
