@@ -112,17 +112,48 @@ class Product {
     
 
     // Delete a product by ProductID
+    // static public function deleteProduct($con, $ProductID) {
+    //     $ProductID = intval($ProductID);
+
+    //     $query = "DELETE FROM Product WHERE ProductID = $ProductID";
+
+    //     if (mysqli_query($con, $query)) {
+    //         return true; // Product deleted successfully
+    //     } else {
+    //         return false; // Failed to delete product
+    //     }
+    // }
+
+    //delete a product by ProductID but delete it from Wishlist and Cart before delete it to don't face key constrains  
     static public function deleteProduct($con, $ProductID) {
         $ProductID = intval($ProductID);
-
-        $query = "DELETE FROM Product WHERE ProductID = $ProductID";
-
-        if (mysqli_query($con, $query)) {
-            return true; // Product deleted successfully
-        } else {
-            return false; // Failed to delete product
+    
+        // Delete related records in the Wishlist table
+        $deleteWishlistQuery = "DELETE FROM Wishlist WHERE ProductID = $ProductID";
+        // Delete related records in the ShoppingCart table
+        $deleteShoppingCartQuery = "DELETE FROM ShoppingCart WHERE ProductID = $ProductID";
+        
+        // Use a transaction to ensure both deletions succeed or fail together
+        mysqli_autocommit($con, false);
+    
+        if (mysqli_query($con, $deleteWishlistQuery) && mysqli_query($con, $deleteShoppingCartQuery)) {
+            // Both deletions were successful, commit the transaction
+            $query = "DELETE FROM Product WHERE ProductID = $ProductID";
+            if (mysqli_query($con, $query)) {
+                mysqli_commit($con);
+                mysqli_autocommit($con, true); // Restore autocommit mode
+                return true; // Product and related Wishlist and ShoppingCart records deleted successfully
+            }
         }
+    
+        // At least one deletion failed, rollback the transaction
+        mysqli_rollback($con);
+        mysqli_autocommit($con, true); // Restore autocommit mode
+        return false; // Deletion failed
     }
+
+
+
 
     public static function getProductID($con, $ProductID) {
         $ProductID = (int)$ProductID; // Ensure ProductID is an integer
@@ -136,6 +167,9 @@ class Product {
             return false; // Failed to retrieve the product
         }
     }
+
+
+
     static public function getProductsByCategory($con, $CategoryID) {
         $CategoryID = (int)$CategoryID; // Ensure CategoryID is an integer
         $query = "SELECT * FROM Product WHERE CategoryID = $CategoryID";
@@ -151,6 +185,9 @@ class Product {
 
         return $products;
     }
+
+
+
     static public function getProductsByMetal($con, $MetalID) {
         $MetalID = (int)$MetalID; // Ensure MetalID is an integer
         $query = "SELECT * FROM Product WHERE MetalID = $MetalID";
