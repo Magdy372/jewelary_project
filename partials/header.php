@@ -29,7 +29,8 @@ include_once("wishlishClass.php");
 if (!empty($_SESSION['UserID'])) {
     $userID = $_SESSION['UserID'];
     $UserObject = new User($userID);
-    echo "<p>Welcome " . $UserObject->FName . "</p";
+    echo "<p style='left: 10%;margin-left: 18px;  margin-top: 0px;  top: 10px; position: absolute;'
+	>Welcome " . $UserObject->FName . "</p>";
 
     if (isset($_GET['wishlist_id'])) {
         
@@ -141,46 +142,57 @@ if (isset($_GET['details_id'])) {
 						
 						<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
 							<div class="header-bottom-right-4-inner">
-								<a href="#"><span class="lnr lnr-heart"></span></a>
+								<a href="wishlist.php"><span class="lnr lnr-heart"></span></a>
 							</div>					
 							<div class="header-bottom-right header-bottom-right-4">
 								<div class="shop-cart shop-cart-4">									
-									<a href="#"><span class="lnr lnr-cart"></span></a>
+									<a href="cart.php"><span class="lnr lnr-cart"></span></a>
 								</div>
-								<div class="shop-cart-hover shop-cart-hover-4 fix">
-									<ul>
-										<li>
-											<div class="cart-img">
-												<a href="cart.php"><img src="./img/cart/1.jpg" alt="" /></a>
-											</div>
-											<div class="cart-content">
-												<h4><a href="#">1 x Faded...</a></h4>
-												<span><a href="#">S, Orange</a></span>
-												<span class="cart-price">Rs 16.84</span>
-											</div>
-											<div class="cart-del">
-												<i class="fa fa-times-circle"></i>
-											</div>											
-										</li>
-										<li>
-											<div class="cart-img">
-												<a href="#"><img src="./img/cart/1.jpg" alt="" /></a>
-											</div>
-											<div class="cart-content">
-												<h4><a href="#">1 x Faded...</a></h4>
-												<span><a href="#">S, Orange</a></span>
-												<span class="cart-price">Rs 16.84</span>
-											</div>
-											<div class="cart-del">
-												<i class="fa fa-times-circle"></i>
-											</div>											
-										</li>
-										<li class="total-price"><span> Total Rs 48.04 </span></li>
-										<li class="checkout-bg">
-											<a href="checkout.php">checkout <i class="fa fa-angle-right"></i></a>
-										</li>
-									</ul>
-								</div>
+									<div class="shop-cart-hover shop-cart-hover-4 fix">
+										<ul>
+											<?php 
+											if (!empty($_SESSION['UserID'])):
+												$cartObject=ShoppingCart::dispalyCart($_SESSION["UserID"]);
+
+												$sum=0;
+												if (!is_null($cartObject) && !empty($cartObject)) :
+													foreach ($cartObject as $element) :
+														$ProductPictures = explode(',', $element->ProductPicture);
+														$sum+=$element->Price;
+														if (!empty($ProductPictures[0])) {
+															$imageSrc = "uploads/" . $ProductPictures[0];
+														} else {
+															$imageSrc = "uploads/default.jpg";
+														} 
+											?>
+									
+												<li>
+													<div class="cart-img">
+														<a href="product-details.php?details_id=<?=$element->ProductID;?>"><img src="<?=$imageSrc?>" alt="" /></a>
+													</div>
+													<div class="cart-content">
+														<h4><a href="product-details.php?details_id=<?=$element->ProductID;?>"><?=$element->ProductName?></a></h4>
+														<span><a href="#">S, Orange</a></span>
+														<span class="cart-price">$<?=$element->Price?></span>
+													</div>
+													<div class="cart-del">
+														<a href="cart.php?delete_id=<?=$element->ProductID?>"><i  class="fa fa-times-circle"></i> </a>
+													</div>
+												</li>
+												
+											<?php
+
+											endforeach;
+											endif;
+											endif;
+											?>
+											<li class="total-price"><span>Total $<?=$sum?></span></li>
+											<li class="checkout-bg">
+												<a href="checkout.php">checkout <i class="fa fa-angle-right"></i></a>
+											</li>
+										</ul>
+									</div>
+									
 							</div>
 						</div>
 					</div>
