@@ -5,6 +5,42 @@
     <title>User Management</title>
 
     <style>
+
+.delete{
+        display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db; /* Button background color */
+    color: #fff; /* Button text color */
+    text-decoration: none; /* Remove underline from the link */
+    border: 1px solid #3498db; /* Button border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Show a pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s;
+     }
+
+     .delete:hover{
+    background-color: #0056b3; /* Button background color on hover */
+     }
+
+
+
+.edit{
+        display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db; /* Button background color */
+    color: #fff; /* Button text color */
+    text-decoration: none; /* Remove underline from the link */
+    border: 1px solid #3498db; /* Button border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Show a pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s;
+     }
+
+     .edit:hover{
+    background-color: #0056b3; /* Button background color on hover */
+     }
+
+
         .navbar {
     width: 250px;
     height: 100%;
@@ -152,7 +188,7 @@
                 }
             }
 
-            echo '<a href="#">Create New User</a>';
+            // echo '<a href="#">Create New User</a>';
 
             // Display the user list
             foreach ($users as $user) {
@@ -161,7 +197,7 @@
                 echo "<td>{$user->FName}</td>";
                 echo "<td>{$user->LName}</td>";
                 echo "<td>{$user->Email}</td>";
-                echo "<td><a href='edituser.php?edit_id={$user->ID}'>Edit</a> | <a href='usercrud.php?delete_id={$user->ID}'>Delete</a></td>";
+                echo "<td><a class='edit' href='edituser.php?edit_id={$user->ID}'>Edit</a> | <a class='delete' href='usercrud.php?delete_id={$user->ID}'>Delete</a></td>";
                 echo "</tr>";
             }
             ?>

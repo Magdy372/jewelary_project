@@ -90,14 +90,14 @@
                     echo "<td>{$category['CategoryName']}</td>";
                     echo "<td>";
 
-                    echo "<a href='editproduct.php?id={$product['ProductID']}'>Edit</a> ";
+                    echo "<a class='edit-button' href='editproduct.php?id={$product['ProductID']}'>Edit</a> ";
                     echo "</td>";
 
                     // Form for delete
                     echo "<td>";
                     echo "<form method='POST'  onsubmit='return confirm(\"Are you sure you want to delete this product?\");'>";
                     echo "<input type='hidden' name='delete_product' value='{$product['ProductID']}'>";
-                    echo "<button type='submit'>Delete</button>";
+                    echo "<button class='delete' type='submit'>Delete</button>";
                     echo "</form>";
                     echo "</td>";
 
@@ -113,7 +113,41 @@
 
 </html>
 <style>
-        .navbar {
+     
+     .delete{
+        display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db; /* Button background color */
+    color: #fff; /* Button text color */
+    text-decoration: none; /* Remove underline from the link */
+    border: 1px solid #3498db; /* Button border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Show a pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s;
+     }
+
+     .delete:hover{
+    background-color: #0056b3; /* Button background color on hover */
+     }
+
+      .edit-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db; /* Button background color */
+    color: #fff; /* Button text color */
+    text-decoration: none; /* Remove underline from the link */
+    border: 1px solid #3498db; /* Button border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Show a pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth color transition on hover */
+}
+
+.edit-button:hover {
+    background-color: #0056b3; /* Button background color on hover */
+     /* Button text color on hover */
+}
+      
+      .navbar {
     width: 250px;
     height: 100%;
     background-color: white;
