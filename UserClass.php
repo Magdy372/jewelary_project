@@ -70,11 +70,55 @@ class User
 	
 	
 	static function deleteUser($ObjUser){
-		$sql="delete from users where ID=".$ObjUser->ID;
-		if(mysqli_query($GLOBALS['con'],$sql))
-			return true;
-		else
-			return false;
+		// $sql="delete from users where ID=".$ObjUser->ID;
+		// if(mysqli_query($GLOBALS['con'],$sql))
+		// 	return true;
+		// else
+		// 	return false;
+
+
+		// $userID = $ObjUser->ID;
+		// $con = $GLOBALS['con'];
+		
+		// // Delete related records in the ShoppingCart table
+		// $deleteShoppingCartQuery = "DELETE FROM ShoppingCart WHERE UserID = $userID";
+		// if (mysqli_query($con, $deleteShoppingCartQuery)) {
+		// 	// Then, delete the user
+		// 	$deleteUserQuery = "DELETE FROM users WHERE ID = $userID";
+		// 	if (mysqli_query($con, $deleteUserQuery)) {
+		// 		return true; // User and related ShoppingCart records deleted successfully
+		// 	}
+		// }
+		
+		// return false; // Deletion failed	
+
+
+		$userID = $ObjUser->ID;
+		$con = $GLOBALS['con'];
+
+		// Delete related records in the ShoppingCart table
+		$deleteShoppingCartQuery = "DELETE FROM ShoppingCart WHERE UserID = $userID";
+		// Delete related records in the Wishlist table
+		$deleteWishlistQuery = "DELETE FROM Wishlist WHERE UserID = $userID";
+
+		// Use a transaction to ensure both deletions succeed or fail together
+		mysqli_autocommit($con, false);
+		
+		if (mysqli_query($con, $deleteShoppingCartQuery) && mysqli_query($con, $deleteWishlistQuery)) {
+			// Both deletions were successful, commit the transaction
+			mysqli_commit($con);
+			mysqli_autocommit($con, true); // Restore autocommit mode
+			// Then, delete the user
+			$deleteUserQuery = "DELETE FROM users WHERE ID = $userID";
+			if (mysqli_query($con, $deleteUserQuery)) {
+				return true; // User and related ShoppingCart and Wishlist records deleted successfully
+			}
+		}
+		
+		// At least one deletion failed, rollback the transaction
+		mysqli_rollback($con);
+		mysqli_autocommit($con, true); // Restore autocommit mode
+		return false; // Deletion failed
 	}
 	
 	

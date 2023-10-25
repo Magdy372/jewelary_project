@@ -167,7 +167,7 @@
             ?>
 
         </table>
-        <a class="add-user-button" href="#">Add User</a>
+        <!-- <a class="add-user-button" href="#">Add User</a> -->
     </div>
 </body>
 
