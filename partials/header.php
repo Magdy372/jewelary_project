@@ -40,7 +40,7 @@ if (!empty($_SESSION['UserID'])) {
         if ($wishObject1 !== NULL) {
             echo "Added to wishlist Successfully :)";
         }
-    } elseif (isset($_GET['cart_id'])) {
+    } else if (isset($_GET['cart_id'])) {
         $productID = $_GET['cart_id'];
         $cartObject1 = ShoppingCart::addToCart($userID, $productID);
 

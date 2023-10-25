@@ -498,19 +498,19 @@
 			<div class="static-slider-active">
 				<div class="static-single-slider">
 					<div class="static-slider-img">
-						<img src="img/static/4.jpg" alt="" />
+						<img src="img/banner/ads-middle-grand.jpg" alt="" />
 					</div>
 					
 				</div>	
 				<div class="static-single-slider">
 					<div class="static-slider-img">
-						<img src="img/static/5.jpg" alt="" />
+						<img src="img/banner/ads-middle-grand.jpg" alt="" />
 					</div>
 					
 				</div>	
 				<div class="static-single-slider">
 					<div class="static-slider-img">
-						<img src="img/static/6.jpg" alt="" />
+						<img src="img/banner/ads-middle-grand.jpg" alt="" />
 					</div>
 			
 				</div>			
@@ -634,7 +634,7 @@
 					<div class="">
 						<div class="single-static-banner">
 							<div class="single-static-img">
-								<a href="shop.php"><img src="img/banner/ads-middle-grand4.jpg" alt="" /></a>
+								<a href="shop.php"><img src="img/banner/ads-middle-grand.jpg" alt="" /></a>
 								<div class="single-static-text single-static-text-4">
 									<h3>The world's most popular office sofa</h3>
 									<span>G64 - Over 1.3 Million Sold Worldwide</span>

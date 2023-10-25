@@ -129,24 +129,24 @@ if (isset($_GET['details_id'])) {
                               
 								
                                 <h4>EGP<?php echo $productData['Price']; ?></h4>
-                                <div class="quick-add-to-cart">
-                                    <form method="post" class="cart">
-                                        
-                                        <button class="btn btn-lg btn-success" type="submit"><span class="lnr lnr-cart"></span>Add to Cart</button>
-                                    </form>
-                                </div>
+                                <button class="btn btn-lg btn-success" type="submit">
+                                      <span class="lnr lnr-cart"></span> Add to Cart
+                                      <a href="cart.php?cart_id=<?= $productData['ProductID'] ?>"></a>
+                            </button>
+
                                 <br />
                                 <br />
                                 <div class="quick-add-to-cart">
-                                    <form method="post" class="cart">
+                                    
                                         <button type="button" class="btn btn-lg btn-warning col-sm-12">
                                             <span class="lnr lnr-cart"></span>Buy Now
                                         </button>
-                                    </form>
+                                    
 									<div class="action-heiper">
 											<!--<a href="#"><span class="lnr lnr-sync"></span></a>-->
-											<a href="#"><span class="lnr lnr-cart"></span></a>
-											<a href="#"><span class="lnr lnr-heart"></span></a>
+											<a href="cart.php?cart_id=<?= $productData['ProductID'] ?>"><span class="lnr lnr-cart"></span></a>
+											<a href="cart.php?wishlist_id=<?= $productData['ProductID']; ?>"><span class="lnr lnr-heart"></span></a>
+
 										</div>	
                                 </div>
                             </div>
