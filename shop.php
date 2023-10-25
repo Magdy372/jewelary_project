@@ -76,26 +76,23 @@
 								<ul>
 									<li> <div class="checkbox">
 										<label>
-											<input type="checkbox"> Nightstands <span>(14)</span>
+											<input type="checkbox">Pendants <span>(14)</span>
 										</label>
 									</div>
 								    </li>
 								    	<li> <div class="checkbox">
 								    		<label>
-								    			<input type="checkbox"> Nightstands <span>(14)</span>
+								    			<input type="checkbox"> Necklaces <span>(14)</span>
 								    		</label>
 								    	</div>
 								        </li>
 								        	<li> <div class="checkbox">
 								        		<label>
-								        			<input type="checkbox"> Nightstands <span>(14)</span>
+								        			<input type="checkbox"> Bracelets <span>(14)</span>
 								        		</label>
 								        	</div>
 								            </li>
 
-
-									<!-- <li><a href="#">Nightstands <span>(5)</span></a></li>
-									<li><a href="#">Headboards <span>(67)</span></a></li> -->
 								</ul>
 							</div>
 						</div>
@@ -135,58 +132,8 @@
 								</ul>
 						</div>
 						<!-- .sideber-color-end -->
-						<!-- Category-start -->
-						<div class="category-area-start">
-							<div class="caregory manufacturer mt-40">
-								<h3 class="bedroom-side-title">Manufacturer</h3>
-								<ul>
-									<li> <div class="checkbox">
-										<label>
-											<input type="checkbox"> ABC <span>(14)</span>
-										</label>
-									</div>
-								    </li>
-								    	<li> <div class="checkbox">
-								    		<label>
-								    			<input type="checkbox"> XHJH <span>(14)</span>
-								    		</label>
-								    	</div>
-								        </li>
-								        	<li> <div class="checkbox">
-								        		<label>
-								        			<input type="checkbox"> AAAA <span>(14)</span>
-								        		</label>
-								        	</div>
-								            </li>
-								            	<li> <div class="checkbox">
-								            		<label>
-								            			<input type="checkbox"> HGTGR <span>(14)</span>
-								            		</label>
-								            	</div>
-								                </li>
-
-
-									<!-- <li><a href="#">Nightstands <span>(5)</span></a></li>
-									<li><a href="#">Headboards <span>(67)</span></a></li> -->
-								</ul>
-							</div>
-						</div>
-						<!-- Category-end -->
-						<!-- sideber-ads-start -->
 						
-						<!--<div class="bedroom-sideber mt-40">
-							<div class="bedroom-title text-uppercase">
-								<h4>Compare Products</h4>		
-							</div>
-							<p>You have no items to compare.</p>
-						</div>-->	
-						<!--<div class="bedroom-sideber mt-40">
-							<div class="bedroom-title text-uppercase">
-								<h4>My Wish List</h4>
-							</div>
-							<p>You have no items in your wish list.</p>
-						</div>-->						
-						<!-- sideber-ads-end -->
+						
 					</div>
 					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 						<!-- category-products-area-start -->

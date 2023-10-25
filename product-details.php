@@ -163,14 +163,17 @@ if (isset($_GET['details_id'])) {
 <div class="tab-content">
 											<div class="tab-pane active" id="details">
 												<div class="product-info-tab-content">
-													<p>Chilly weather is just an excuse to throw on your toasty, handsome new Oslo Trek Hoodie. It features an adjustable drawstring hood and a kangaroo pocket for extra hand warmth. The ultra-soft, cozy lining will have you wishing for more brisk days.</p>
-													<ul>
-														<li> Brown hoodie with black detail.</li>
-														<li>Pullover.</li>
-														<li>Adjustable drawstring hood.</li>
-														<li>Ribbed cuffs/waistband.</li>
-														<li>Machine wash/dry.</li>
-													</ul>
+                                                <p>Elevate your style with our exquisite collection of jewelry. Embrace the elegance of finely crafted pieces that radiate sophistication and charm. Whether it's a special occasion or everyday beauty, our jewelry is designed to make you shine.</p>
+                                                <ul>
+                                                    <li>Stunning jewelry with intricate details.</li>
+                                                    <li>Handpicked for your pleasure.</li>
+                                                    <li>Customized pieces to match your unique style.</li>
+                                                    <li>Precious gems and metals.</li>
+                                                    <li>Carefully crafted for a lasting shine.</li>
+                                                </ul>
+    
+
+
 												</div>
 											</div>
                         <!-- Product Description Tab -->

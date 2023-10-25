@@ -271,7 +271,7 @@
 							<div class="col-lg-12">
 								<div class="single-static-banner">
 									<div class="single-static-img">
-										<a href="bedroom.html"><img src="img/banner/ads-middle-grand4.jpg" alt="" /></a>
+										<a href="shop.php"><img src="img/banner/ads-middle-grand.jpg" alt="" /></a>
 										<div class="single-static-text single-static-text-4">
 											<h3>The world's most popular office sofa</h3>
 											<span>G64 - Over 1.3 Million Sold Worldwide</span>
@@ -500,34 +500,19 @@
 					<div class="static-slider-img">
 						<img src="img/static/4.jpg" alt="" />
 					</div>
-					<!-- <div class="static-slider-text">
-						<h2>Chairs & Chaises</h2>
-						<h1>Ethen Accent Chair - Laguna</h1>
-						<p>Vacation at Home. With its dashingly refined good looks, the Ethen accent chair is <br /> perfectly suited for any room that can use a dose of vibrant colour. Tight-back upholstery <br /> from top to bottom gives the chair.</p>
-						<a href="bedroom.html" class="shopnow">shop now</a>
-					</div> -->
+					
 				</div>	
 				<div class="static-single-slider">
 					<div class="static-slider-img">
 						<img src="img/static/5.jpg" alt="" />
 					</div>
-					<!-- <div class="static-slider-text">
-						<h2>Chairs & Chaises</h2>
-						<h1>Ethen Accent Chair - Laguna</h1>
-						<p>Vacation at Home. With its dashingly refined good looks, the Ethen accent chair is <br /> perfectly suited for any room that can use a dose of vibrant colour. Tight-back upholstery <br /> from top to bottom gives the chair.</p>
-						<a href="bedroom.html" class="shopnow">shop now</a>
-					</div> -->
+					
 				</div>	
 				<div class="static-single-slider">
 					<div class="static-slider-img">
 						<img src="img/static/6.jpg" alt="" />
 					</div>
-					<!-- <div class="static-slider-text">
-						<h2>Chairs & Chaises</h2>
-						<h1>Ethen Accent Chair - Laguna</h1>
-						<p>Vacation at Home. With its dashingly refined good looks, the Ethen accent chair is <br /> perfectly suited for any room that can use a dose of vibrant colour. Tight-back upholstery <br /> from top to bottom gives the chair.</p>
-						<a href="bedroom.html" class="shopnow">shop now</a>
-					</div> -->
+			
 				</div>			
 			</div>
 		</div>
@@ -649,7 +634,7 @@
 					<div class="">
 						<div class="single-static-banner">
 							<div class="single-static-img">
-								<a href="bedroom.html"><img src="img/banner/ads-middle-grand4.jpg" alt="" /></a>
+								<a href="shop.php"><img src="img/banner/ads-middle-grand4.jpg" alt="" /></a>
 								<div class="single-static-text single-static-text-4">
 									<h3>The world's most popular office sofa</h3>
 									<span>G64 - Over 1.3 Million Sold Worldwide</span>

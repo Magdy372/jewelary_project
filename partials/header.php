@@ -73,15 +73,7 @@ if (isset($_GET['details_id'])) {
     $productID = $_GET['details_id'];
     $productData = Product::getProductID($con, $productID);
 
-    if ($productData) {
-        // Display product details here
-        echo 'Product Name: ' . $productData['ProductName'] . '<br>';
-        echo 'Description: ' . $productData['Description'] . '<br>';
-        echo 'Price: ' . $productData['Price'] . '<br>';
-        // Add more product details as needed
-    } else {
-        echo 'Product not found';
-    }
+ 
 } 
 ?>
 		<header>
