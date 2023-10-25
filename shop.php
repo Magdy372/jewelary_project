@@ -167,7 +167,7 @@
                                     <div class="row">
 									<?php
                 // Include your database connection code here (e.g., $con)
-
+				$query = ''; 
                 // Get the category from the URL query parameter
 				if (isset($_GET['category'])) {
                     $categoryName = $_GET['category'];

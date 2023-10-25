@@ -272,10 +272,10 @@ if (isset($_GET['details_id'])) {
 											
 										</div>									
 									</li>
-									<li><a href="shop.php?category=GoldBars">Gold Bars</a>
+									<li><a href="shop.php?category=Gold Bars">Gold Bars</a>
 																		
 									</li>
-									<li><a href="shop.php?category=GoldCoins">Gold Coins</a>
+									<li><a href="shop.php?category=Gold Coins">Gold Coins</a>
 																		
 									</li>
 									
@@ -476,16 +476,16 @@ if (isset($_GET['details_id'])) {
 											</li>
 										</ul>
 									</li>
-									<li><a href="shop.php?category=GoldBars">Gold Bars</a>
+									<li><a href="shop.php?category=Gold Bars">Gold Bars</a>
 										
 									</li>
-									<li><a href="shop.php?category=GoldBars">Gold Coins</a>
+									<li><a href="shop.php?category=Gold Coins">Gold Coins</a>
 										
 									</li>
-									<li><a href="shop.php?category=GoldBars">Sets</a>
+									<li><a href="shop.php?category=Sets">Sets</a>
 										
 									</li>
-									<li><a href="shop.php?category=GoldBars">Wedding Bands</a>
+									<li><a href="shop.php?category=Wedding Bands">Wedding Bands</a>
 										
 									</li>
 									
