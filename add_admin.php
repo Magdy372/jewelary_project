@@ -36,6 +36,9 @@
             padding: 10px 20px;
             border: none;
             cursor: pointer;
+            position: relative;
+            top: 50%;
+            left: 40%;    
         }
 
         .navbar {
