@@ -125,7 +125,7 @@
         <a href="admin.php">Admin Dashboard</a>
         <a href="add_admin.php">Add Admin</a>
         <a href="crud.php">Product</a>
-        <!-- <a href="view_sold_products.php">View Sold Products</a> -->
+        <a href="usercrud.php">Users</a>
     </div>
 
     <div class="container">
