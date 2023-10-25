@@ -114,8 +114,8 @@ class User
                 // $_SESSION["Email"]=$Email;
                 // $_SESSION["Password"]=$Password;
                 
-                header("Location:user_accountpage#.php");
-                exit;
+                //header("Location:user_accountpage#.php");
+                //exit;
             }
             else {
                 echo $sql;

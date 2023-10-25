@@ -98,7 +98,8 @@ if (isset($_GET['details_id'])) {
     <div class="header-top-left">
         <ul>
             <?php if(!empty($_SESSION['UserID'])): ?>
-                <li><a href="register.php">Create an Account</a></li>
+                <!-- <li><a href="register.php">Create an Account</a></li> -->
+				<li><a href="customer-login.php">Compare Products</a></li>
                 <li class="click_menu">
                     <a href="#">My Account <i class="fa fa-angle-down"></i></a>
                     <ul class="click_menu_show">
@@ -110,9 +111,9 @@ if (isset($_GET['details_id'])) {
                     </ul>
                 </li>
             <?php else: ?>
-                <li><a href="customer-login.php">Compare Products</a></li>
+                <!--  -->
                 <li><a href="customer-login.php">Sign In</a></li>
-                <li><a href="customer-login.php">My Account</a></li>
+                <!-- <li><a href="customer-login.php">My Account</a></li> -->
                 <li><a href="register.php">Create an Account</a></li>
             <?php endif; ?>
         </ul>
