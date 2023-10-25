@@ -5,13 +5,74 @@ if(isset($_GET['edit_id'])){
     $UserObject = new User($_GET['edit_id']) ;
 }
 
-if(isset($_POST["submit"])){
-    $Fname=$_POST["FName"];
-    $Lname=$_POST["LName"];
-    $Email=$_POST["Email"];
-    
-    $UserObject=User::editinfoinadmin($Fname,$Lname,$Email,$_GET['edit_id']);
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
+$FnameErr = $LnameErr = $EmailErr =  ""; 
+$emailTaken = false;
+
+
+include_once "UserClass.php";
+
+
+if(isset($_POST['submit'])){ //check if form was submitted
+
+	// Validate the first name field
+    if (empty($_POST["FName"])) {
+        $FnameErr = "First Name is required";
+    } else {
+        $name = test_input($_POST["FName"]);
+        // check if name only contains letters and whitespace
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
+            $FnameErr = "Only letters and white space allowed";
+        }
+    }
+
+	// Validate the last name field
+    if (empty($_POST["LName"])) {
+        $LnameErr = "last Name is required";
+    } else {
+        $name = test_input($_POST["LName"]);
+        // check if name only contains letters and whitespace
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
+            $LnameErr = "Only letters and white space allowed";
+        }
+    }
+
+    // Validate the email field
+    if (empty($_POST["Email"])) {
+        $EmailErr = "Email is required";
+    } else {
+        $email = test_input($_POST["Email"]);
+        // check if e-mail address is well-formed
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $EmailErr = "Invalid Email format";
+        }
+    }
+    $email = test_input($_POST["Email"]);
+    $sql = "SELECT * FROM users WHERE Email = '$email'";
+    $result = mysqli_query($GLOBALS['con'], $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $EmailErr = "Email is already taken. please, login";
+        $emailTaken = true;
+    }
+    
+
+	if (empty($nameErr) && empty($emailErr) && !$emailTaken) {
+		$FN=htmlspecialchars($_POST['FName']);
+		$LN=htmlspecialchars($_POST['LName']);
+		$EM=htmlspecialchars($_POST['Email']);
+		
+
+        $UserObject=User::editinfoinadmin($Fname,$Lname,$Email,$_GET['edit_id']);
+	
+	
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -179,15 +240,15 @@ if(isset($_POST["submit"])){
     <div class="container">        
         <h2>Edit User</h2>
 
-            <label for="">First Name <span>*</span></label>
-            <input type="text" name = "FName" value="<?=$UserObject->FName?>" >
+            <label for="">First Name <span style="color:red">*<?=$FnameErr?></span></label>
+            <input type="text" name = "FName" value="<?=$UserObject->FName?>" required >
         
         
-            <label for="">Last Name <span>*</span></label>
-            <input type="text"   name = "LName" value="<?=$UserObject->LName?>" >
+            <label for="">Last Name <span style="color:red">*<?=$LnameErr?></span></label>
+            <input type="text"   name = "LName" value="<?=$UserObject->LName?>"  required >
         
-            <label for="">Email <span>*</span></label>
-            <input type="email" name = "Email" value="<?=$UserObject->Email?>">
+            <label for="">Email <span style="color:red">*<?=$EmailErr?></span></label>
+            <input type="email" name = "Email" value="<?=$UserObject->Email?>" required >
         						
         
         <button type="submit"name="submit" class="btn btn-default login-btn">Submit</button>

@@ -81,7 +81,7 @@ if(isset($_POST['Submit'])){ //check if form was submitted
     }
 
 
-	if (empty($nameErr) && empty($emailErr) && empty($passwordErr) && empty($confirmErr) && empty($birthErr)&& 
+	if (empty($FnameErr) && empty($LnameErr) &&  empty($emailErr) && empty($passwordErr) && empty($confirmErr) && empty($birthErr)&& 
     !$emailTaken) {
 		$FN=htmlspecialchars($_POST['FName']);
 		$LN=htmlspecialchars($_POST['LName']);
@@ -198,29 +198,29 @@ if(isset($_POST['Submit'])){ //check if form was submitted
 							<div class="login-form">
 								<form method="post">
 									<div class="form-group login-page">
-										<label for="exampleInputName1">First Name <span>*</span></label>
+										<label for="exampleInputName1">First Name <span>*<?php echo $FnameErr;?></span></label>
 										<input type="text" name="FName" class="form-control" id="exampleInputName1" required >
-										<span class="error"> <?php echo $FnameErr;?></span>
+										
 									</div>
 									<div class="form-group login-page">
-										<label for="exampleInputName2">Last Name <span>*</span></label>
+										<label for="exampleInputName2">Last Name <span>*<?php echo $LnameErr;?></span></label>
 										<input type="text" name="LName" class="form-control" id="exampleInputName2" required >
-										<span class="error"> <?php echo $LnameErr;?></span>
+										
 									</div>					
 									<div class="form-group login-page">
-										<label for="exampleInputEmail1">Email <span>*</span></label>
+										<label for="exampleInputEmail1">Email <span>*<?php echo $EmailErr;?></span></label>
 										<input type="email" name="Email" class="form-control" id="exampleInputEmail1" required >
-										<span class="error"> <?php echo $EmailErr;?></span>
+										
 									</div>								
 									<div class="form-group login-page">
-										<label for="exampleInputPassword1">Password <span>*</span></label>
+										<label for="exampleInputPassword1">Password <span>* <?php echo $passwordErr;?></span></label>
 										<input type="Password" name="Password" class="form-control" id="exampleInputPassword1" required >
-										<span class="error"> <?php echo $passwordErr;?></span>
+										
 									</div>							
 									<div class="form-group login-page">
-										<label for="exampleInputPassword2">Confirm Password <span>*</span></label>
+										<label for="exampleInputPassword2">Confirm Password <span>*  <?php echo $confirmErr;?></span></label>
 										<input type="Password" name="conPass" class="form-control" id="exampleInputPassword2" required >
-										<span class="error"> <?php echo $confirmErr;?></span>
+										
 									</div>
 									<button type="submit"  class="btn btn-default login-btn"  value="Done" name="Submit">Create an Account</button>
 								</form>						
