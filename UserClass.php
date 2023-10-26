@@ -215,13 +215,14 @@ class User
 
 
 	
-    static function editinfoinadmin ($FN , $LN , $EM , $id){
+    static function editinfoinadmin ($FN , $LN , $EM , $TY , $id){
 		//check if form was submitted
 			  $Fname=$FN;
 			  $Lname=$LN;
 			  $Email=$EM;
+			  $Type=$TY;
   
-			  $sql="update  users set FName='$Fname', LName='$Lname', Email='$Email'
+			  $sql="update  users set FName='$Fname', LName='$Lname', Email='$Email' , UserType_id='$Type'
 			  where ID ='$id' ;";
 		  
 			  $result=mysqli_query($GLOBALS['con'],$sql);

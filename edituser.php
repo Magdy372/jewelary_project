@@ -55,9 +55,15 @@ if(isset($_POST['submit'])){ //check if form was submitted
         }
     }
     $email = test_input($_POST["Email"]);
+    $UserID = $_GET['edit_id'];
     $sql = "SELECT * FROM users WHERE Email = '$email'";
     $result = mysqli_query($GLOBALS['con'], $sql);
-    if (mysqli_num_rows($result) > 0) {
+    $sql1 = "SELECT * FROM users WHERE ID = '$UserID'";
+    $result1 = mysqli_query($GLOBALS['con'], $sql1);
+
+    $row = mysqli_fetch_array($result1);
+
+    if (mysqli_num_rows($result) > 0 && $row['Email'] !== $email) {
         $EmailErr = "Email is already taken. please, login";
         $emailTaken = true;
     }
@@ -67,9 +73,9 @@ if(isset($_POST['submit'])){ //check if form was submitted
 		$FN=htmlspecialchars($_POST['FName']);
 		$LN=htmlspecialchars($_POST['LName']);
 		$EM=htmlspecialchars($_POST['Email']);
-		
+        $TY = htmlspecialchars($_POST['Typeid']);		
 
-        $UserObject=User::editinfoinadmin($Fname,$Lname,$Email,$_GET['edit_id']);
+        $UserObject=User::editinfoinadmin($FN,$LN,$EM,$TY,$_GET['edit_id']);
 	
 	
 	}
@@ -249,6 +255,12 @@ if(isset($_POST['submit'])){ //check if form was submitted
         
             <label for="">Email <span style="color:red">*<?=$EmailErr?></span></label>
             <input type="email" name = "Email" value="<?=$UserObject->Email?>" required >
+
+            <label for="$Typeid">Type:</label>
+            <select name="Typeid" id="Typeid">
+                <option value='1'>Admin</option>
+                <option value='2'>User</option>
+            </select><br>
         						
         
         <button type="submit"name="submit" class="btn btn-default login-btn">Submit</button>
