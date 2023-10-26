@@ -200,9 +200,10 @@
                 ?>
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                     <div class="single-new-product mt-40 category-new-product">
-                        <a href="product-details.php?details_id=<?=$product['ProductID'];?>">
-                        <img src="<?= $imageSrc ?>" class="first_img" alt="" />
-                                </a>
+                        <div class="product-img">
+                            <a href="product-details.php?details_id=<?= $product['ProductID']; ?>">
+                                <img src="<?php echo $imageSrc; ?>" class="first_img" alt="" />
+                            </a>
                             <div class="new-product-action">
                                 <!-- Uncomment the following line if needed -->
                                 <!-- <a href="#"><span class="lnr lnr-sync"></span></a> -->
