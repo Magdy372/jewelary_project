@@ -29,7 +29,7 @@
 		<!-- font-awesome css -->
         <link rel="stylesheet" href="css/font-awesome.min.css">
 		<!-- style css -->
-		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="css/style.css">
 		<!-- responsive css -->
         <link rel="stylesheet" href="css/responsive.css" />
 		
@@ -115,8 +115,8 @@
 									<div class="single-static-img">
 										<a href="shop.php"><img src="img/banner/ads-middle-grand.jpg" alt="" /></a>
 										<div class="single-static-text single-static-text-4">
-											<h3>The world's most popular office sofa</h3>
-											<span>G64 - Over 1.3 Million Sold Worldwide</span>
+											<h3></h3>
+											<span></span>
 										</div>								
 									</div>
 								</div>
@@ -293,8 +293,8 @@ if ($result) {
 							<div class="single-static-img">
 								<a href="shop.php"><img src="img/banner/ads-middle-grand.jpg" alt="" /></a>
 								<div class="single-static-text single-static-text-4">
-									<h3>The world's most popular office sofa</h3>
-									<span>G64 - Over 1.3 Million Sold Worldwide</span>
+									<h3></h3>
+									<span></span>
 								</div>								
 							</div>
 						</div>
