@@ -281,7 +281,7 @@ if (isset($_GET['details_id'])) {
 																		
 									</li>
 
-									<li><a href="#">All pages</a>
+									
 									
 							</nav>
 						</div>
