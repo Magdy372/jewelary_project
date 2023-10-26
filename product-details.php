@@ -130,8 +130,8 @@ if (isset($_GET['details_id'])) {
 								
                                 <h4>EGP<?php echo $productData['Price']; ?></h4>
                                 <button class="btn btn-lg btn-success" type="submit">
-                                      <span class="lnr lnr-cart"></span> Add to Cart
-                                      <a href="cart.php?cart_id=<?= $productData['ProductID'] ?>"></a>
+                                      
+                                      <a class="add-cart-produt" href="cart.php?cart_id=<?= $productData['ProductID'] ?>"><span class="lnr lnr-cart"></span> Add to Cart</a>
                             </button>
 
                                 <br />
