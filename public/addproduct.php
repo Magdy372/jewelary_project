@@ -29,22 +29,7 @@ if (isset($_POST['submit'])){
 
     
 
-    $targetDirectory = "../uploads/";
-    $uploadedFiles = [];
-
-    // Upload product pictures
-    foreach ($_FILES['ProductPicture']['tmp_name'] as $key => $tmp_name) {
-        $fileName = basename($_FILES['ProductPicture']['name'][$key]);
-
-        if (move_uploaded_file($tmp_name, $targetDirectory . $fileName)) {
-            $uploadedFiles[] = $fileName;
-        } else {
-            echo "Failed to upload the product picture: {$fileName}<br>";
-        }
-    }
-
-   
-    $ProductPictures = implode(',', $uploadedFiles);
+    $ProductPictures = $model->uploadProductPictures($_FILES);
 
    $controller->insertProduct($ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID) ;
         

@@ -11,5 +11,6 @@ abstract class Model{
         }
         return $this->db;
     }
+    
 }
 ?>

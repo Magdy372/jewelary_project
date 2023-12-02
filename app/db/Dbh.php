@@ -1,6 +1,6 @@
 <?php
-
 require_once("config.php");
+
 class DBh{
 	private $servername;
 	private $username;
@@ -16,7 +16,6 @@ class DBh{
 		$this->username = DB_USER;
 		$this->password = DB_PASS;
 		$this->dbname = DB_DATABASE;
-		
 		$this->connect();
 	}
 
@@ -49,12 +48,13 @@ class DBh{
 		}
 		return $result->fetch_assoc();
 	}
-	public function real_escape_string($string) {
-		return $this->conn->real_escape_string($string);
-	}
-	function __destruct(){
-		$this->conn->close();
-	}
 
+    public function real_escape_string($string) {
+        return self::$conn->real_escape_string($string);
+    }
+
+  
+
+    // Add your log function here
 }
 ?>

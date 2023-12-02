@@ -8,9 +8,9 @@ class Categories extends Model
     public $CategoryID;
     public $CategoryName;
 
-    public function __construct($CategoryName)
+    public function __construct($CateoryName)
     {
-        $this->CategoryName = $CategoryName;
+        $this->db = $this->connect();
     }
 
     // Setters
@@ -42,10 +42,9 @@ class Metal extends Model
     private $metalID;
     private $metalName;
 
-    public function __construct($metalID, $metalName)
+    public function __construct()
     {
-        $this->metalID = $metalID;
-        $this->metalName = $metalName;
+        $this->db = $this->connect();
     }
 
     // Setters
@@ -89,23 +88,138 @@ class Product extends Model
     public function __construct()
     {
         
-            
-           
-        $this->db = $this->connect();
+ $this->db = $this->connect();
         
     }
+    public function setProductID($ProductID)
+    {
+        $this->ProductID = $ProductID;
+    }
 
+    public function setProductName($ProductName)
+    {
+        $this->ProductName = $ProductName;
+    }
+
+    public function setProductPicture($ProductPicture)
+    {
+        $this->ProductPicture = $ProductPicture;
+    }
+
+    public function setDescription($Description)
+    {
+        $this->Description = $Description;
+    }
+
+    public function setWeight($Weight)
+    {
+        $this->Weight = $Weight;
+    }
+
+    public function setSize($Size)
+    {
+        $this->Size = $Size;
+    }
+
+    public function setPrice($Price)
+    {
+        $this->Price = $Price;
+    }
+
+    public function setAvailability($Availability)
+    {
+        $this->Availability = $Availability;
+    }
+
+    public function setCategoryID($CategoryID)
+    {
+        $this->CategoryID = $CategoryID;
+    }
+
+    public function setMetalID($MetalID)
+    {
+        $this->MetalID = $MetalID;
+    }
+
+    // Getter methods
+  
+    public function getProductName()
+    {
+        return $this->ProductName;
+    }
+
+    public function getProductPicture()
+    {
+        return $this->ProductPicture;
+    }
+
+    public function getDescription()
+    {
+        return $this->Description;
+    }
+
+    public function getWeight()
+    {
+        return $this->Weight;
+    }
+
+    public function getSize()
+    {
+        return $this->Size;
+    }
+
+    public function getPrice()
+    {
+        return $this->Price;
+    }
+
+    public function getAvailability()
+    {
+        return $this->Availability;
+    }
+    public function getCategoryID()
+    {
+        $this->CategoryID;
+    }
+
+    public function getMetalID()
+    {
+        $this->MetalID ;
+    }
+    public function getCategoryName($categoryID) {
+        $query = "SELECT CategoryName FROM Categories WHERE CategoryID = $categoryID";
+        $result = $this->db->query($query);
+
+        if ($result && $result->num_rows > 0) {
+            $category = $result->fetch_assoc();
+            return $category['CategoryName'];
+        } else {
+            return "Category not found";
+        }
+    }
+
+    public function getMetalName($metalID) {
+        $query = "SELECT MetalName FROM Metal WHERE MetalID = $metalID";
+        $result = $this->db->query($query);
+
+        if ($result && $result->num_rows > 0) {
+            $metal = $result->fetch_assoc();
+            return $metal['MetalName'];
+        } else {
+            return "Metal not found";
+        }
+    }
     public function addProduct($ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID)
     {
-        $ProductName = mysqli_real_escape_string($this->db->getConn(), $ProductName);
+        $ProductName = $ProductName;
     
-        $Description = mysqli_real_escape_string($this->db->getConn(), $Description);
+        $Description = $Description;
         $Weight = $Weight;
         $Size = $Size;
         $Price = $Price;
         $Availability = $Availability;
 
-        $ProductPictures = implode(',', array_map([$this->db, 'real_escape_string'], $ProductPictures));
+        $ProductPictures = implode(',', $ProductPictures);
 
         $query = "INSERT INTO Product (ProductName, ProductPicture, Description, Weight, Size, Price, Availability, CategoryID, MetalID) 
                   VALUES ('$ProductName', '$ProductPictures', '$Description', $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID)";
@@ -113,37 +227,52 @@ class Product extends Model
 
         if ($this->db->query($query)) {
             return true; // Product added successfully
+            
         } else {
             return false; // Failed to add product
         }
     }
+    public function uploadProductPictures($files) {
+        $targetDirectory = "../uploads/";
+        $uploadedFiles = [];
 
-    public function getProducts()
-    {
-        $query = "SELECT * FROM Product";
+        foreach ($files['ProductPicture']['tmp_name'] as $key => $tmp_name) {
+            $fileName = basename($files['ProductPicture']['name'][$key]);
 
-        $result = $this->db->query($query);
-        $products = [];
-
-        if ($result) {
-            while ($product = $this->db->fetchRow($result)) {
-                $products[] = $product;
+            if (move_uploaded_file($tmp_name, $targetDirectory . $fileName)) {
+                $uploadedFiles[] = $fileName;
+            } else {
+                echo "Failed to upload the product picture: {$fileName}<br>";
             }
         }
 
-        return $products;
+        return implode(',', $uploadedFiles);
     }
 
-    public  function editProduct($ProductID, $ProductName, $ProductPicture, $Description, $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID)
+    public function getProducts()
     {
-        $ProductID = (int)$ProductID;
-        $ProductName = mysqli_real_escape_string($this->db->getConn(), $ProductName);
-        $ProductPicture = mysqli_real_escape_string($this->db->getConn(), $ProductPicture);
-        $Description = mysqli_real_escape_string($this->db->getConn(), $Description);
-        $Weight = (float)$Weight;
-        $Size = (float)$Size;
-        $Price = (float)$Price;
-        $Availability = (int)$Availability;
+        $sql = "SELECT * FROM Product ";
+
+		$result = $this->db->query($sql);
+		if ($result->num_rows > 0){
+			return $result;
+		}
+		else {
+			return false;
+		}
+    }
+    
+
+    public  function editProduct( $ProductID,$ProductName, $ProductPicture, $Description, $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID)
+    {
+        $ProductID = $ProductID;
+        $ProductName =  $ProductName;
+        $ProductPicture = implode(',', $ProductPicture);
+        $Description =  $Description;
+        $Weight = $Weight;
+        $Size = $Size;
+        $Price = $Price;
+        $Availability =$Availability;
 
         $query = "UPDATE Product SET ProductName = '$ProductName', ProductPicture = '$ProductPicture', Description = '$Description', Weight = $Weight, Size = $Size, Price = $Price, Availability = $Availability, CategoryID = $CategoryID, MetalID = $MetalID WHERE ProductID = $ProductID";
 
@@ -157,25 +286,27 @@ class Product extends Model
     public function deleteProduct($ProductID)
     {
         $ProductID = intval($ProductID);
-
-        $deleteWishlistQuery = "DELETE FROM Wishlist WHERE ProductID = $ProductID";
+        $conn = $this->db->getConn(); // Retrieve the database connection once
+    
+        $deleteWishlistQuery = "DELETE FROM Wishlist WHERE ProductID = $ProductID;";
         $deleteShoppingCartQuery = "DELETE FROM ShoppingCart WHERE ProductID = $ProductID";
-
-        mysqli_autocommit($this->db->getConn(), false);
-
+    
+        mysqli_autocommit($conn, false);
+    
         if ($this->db->query($deleteWishlistQuery) && $this->db->query($deleteShoppingCartQuery)) {
             $query = "DELETE FROM Product WHERE ProductID = $ProductID";
             if ($this->db->query($query)) {
-                mysqli_commit($this->db->getConn());
-                mysqli_autocommit($this->db->getConn(), true);
+                mysqli_commit($conn);
+                mysqli_autocommit($conn, true);
                 return true;
             }
         }
-
-        mysqli_rollback($this->db->getConn());
-        mysqli_autocommit($this->db->getConn(), true);
+    
+        mysqli_rollback($conn);
+        mysqli_autocommit($conn, true);
         return false;
     }
+    
 
     public function getProductID($ProductID)
     {

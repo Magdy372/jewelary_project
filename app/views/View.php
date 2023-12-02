@@ -9,6 +9,6 @@ abstract class  View{
         $this->model = $model;
     }
 	
-   
+   public abstract function output();  
 }
 ?>
