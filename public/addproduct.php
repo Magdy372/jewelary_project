@@ -3,12 +3,20 @@
 
 <head>
     <title>Add Product</title>
-
 </head>
-<?php
-include_once "productclass.php";
 
-if (isset($_POST['submit'])) {
+<?php
+define('__ROOT__', "../app/");
+require_once(__ROOT__ . "model/Products.php");
+require_once(__ROOT__ . "controller/ProductController.php");
+require_once(__ROOT__ . "views/ProductView.php");
+
+$model = new Product();
+$controller = new ProductController($model);
+$view = new ProductView($controller, $model);
+
+if (isset($_POST['submit'])){
+    
     $ProductName = $_POST['ProductName'];
     $ProductPictures = $_FILES['ProductPicture']['name'];
     $Description = $_POST['Description'];
@@ -18,37 +26,31 @@ if (isset($_POST['submit'])) {
     $Availability = $_POST['Availability'];
     $CategoryID = $_POST['CategoryID'];
     $MetalID = $_POST['MetalID'];
-    // Check if CategoryID is not empty
-    if (empty($CategoryID)) {
-        echo "Please select a category for the product.";
-    }
 
-    // Handle file upload
-    $targetDirectory = "uploads/";
+    
+
+    $targetDirectory = "../uploads/";
     $uploadedFiles = [];
 
+    // Upload product pictures
     foreach ($_FILES['ProductPicture']['tmp_name'] as $key => $tmp_name) {
         $fileName = basename($_FILES['ProductPicture']['name'][$key]);
-        $targetFile = $targetDirectory . $fileName;
 
-        if (move_uploaded_file($tmp_name, $targetFile)) {
+        if (move_uploaded_file($tmp_name, $targetDirectory . $fileName)) {
             $uploadedFiles[] = $fileName;
         } else {
             echo "Failed to upload the product picture: {$fileName}<br>";
         }
     }
 
-    // Convert uploaded files array to a comma-separated string
+   
     $ProductPictures = implode(',', $uploadedFiles);
 
-    if (Product::addProduct($con, $ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID)) {
-        header("Location:crud.php");
-    } else {
-        echo "Failed to add the product.";
-    }
+   $controller->insertProduct($ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID) ;
+        
+   
 }
 ?>
-
 <body>
 
     <div class="navbar">
@@ -61,84 +63,11 @@ if (isset($_POST['submit'])) {
 
     <div class="container">
         <h2>Add Product</h2>
-        <?php
-        $con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o", "Jewelry_project");
-        if (!$con) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-        ?>
-        <form name="productForm" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-            <label for="ProductName">Product Name:</label>
-            <input type="text" name="ProductName" id="ProductName" required>
-            <span id="nameError" class="error"></span><br>
-
-            <label for="ProductPicture">Product Pictures:</label>
-            <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif" required>
-            <span id="pictureError" class="error"></span><br>
-
-            <label for="Description">Description:</label>
-            <textarea name="Description" id="Description" required></textarea>
-            <span id="descriptionError" class="error"></span><br>
-
-            <label for="Weight">Weight:</label>
-            <input type="number" name="Weight" id="Weight" required>
-            <span id="weightError" class="error"></span><br>
-
-            <label for="Size">Size:</label>
-            <input type="number" name="Size" id="Size">
-            <span id="sizeError" class="error"></span><br>
-
-            <label for="Price">Price:</label>
-            <input type="number" name="Price" id="Price" required>
-            <span id="priceError" class="error"></span><br>
-
-            <label for="Availability">Availability:</label>
-            <select name="Availability">
-                <option value="1">Available</option>
-                <option value="0">Not Available</option>
-            </select><br>
-            <label for="MetalID">Metal:</label>
-            <select name="MetalID" id="MetalID">
-                <?php
-
-
-                // Fetch and display metal names and IDs
-                $metalQuery = "SELECT MetalID, MetalName FROM Metal";
-                $metalResult = mysqli_query($con, $metalQuery);
-
-                if ($metalResult) {
-                    while ($metal = mysqli_fetch_assoc($metalResult)) {
-                        echo "<option value='{$metal['MetalID']}'>{$metal['MetalName']}</option>";
-                    }
-                }
-                ?>
-            </select>
-
-            <label for="CategoryID">Category:</label>
-            <select name="CategoryID" id="CategoryID">
-                <?php
-                // Fetch and display category names and IDs
-                $categoryQuery = "SELECT CategoryID, CategoryName FROM Categories";
-                $categoryResult = mysqli_query($con, $categoryQuery);
-
-                if ($categoryResult) {
-                    while ($category = mysqli_fetch_assoc($categoryResult)) {
-                        echo "<option value='{$category['CategoryID']}'>{$category['CategoryName']}</option>";
-                    }
-                }
-                ?>
-            </select><br>
-
-            <input type="submit" name="submit" value="Submit" style="background-color: #0056b3; color: #fff; padding: 10px 20px; border: none; cursor: pointer; position: relative; top: 50%; left: 40%;">
-        </form>
-
-        </table>
-
-
-    </div>
+       <?php echo $view->addProductForm(); ?>
 </body>
 
 </html>
+
 <script>
     function validateForm() {
         var productName = document.getElementById("ProductName").value;
