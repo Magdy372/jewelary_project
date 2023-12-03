@@ -1,9 +1,10 @@
+Use
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Wishlist</title>
+        <title>Cart</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -58,6 +59,15 @@
 					{	
 						echo "Deleted Successfully :)";
 					}
+					if (isset($_GET['delete_id'])) {
+						$deleteProductID = $_GET['delete_id'];
+						$userID = $_SESSION["UserID"];
+						
+						$ShoppingObj=ShoppingCart::deleteFromCart($userID,$deleteProductID);
+						if ($ShoppingObj!==NULL)
+						{	
+							echo "Deleted Successfully :)";
+						}
 					// Implement the code to delete the item with $deleteProductID from the wishlist.
 					// You can use your WishlistItem class to delete the item.
 
@@ -79,9 +89,23 @@
 				}
 
 				//to display user wishlist 
-				$cartObject=ShoppingCart::dispalyCart($_SESSION["UserID"]);
+	      $cartObject = ShoppingCart::displayCart($_SESSION["UserID"]);
+
 		}
-	
+		if (isset($_GET['clear_id'])) {
+			
+			$userID = $_SESSION["UserID"];
+			
+			$ShoppingObj=ShoppingCart::clearCart($userID);
+			if ($ShoppingObj!==NULL)
+			{	
+				echo "Your ShoppingCart is empty.";
+				exit();
+			} else {
+				echo "Failed to clear the cart.";
+			}
+			}
+			}
 
 			?>
 
@@ -131,41 +155,59 @@
 									</thead>
 									<tbody>
 									<?php
-									$sum=0;
-									
-											if (!is_null($cartObject) && !empty($cartObject)) {
-												foreach ($cartObject as $element) { 
-													$ProductPictures = explode(',', $element->ProductPicture);
-													$sum+=$element->Price;
-													if (!empty($ProductPictures[0])) {
-														$imageSrc = "uploads/" . $ProductPictures[0];
-													} else {
-														$imageSrc = "uploads/default.jpg";
-													} 
-										?>
-										<tr>
-										<td class="product-thumbnail"><a href="#"><img src="<?=$imageSrc?>" alt="" /></a></td>
-										<td class="product-name"><a href="#"><?=$element->ProductName?></a></td>
-										<td class="product-price">
-                                 <span class="amount">$<?=$element->Price?></span>
-                                          </td>
-										  <td class="product-quantity">
-										  <input type="number" value="1" class="quantityInput" oninput="(() => { validateQuantity(this); updateTotal(this); })();" />
-                                  </td>
-										  <td class="totalproduct">
-                                      <span class="totalproduct">$<?=$element->Price?></span>
-                                  </td>
-                            
-										
-										<td class="product-remove"><a href="cart.php?delete_id=<?=$element->ProductID?>">x</a></td>
-										</tr>
-										<?php 
-												}
+									$sum = 0;
+
+									if (!is_null($cartObject) && !empty($cartObject)) {
+										foreach ($cartObject as $element) {
+											// Check if $element is an array or an object
+											if (is_array($element)) {
+												$ProductPicture = explode(',', $element['ProductPicture']);
+												$ProductID=$element['ProductID'];
+												$ProductName = $element['ProductName'];
+												$ProductPrice = $element['ProductPrice'];
+												$Quantity=$element['Quantity'];
+												$Subtotal = $element['Subtotal'];
+												
 											} else {
-												// Handle the case where there are no items in the wishlist
-												echo "Your ShoppingCart is empty.";
+												// Assuming $element is an object
+												$ProductPicture = explode(',', $element->ProductPicture);
+												$ProductName = $element->ProductName;
+												$ProductPrice = $element->ProductPrice;
+												$Quantity=$element->Quantity;
+												$Subtotal = $element->Subtotal;
+												$ProductID=$element->ProductID;
 											}
-										?>
+									
+											$sum += $Subtotal;
+									
+											if (!empty($ProductPicture[0])) {
+												
+												$imageSrc = "uploads/" . $ProductPicture[0];
+											} else {
+												$imageSrc = "uploads/default.jpg";
+											}
+									?>
+									<tr>
+										<td class="product-thumbnail"><a href="#"><img src="<?= $imageSrc ?>" alt="" /></a></td>
+										<td class="product-name"><a href="#"><?= $ProductName ?></a></td>
+										<td class="product-price">
+											<span class="amount">$<?= $ProductPrice ?></span>
+										</td>
+										<td class="product-quantity">
+    
+                             <span class="amount"><?= $Quantity ?></span></td>
+
+										<td class="totalproduct">
+											<span class="totalproduct">$<?= $Subtotal ?></span>
+										</td>
+										<td class="product-remove"><a href="cart.php?delete_id=<?= $ProductID ?>">x</a></td>
+									</tr><?php
+    }
+} else {
+    // Handle the case where there are no items in the wishlist
+    echo "Your ShoppingCart is empty.";
+}
+?>
 										
 									</tbody>
 								</table>
@@ -173,7 +215,8 @@
 							<div class="row">
 								<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
 									<div class="buttons-cart">
-										<input type="submit" value="Update Cart" />
+										
+										<a href="cart.php?clear_id=<?= $userID ?>">Clear Cart</a>
 										<a href="shop.php">Continue Shopping</a>
 									</div>
 									<div class="coupon">
@@ -212,41 +255,7 @@
 	
     </body>
 </html>
-<script>
-function updateTotal(input) {
-	const quantity = parseInt(input.value);
-	const pricePerItem = parseFloat(input.closest('tr').querySelector('.product-price span').textContent.slice(1)); // Get the price for the current row
-	const total = quantity * pricePerItem;
 
-	const totalElement = input.closest('tr').querySelector('.totalproduct');
-	totalElement.textContent = '$' + total.toFixed(2);
-	updateGrandTotal();
-}
-
-function updateGrandTotal() {
-	const totalElements = document.querySelectorAll('.totalproduct');
-	let grandTotal = 0;
-	
-	totalElements.forEach(totalElement => {
-		const totalValue = parseFloat(totalElement.textContent.slice(1));
-		if (!isNaN(totalValue)) {
-			grandTotal += totalValue;
-		}
-	});
-
-	document.getElementById('totalPrice').textContent = '$' + grandTotal.toFixed(2);
-}
-function validateQuantity(input) {
-    // Get the current value of the input field
-    var quantity = parseInt(input.value, 10);
-
-    // Check if the quantity is less than 1
-    if (quantity < 1) {
-        // If it's less than 1, set it to 1
-        input.value = 1;
-    }
-}
-</script>
 
 	<!-- .copyright-area-start -->
 	
