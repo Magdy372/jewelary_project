@@ -2,8 +2,8 @@
 //include "DB.php";
 $con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o","Jewelry_project");
 
-// class User
-// {
+ class User
+ {
 // 	public $FName;
 // 	public $LName;
 // 	public $Email;
@@ -305,5 +305,5 @@ $con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o","Jewelry_project"
 // 		}
 // 		return $Result;
 // 	}
-// }
+ }
 // ?>

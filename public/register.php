@@ -1,10 +1,10 @@
 <?php
 
 define('__ROOT__', "../app/");
-require_once(__ROOT__ . "model/User.php");
+require_once(__ROOT__ . "model/Users.php");
 require_once(__ROOT__ . "controller/UserController.php");
 
- $model = new User($_SESSION["ID"]);
+$model = new Users();
 //$model = new User();
 $controller = new UserController($model);
 //$view = new ViewUser($controller, $model);

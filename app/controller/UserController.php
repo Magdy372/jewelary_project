@@ -157,4 +157,15 @@ class UserController extends Controller
             $this->model->InsertinDB_Static($Fname, $Lname, $email, $hashedPW);
         } 
     }
+
+    public function Login(){
+
+        $Email = $_REQUEST['Email'];
+		$password = $_REQUEST['Password'];
+
+        $this->model->login($Email, $password);
+    }
+
+
+    
 }

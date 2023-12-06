@@ -15,26 +15,26 @@ class User extends Model
 	public $ID;
 
 
-	public function __construct()
-    {
+	// public function __construct()
+    // {
         
- 		$this->db = $this->connect();
+ 	// 	$this->db = $this->connect();
         
-    }
+    // }
 
-    // function __construct($id,$Fname="",$Lname ="" ,$Email="",$password="" ) {
-    //     $this->id = $id;
-	// 	$this->db = $this->connect();
+    function __construct($id,$Fname="",$Lname ="" ,$Email="",$password="" ) {
+        $this->id = $id;
+		$this->db = $this->connect();
     
-    //     if(""===$id){
-    //       $this->readUser($id);
-    //     }else{
-    //       $this->FName = $Fname;
-    //       $this->LName = $Lname;
-    //       $this->Password=$password;
-    //       $this->Email = $Email;
-    //     }
-    //   }
+        if(""===$id){
+          $this->readUser($id);
+        }else{
+          $this->FName = $Fname;
+          $this->LName = $Lname;
+          $this->Password=$password;
+          $this->Email = $Email;
+        }
+      }
     
 
     public function getFName()
@@ -125,47 +125,6 @@ class User extends Model
       }
       
 
-
-	 function InsertinDB_Static($FN, $LN, $EM, $PW) {
-		//trying to adding validation on Email to check if this email are token or no 
-		// $sql = "SELECT * FROM users WHERE Email = '$email'";
-        // $result = $this->$db->query($sql);
-    
-        // if ($result && $result->num_rows > 0) {
-        //     $EmailErr = "Email is already taken. Please, login.";
-        //     $emailTaken = true;
-        // }
-
-		$sql1 = "insert into users(FName,LName,Email,Password,UserType_id) values ('$FN','$LN','$EM','$PW',2)";
-		if($this->db->query($sql1) === true){
-			echo "Records inserted successfully.";
-		} 
-		else{
-			echo "ERROR: Could not able to execute $sql1. " . $conn->error;
-		}
-		
-		
-	}
-
-
-
-	static function login($Email, $Password) {
-		$sql = "SELECT * FROM users WHERE Email = '$Email'";
-		$result = mysqli_query($GLOBALS['con'], $sql);
-	
-		if ($row = mysqli_fetch_array($result)) {
-			$storedPassword = $row['Password'];
-			if (password_verify($Password , $storedPassword)) {
-				return new User($row['ID']);
-			}
-			else{
-				echo "Email or password is incorrect ;)";
-			}
-		}
-	
-		return NULL;
-	}
-	
 	static function SelectAllUsersInDB(){
 		$sql = "select * from users";
 		$con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o", "Jewelry_project");
