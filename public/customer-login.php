@@ -1,69 +1,47 @@
 <?php
-//    //start session
-//    session_start();
-//    //include database connection file
-//    include_once "includes/dbh.inc.php";
-//    //grab data from user and see if it exists in database
-//    if($_SERVER["REQUEST_METHOD"]=="POST"){
 
-//     $Email=$_POST["Email"];
-// 	$Password=$_POST["Pass"];
-   
+// include_once "UserClass.php";
+
+// if($_SERVER["REQUEST_METHOD"]=="POST"){
+	
+// 	$Email=$_POST["Email"];
+// 	$Password=$_POST["Password"];
+	
+// 	$UserObject=User::login($Email,$Password);
+// 	if ($UserObject!==NULL)
+// 	{	
+// 		session_start();
+// 		$_SESSION["UserID"]=$UserObject->ID;
+		
+// 		header("Location:index.php");
+// 	}else{
+// 		echo " Email or Password is incorrect <br>";
+// 	}
+// }
+
+
+define('__ROOT__', "../app/");
+require_once(__ROOT__ . "model/Users.php");
+require_once(__ROOT__ . "controller/UserController.php");
+
+$model = new Users();
+//$model = new User();
+$controller = new UserController($model);
+//$view = new ViewUser($controller, $model);
+
+if (isset($_POST['Submit'])){
     
-//    //select data from database where email and password matches
 
-//     $sql = "select * from users where Email ='$Email' and Pass='$Password';";
-//     $result = mysqli_query($conn,$sql);
-
-
-//    //if true then use session variables to use it as long as session is started
-//     if($row = mysqli_fetch_array($result)){
-//       $_SESSION['id'] = $row[0];
-//       $_SESSION['fname'] = $row["Fname"];
-//       $_SESSION['lastname'] = $row["LName"];
-//       $_SESSION['email'] = $row["Email"];
-//       $_SESSION['pass'] = $row["Pass"];
-
-//       header("location:index.php");
-// 	  exit;
-
-//     }
-//     else{
-//       echo " invalid username or password " . "<br>";
-//     }
+	$email =  $_POST['Email'];
+	$password=$_POST['Password'];
 	
-//    }
 
-include_once "UserClass.php";
 
-if($_SERVER["REQUEST_METHOD"]=="POST"){
-	
-	$Email=$_POST["Email"];
-	$Password=$_POST["Password"];
-	
-	$UserObject=User::login($Email,$Password);
-	if ($UserObject!==NULL)
-	{	
-		session_start();
-		$_SESSION["UserID"]=$UserObject->ID;
-		
-		
-		// if(!empty($_SESSION['UserID'])) {
-		// 	$UserObject=new User($_SESSION["UserID"]);
-		// 	echo "<h1>Welcome ".$UserObject->UserName."</h1>";
-		// }else{
-		// 	echo " Login failed <br>";
-		// }
-		//       $_SESSION['fname'] = $row["Fname"];
-		//       $_SESSION['lastname'] = $row["LName"];
-		//       $_SESSION['email'] = $row["Email"];
-		//       $_SESSION['pass'] = $row["Pass"];
-		
-		header("Location:index.php");
-	}else{
-		echo " Email or Password is incorrect <br>";
-	}
+   $controller->login($email,$password) ;
+   
+   
 }
+
 
 
 
@@ -83,23 +61,23 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> 
 		<!-- all css here -->
 		<!-- bootstrap v3.3.6 css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
 		<!-- animate css -->
-        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="../css/animate.css">
 		<!-- jquery-ui.min css -->
-        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link rel="stylesheet" href="../css/jquery-ui.min.css">
 		<!-- nivo-slider css -->
-        <link rel="stylesheet" href="css/nivo-slider.css">
+        <link rel="stylesheet" href="../css/nivo-slider.css">
 		<!-- magnific-popup css -->
-        <link rel="stylesheet" href="css/magnific-popup.css">		
+        <link rel="stylesheet" href="../css/magnific-popup.css">		
 		<!-- meanmenu css -->
-        <link rel="stylesheet" href="css/meanmenu.min.css">
+        <link rel="stylesheet" href="../css/meanmenu.min.css">
 		<!-- owl.carousel css -->
-        <link rel="stylesheet" href="css/owl.carousel.css">
+        <link rel="stylesheet" href="../css/owl.carousel.css">
 		<!--linearicons css -->
-        <link rel="stylesheet" href="css/linearicons-icon-font.min.css">
+        <link rel="stylesheet" href="../css/linearicons-icon-font.min.css">
 		<!-- font-awesome css -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
 		<!-- style css -->
 		<link rel="stylesheet" href="style.css">
 		<!-- responsive css -->
@@ -117,7 +95,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 		<!-- header-start -->
 		<!-- mainmenu-area-start -->
-		<?php include('partials/header.php'); ?>
+		<?php //include('partials/header.php'); ?>
 		<!-- header-end -->
 		<!-- mainmenu-area-end -->
 		
@@ -180,7 +158,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 		<!-- footer-area-start -->
 		<!-- .copyright-area-start -->
 		
-		<?php include('partials/footer.php'); ?>
+		<?php // include('partials/footer.php'); ?>
 
 		<!-- contact-area-end -->
 		<!-- footer-area-end -->

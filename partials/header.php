@@ -30,7 +30,7 @@ if (!empty($_SESSION['UserID'])) {
     $userID = $_SESSION['UserID'];
     $UserObject = new User($userID);
     echo "<p style='left: 10%;margin-left: 18px;  margin-top: 0px;  top: 10px; position: absolute;'
-	>Welcome " . $UserObject->FName . "</p>";
+	>Welcome " . $UserObject->FName . $_SESSION['UserID'] . $_SESSION['Name'] . "</p>";
 
     if (isset($_GET['wishlist_id'])) {
         
