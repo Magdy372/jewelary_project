@@ -300,10 +300,7 @@
 											<td><span class="amount">$<?= $sum ?></span></td>
 										</tr>
 
-										<tr class="cart-subtotal">
-											<th>GST IN</th>
-											<td><span class="amount">28%</span></td>
-										</tr>
+										
 
 										<tr class="shipping">
 											<th>Shipping</th>
