@@ -233,7 +233,7 @@ class User extends Model
     }
 
 
-    static function editPW ($oldPW , $PW , $id){
+    function editPW ($oldPW , $PW , $id){
        
         $Password = $PW;
         $oldPass = $oldPW;
@@ -278,6 +278,7 @@ class User extends Model
     
     
     }
+
 
 
 	
