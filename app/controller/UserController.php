@@ -166,6 +166,14 @@ class UserController extends Controller
         $this->model->login($Email, $password);
     }
 
+    public function Edit(){
+        $Fname = $_REQUEST['FName'];
+        $Lname = $_REQUEST['LName'];
+        $Email = $_REQUEST['Email'];
+
+        $this->model->editinfo ($Fname,$Lname,$Email,$_SESSION['UserID']); 
+    }
+
 
     
 }

@@ -208,7 +208,7 @@ class User extends Model
 			return false;	
 	}	
 
-    static function editinfo ($FN , $LN , $EM , $id){
+    function editinfo ($FN , $LN , $EM , $id){
       //check if form was submitted
             $Fname=$FN;
             $Lname=$LN;
