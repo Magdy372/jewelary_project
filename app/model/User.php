@@ -26,8 +26,8 @@ class User extends Model
         $this->id = $id;
 		$this->db = $this->connect();
     
-        if(""===$id){
-          $this->readUser($id);
+        if(""!==$id){
+		  $this->readUser($id);
         }else{
           $this->FName = $Fname;
           $this->LName = $Lname;
@@ -103,26 +103,31 @@ class User extends Model
     }
 
 
-
-    function readUser($id){
-        $sql = "SELECT * FROM user where ID=".$id;
+	  function readUser($id) {
+        $sql = "SELECT * FROM users WHERE ID=" . $id;
         $db = $this->connect();
         $result = $db->query($sql);
-        if ($result->num_rows == 1){
-          $row = $db->fetchRow();
-          $this->name = $row["Name"];
-          $_SESSION["Name"]=$row["Name"];
-          $this->password=$row["Password"];
-          $this->age = $row["Age"];
-          $this->phone = $row["Phone"];
+
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc(); // Assuming fetch_assoc is the correct method
+            $this->FName = $row["FName"];
+            $this->LName = $row["LName"];
+            $this->Email = $row["Email"];
+            $this->Password = $row["Password"];
+            // Add more attributes as needed
+            $this->ID = $row["ID"];
+            // Assuming UserType_obj is an object, you need to instantiate it
+            $this->UserType_obj = new UserType($row["UserType_id"]); // Change UserType with the actual class name
+        } else {
+            // Handle the case when the user is not found
+            $this->FName = "";
+            $this->LName = "";
+            $this->Email = "";
+            $this->Password = "";
+            $this->ID = "";
+            $this->UserType_obj = null; // or handle UserType_obj accordingly
         }
-        else {
-          $this->name = "";
-              $this->password="";
-          $this->age = "";
-              $this->phone = "";
-        }
-      }
+    }
       
 
 	static function SelectAllUsersInDB(){
@@ -301,6 +306,9 @@ class User extends Model
 			  }
 	  }
 }
+
+$con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o","Jewelry_project");
+
 class UserType {
 	public $ID;
 	public $UserTypeName;
@@ -353,6 +361,37 @@ class pages {
 			}
 		}
 	}
+	public function getID()
+    {
+        return $this->ID;
+    }
+
+    public function setID($ID)
+    {
+        $this->ID = $ID;
+    }
+
+    // Getter and Setter for FriendlyName
+    public function getFriendlyName()
+    {
+        return $this->FreindlyName;
+    }
+
+    public function setFriendlyName($FreindlyName)
+    {
+        $this->FreindlyName = $FreindlyName;
+    }
+
+    // Getter and Setter for LinkAddress
+    public function getLinkAddress()
+    {
+        return $this->Linkaddress;
+    }
+
+    public function setLinkAddress($Linkaddress)
+    {
+        $this->LinkAddress = $Linkaddress;
+    }
 	
 	static function SelectAllPagesInDB(){
 		$sql="select * from pages";
@@ -367,4 +406,98 @@ class pages {
 		return $Result;
 	}
 }
-?>
+
+
+// class UserType extends User {
+// 	public $ID;
+// 	public $UserTypeName;
+// 	public $ArrayOfPages;
+// 	// function __construct($id){
+// 	// 	if ($id !=""){
+// 	// 		$sql="select * from usertypes where ID=$id";
+// 	// 		$result=mysqli_query($GLOBALS['con'],$sql);
+// 	// 		if ($row = mysqli_fetch_array($result))	{
+// 	// 			$this->UserTypeName=$row["Name"];
+// 	// 			$this->ID=$row["ID"];
+// 	// 			$sql="select PageID from usertype_pages where UserTypeID=$this->ID";
+// 	// 			$result=mysqli_query($GLOBALS['con'],$sql);
+// 	// 			$i=0;
+// 	// 			while($row1=mysqli_fetch_array($result)){
+// 	// 				$this->ArrayOfPages[$i]=new pages($row1[0]);
+// 	// 				$i++;
+// 	// 			}
+// 	// 		}
+// 	// 	}
+// 	// }
+// 	function __construct($id)
+//     {
+// 		$this->db = $this->connect();
+// 		$db = $this->connect();
+//         if ($id != "") {
+//             $sql = "SELECT * FROM usertypes WHERE ID=$id";
+//             $result = $db->query($sql);
+            
+//             if ($row = $db->fetchRow($result)) {
+//                 $this->UserTypeName = $row["Name"];
+//                 $this->ID = $row["ID"];
+                
+//                 $sql = "SELECT PageID FROM usertype_pages WHERE UserTypeID=$this->ID";
+//                 $result = $db->query($sql);
+                
+//                 $i = 0;
+//                 while ($row1=mysqli_fetch_array($result)) {
+//                     $this->ArrayOfPages[$i] = new pages($row1[0]); // Assuming you have a Pages class
+//                     $i++;
+//                 }
+//             }
+//         }
+//     }
+	
+// 	static function SelectAllUserTypesInDB(){
+// 		$sql="select * from usertypes";
+// 		$TypeDataSet = mysqli_query($GLOBALS['con'],$sql);
+// 		$i=0;
+// 		$Result;
+// 		while ($row = mysqli_fetch_array($TypeDataSet))	{
+// 			$MyObj= new UserType($row["ID"]);
+// 			$Result[$i]=$MyObj;
+// 			$i++;
+// 		}
+// 		return $Result;
+// 	}
+// }
+
+// class pages extends User{
+// 	public $ID;
+// 	public $FreindlyName;
+// 	public $Linkaddress;
+
+// 	function __construct($id) {
+// 		$this->db = $this->connect();
+// 		$db = $this->connect();
+//         if (!empty($id)) {
+//             $sql = "SELECT * FROM pages WHERE ID = $id";
+//             $result = $db->query($sql);
+
+//             if ($row = $db->fetchRow($result)) {
+//                 $this->FriendlyName = $row["FreindlyName"]; // Note: Corrected the variable name
+//                 $this->LinkAddress = $row["Linkaddress"]; // Note: Corrected the variable name
+//                 $this->ID = $row["ID"];
+//             }
+//         }
+//     }
+	
+// 	static function SelectAllPagesInDB(){
+// 		$sql="select * from pages";
+// 		$PageDataSet = mysqli_query($GLOBALS['con'],$sql);		
+// 		$i=0;
+// 		$Result;
+// 		while ($row = mysqli_fetch_array($PageDataSet))	{
+// 			$MyObj= new pages($row["ID"]);
+// 			$Result[$i]=$MyObj;
+// 			$i++;
+// 		}
+// 		return $Result;
+// 	}
+// }
+// ?>

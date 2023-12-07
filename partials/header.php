@@ -6,7 +6,7 @@
         <title>Home </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="../css/style.css">
 
 		<style>
    
@@ -20,17 +20,26 @@
     </head>
     <body>
 	<?php
-session_start();
-include_once("UserClass.php");
-include_once("shoppingcardclass.php");
-include_once("productclass.php");
-include_once("wishlishClass.php");
+//session_start();
+
+define('__ROOT__', "../app/");
+require_once(__ROOT__ . "model/User.php");
+require_once(__ROOT__ . "controller/UserController.php");
+
+
 // Check if a user is logged in
 if (!empty($_SESSION['UserID'])) {
-    $userID = $_SESSION['UserID'];
+	
+	$model = new User($_SESSION["UserID"]);
+	$controller = new UserController($model);
+	
+	
+	$userID = $_SESSION['UserID'];
     $UserObject = new User($userID);
+	//print_r($UserObject);
     echo "<p style='left: 10%;margin-left: 18px;  margin-top: 0px;  top: 10px; position: absolute;'
-	>Welcome " . $UserObject->FName . $_SESSION['UserID'] . $_SESSION['Name'] . "</p>";
+	>Welcome " . $UserObject->getFName()  . "</p>";
+
 
     if (isset($_GET['wishlist_id'])) {
         
@@ -69,6 +78,7 @@ if (isset($_GET['details_id'])) {
 
  
 } 
+
 ?>
 		<header>
 			<div class="header-top-area ptb-10 hidden-xs header-top-area-4">
@@ -83,7 +93,9 @@ if (isset($_GET['details_id'])) {
 						<div class="col-lg-9 col-md-8 col-sm-7 header-top-right-4">
     <div class="header-top-left">
         <ul>
-            <?php if(!empty($_SESSION['UserID'])): ?>
+            <?php 
+			
+			if(!empty($_SESSION['UserID'])): ?>
                 <!-- <li><a href="register.php">Create an Account</a></li> -->
 				<li><a href="customer-login.php">Compare Products</a></li>
                 <li class="click_menu">
@@ -91,7 +103,7 @@ if (isset($_GET['details_id'])) {
                     <ul class="click_menu_show">
                         <?php 
                         for ($i = 0; $i < count($UserObject->UserType_obj->ArrayOfPages); $i++) {
-                            echo "<li><a href=" . $UserObject->UserType_obj->ArrayOfPages[$i]->Linkaddress . ">" . $UserObject->UserType_obj->ArrayOfPages[$i]->FreindlyName . "</a></li>";
+							 echo "<li><a href=" . $UserObject->UserType_obj->ArrayOfPages[$i]->getLinkAddress() . ">" . $UserObject->UserType_obj->ArrayOfPages[$i]->getFriendlyName() . "</a></li>";
                         }
                         ?>
                     </ul>
@@ -115,7 +127,7 @@ if (isset($_GET['details_id'])) {
 
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<div class="logo logo2">
-								<a href="index.php"><img src="./img/logo-4.jpg" alt="" /></a>
+								<a href="index.php"><img src="../img/logo-4.jpg" alt="" /></a>
 							</div>					
 						</div>
 						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -138,38 +150,38 @@ if (isset($_GET['details_id'])) {
 									<div class="shop-cart-hover shop-cart-hover-4 fix">
 										<ul>
 										<?php 
-if (!empty($_SESSION['UserID'])):
-    $cartObject = ShoppingCart::displayCart($_SESSION["UserID"]);
-    $sum = 0;
+//  if (!empty($_SESSION['UserID'])):
+//     $cartObject = ShoppingCart::displayCart($_SESSION["UserID"]);
+//     $sum = 0;
 
-    if (!is_null($cartObject) && !empty($cartObject)) :
-        foreach ($cartObject as $element) :
-            // Check if $element is an array or an object
-            if (is_array($element)) {
-                $ProductPicture = explode(',', $element['ProductPicture']);
-                $ProductID = $element['ProductID'];
-                $ProductName = $element['ProductName'];
-                $ProductPrice = $element['ProductPrice'];
-                $Quantity = $element['Quantity'];
-                $Subtotal = $element['Subtotal'];
-            } else {
-                // Assuming $element is an object
-                $ProductPicture = explode(',', $element->ProductPicture);
-                $ProductName = $element->ProductName;
-                $ProductPrice = $element->ProductPrice;
-                $Quantity = $element->Quantity;
-                $Subtotal = $element->Subtotal;
-                $ProductID = $element->ProductID;
-            }
-			if (!empty($ProductPicture[0])) {
+//     if (!is_null($cartObject) && !empty($cartObject)) :
+//         foreach ($cartObject as $element) :
+//             // Check if $element is an array or an object
+//             if (is_array($element)) {
+//                 $ProductPicture = explode(',', $element['ProductPicture']);
+//                 $ProductID = $element['ProductID'];
+//                 $ProductName = $element['ProductName'];
+//                 $ProductPrice = $element['ProductPrice'];
+//                 $Quantity = $element['Quantity'];
+//                 $Subtotal = $element['Subtotal'];
+//             } else {
+//                 // Assuming $element is an object
+//                 $ProductPicture = explode(',', $element->ProductPicture);
+//                 $ProductName = $element->ProductName;
+//                 $ProductPrice = $element->ProductPrice;
+//                 $Quantity = $element->Quantity;
+//                 $Subtotal = $element->Subtotal;
+//                 $ProductID = $element->ProductID;
+//             }
+// 			if (!empty($ProductPicture[0])) {
 												
-				$imageSrc = "uploads/" . $ProductPicture[0];
-			} else {
-				$imageSrc = "uploads/default.jpg";
-			}
+// 				$imageSrc = "uploads/" . $ProductPicture[0];
+// 			} else {
+// 				$imageSrc = "uploads/default.jpg";
+// 			}
 ?>
             <li>
-                <div class="cart-img">
+                <!--<div class="cart-img">
                     <a href="product-details.php?details_id=<?=$ProductID;?>"><img src="<?=$imageSrc?>" alt="" /></a>
                 </div>
                 <div class="cart-content">
@@ -179,19 +191,19 @@ if (!empty($_SESSION['UserID'])):
                 </div>
                 <div class="cart-del">
                     <a href="cart.php?delete_id=<?=$ProductID?>"><i  class="fa fa-times-circle"></i> </a>
-                </div>
+                </div>-->
             </li>
 <?php
-            $sum += $Subtotal;
-        endforeach;
+        //     $sum += $Subtotal;
+        // endforeach;
 ?>
-        <li class="total-price"><span>Total $<?=$sum?></span></li>
+        <!--<li class="total-price"><span>Total $<?=$sum?></span></li>
         <li class="checkout-bg">
             <a href="checkout.php">checkout <i class="fa fa-angle-right"></i></a>
-        </li>
+        </li>-->
 <?php
-    endif;
-endif;
+//     endif;
+// endif;
 ?>
 
 										</ul>
