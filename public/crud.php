@@ -1,113 +1,166 @@
-<!DOCTYPE html>
-<html>
+<a href="Type.php">add product</a>
+<div class="navbar">
+        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
+        <a href="admin.php">Admin Dashboard</a>
+        <a href="add_admin.php">Add Admin</a>
+        <a href="crud.php">Product</a>
+        <a href="usercrud.php">Users</a>
+    </div>
 
-<head>
-    <title>Product Management</title>
-    <!-- Include any necessary styles or scripts here -->
-</head>
+<?php
+define('__ROOT__', "../app/");
+require_once(__ROOT__ . "model/Product.php");
+require_once(__ROOT__ . "controller/ProductController.php");
 
-    <?php
-    define('__ROOT__', "../app/");
-    require_once(__ROOT__ . "model/Products.php");
-    require_once(__ROOT__ . "controller/ProductController.php");
-    require_once(__ROOT__ . "views/ProductView.php");
+$model = new Product();
+$controller = new ProductController($model);
 
-    $model = new Product();
-    $controller = new ProductController($model);
-    $view = new ProductView($controller, $model);
+// Fetch products
+$products = $model->getAllProducts();
 
-    if (isset($_GET['action'])) {
-        switch ($_GET['action']) {
-            case 'delete_product':
-                if (isset($_GET['product_id'])) {
-                    $id = $_GET['product_id'];
-                    $controller->deleteProduct($id);
-                }
-                break;
-        }
+if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+        case 'delete_product':
+            if (isset($_GET['product_id'])) {
+                $id = $_GET['product_id'];
+                $controller->deleteProduct($id);
+                header("Location: crud.php");
+                exit();
+            }
+            break;
     }
-    
+}
 
-    echo $view->output();
-    ?>
-</body>
-</html>
 
+// HTML Table Header
+echo "<table border='1'>";
+echo "<tr>";
+echo "<th>Product Name</th>";
+echo "<th>Description</th>";
+echo "<th>Product Pictures</th>";
+echo "<th>Price</th>";
+echo "<th>Product Type</th>";
+echo "<th>Actions</th>";
+
+echo "</tr>";
+
+// Loop through products and display each row
+foreach ($products as $product) {
+    echo "<tr>";
+    echo "<td>{$product['ProductName']}</td>";
+    echo "<td>{$product['Description']}</td>";
+    $productPictures = explode(',', $product['ProductPicture']);
+    if (!empty($productPictures[0])) {
+        $imageSrc = "../uploads/" . htmlspecialchars($productPictures[0]);
+    } else {
+        $imageSrc = "uploads/default.jpg";
+    }
+    echo '<td><img src="' . $imageSrc . '" width="80" height="80"></td>';
+    echo "<td>{$product['Price']}</td>";
+    $productTypeId = $product['Product_Type'];
+    $productTypeName = $model->getProductTypeName($productTypeId);
+    echo "<td>{$productTypeName}</td>";
+    echo "<td>";
+
+    // Edit link
+    echo '<a class="edit-button" href="editproduct.php?edit_id=' . htmlspecialchars($product['id']) . '">Edit</a> ';
+
+    // Delete form using GET
+    echo '<form method="GET" action="crud.php" onsubmit="return confirm(\'Are you sure you want to delete this product?\');">';
+    echo '<input type="hidden" name="action" value="delete_product">';
+    echo '<input type="hidden" name="product_id" value="' . htmlspecialchars($product['id']) . '">';
+    echo '<button class="delete" type="submit">Delete</button>';
+    echo '</form>';
+
+    echo "</td>";
+    echo "</tr>";
+}
+
+// HTML Table Footer
+echo "</table>";
+?>
 <style>
-     
-     .delete{
-        display: inline-block;
-    padding: 10px 20px;
-    background-color: #3498db; /* Button background color */
-    color: #fff; /* Button text color */
-    text-decoration: none; /* Remove underline from the link */
-    border: 1px solid #3498db; /* Button border */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Show a pointer cursor on hover */
-    transition: background-color 0.3s, color 0.3s;
-     }
-
-     .delete:hover{
-    background-color: #0056b3; /* Button background color on hover */
-     }
-
-      .edit-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #3498db; /* Button background color */
-    color: #fff; /* Button text color */
-    text-decoration: none; /* Remove underline from the link */
-    border: 1px solid #3498db; /* Button border */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Show a pointer cursor on hover */
-    transition: background-color 0.3s, color 0.3s; /* Smooth color transition on hover */
-}
-
-.edit-button:hover {
-    background-color: #0056b3; /* Button background color on hover */
-     /* Button text color on hover */
-}
-      
-      .navbar {
-    width: 250px;
-    height: 100%;
-    background-color: white;
-    position: fixed;
-    left: 0;
-    top: 0;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-body {
-            color: black;
-            background:#D3D3D3;
-            font-family: 'Lato', sans-serif;
-            font-size: 15px;
-            line-height: 1.42857;
+        /* Base styles for the navbar and form */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
-        .navbar a {
-    display: block;
-    width: 60%; /* Set a fixed width for all buttons */
-    padding: 10px 20px;
-    text-decoration: none;
-    text-align: center; /* Center the text */
-    color: white;
-    font-weight: bold;
-    margin: 10px 0;
-    border-radius: 5px;
-    background-color: gray;
-    transition: background-color 0.3s, color 0.3s;
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .navbar {
+            width: 250px;
+            height: 100%;
+            background-color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        body {
+    color: black;
+    background: #D3D3D3;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    line-height: 1.42857;
+    margin-left: 300px; /* Increase the margin to shift the content further right */
 }
 
-.navbar a:hover {
-    background-color: #0056b3;
-}
-@media (max-width: 768px) {
+.navbar a {
+            display: block;
+            width: 60%;
+            padding: 10px 20px;
+            text-decoration: none;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: gray;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #0056b3;
+        }
+        .content {
+            margin-left: 0;
+            padding: 20px;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
             .container {
                 width: 100%;
             }
@@ -133,80 +186,68 @@ body {
             }
         }
 
+       
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+            }
+
+            .navbar {
+                width: 200px;
+                height: 100%;
+                background-color: #333;
+                position: fixed;
+                left: 0;
+                top: 0;
+                color: white;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+
         .logo {
-    width: 150px;
-    height: auto;
-    margin: 20px 0;
-}
-@media (max-width: 768px) {
-    .navbar {
-        width: 100%;
-        background-color: #007BFF;
-        padding: 10px;
-        align-items: flex-start;
-    }
-
-    .navbar a {
-        padding: 10px 20px;
-        margin: 10px 0;
-    }
-
-    .logo {
-        width: 100px;
-        margin: 10px 0;
-    }
-}
-
-
-        table {
-            width: 80%;
-            /* Reduce the table width */
-            border-collapse: collapse;
-            margin: 0 auto 0 20%;
-            /* Shift the table to the right by adding a left margin */
+            width: 150px;
+            height: auto;
+            margin: 20px 0;
         }
 
-        th,
-        td {
-            text-align: center;
-            padding: 5px;
-            /* Reduce the padding inside table cells */
+        @media (max-width: 768px) {
+            .navbar {
+                width: 100%;
+                background-color: #007BFF;
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .navbar a {
+                padding: 10px 20px;
+                margin: 10px 0;
+            }
+
+            .logo {
+                width: 100px;
+                margin: 10px 0;
+            }
         }
 
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .actions {
+        .stats {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            margin: 20px 0;
         }
 
-        .add-product-button {
-            display: inline-block;
-            padding: 5px 10px;
-            /* Reduce the button padding */
-            background-color: #007BFF;
-            color: #fff;
-            text-decoration: none;
-            border: none;
+        .stat-box {
+            width: 30%;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            position: relative;
-            top: 50%;
-            left: 55%;
-            transform: translate(-50%, -50%);
-        }
-
-
-        .add-product-button:hover {
-            background-color: #0056b3;
-        }
-
-        .center-h2 {
             text-align: center;
-            position: absolute;
-            top: 55%;
-            right: 50%;
-            /* transform: translate(-50%, -50%); */
         }
     </style>

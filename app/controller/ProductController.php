@@ -1,46 +1,39 @@
 <?php
 
-require_once(__ROOT__ . "controller/Controller.php");
+require_once("Controller.php");
 class ProductController extends Controller
 {
     
 
-    public function getProductID($id)
-    {
-       
-        
-        $this->model->getProductID($id);
-
-    }
-
    
-    public function insertProduct()
+
+    public function insertProduct($productName, $description, $ProductPictures, $price, $productType, $optionsValues)
     {
-        $ProductName = $_REQUEST['ProductName'];
-         $ProductPictures = $_FILES['ProductPicture']['name'];
-        $Description = $_REQUEST['Description'];
-        $Weight = $_REQUEST['Weight'];
-        $Size = $_REQUEST['Size'];
-        $Price = $_REQUEST['Price'];
-        $Availability = $_REQUEST['Availability'];
-        $CategoryID = $_REQUEST['CategoryID'];
-        $MetalID = $_REQUEST['MetalID'];
-        $this->model->addProduct($ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID);
+        $productName = $_REQUEST['productName'];
+        $description = $_REQUEST['description'];
+        $ProductPictures = $this->model->uploadProductPictures($_FILES); // Call the uploadProductPictures method
+        $price = $_REQUEST['price'];
+        $optionsValues = $_REQUEST['options'];
+    
+        if (isset($_SESSION["Type"])) {
+            $productType = $_SESSION["Type"];
+            $this->model->addProduct($productName, $description, $ProductPictures, $price, $productType, $optionsValues);
+        } else {
+            echo "Error: Product type not set.";
+        }
     }
     
-    public function updateProduct($ProductID,$ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID)
+    
+    public function updateProduct($productId,$productName, $description, $productPicture, $price,$optionsValues)
     {
-        $ProductID=$_REQUEST['ProductID'];
-        $ProductName = $_REQUEST['ProductName'];
-        $ProductPictures = $_FILES['ProductPicture']['name'];
-       $Description = $_REQUEST['Description'];
-       $Weight = $_REQUEST['Weight'];
-       $Size = $_REQUEST['Size'];
-       $Price = $_REQUEST['Price'];
-       $Availability = $_REQUEST['Availability'];
-       $CategoryID = $_REQUEST['CategoryID'];
-       $MetalID = $_REQUEST['MetalID'];
-       $this->model->editProduct($ProductID,$ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID);
+       
+        $productName = $_REQUEST['productName'];
+        $description = $_REQUEST['description'];
+        $ProductPictures = $this->model->uploadProductPictures($_FILES);
+        $price = $_REQUEST['price'];
+      
+        $optionsValues = $_REQUEST['options'];
+       $this->model->updateProduct($productId,$productName, $description, $productPicture, $price, $optionsValues);
     }
     
     public function displayProduct($id)
@@ -58,29 +51,16 @@ class ProductController extends Controller
       
     }
 
-
- 
     public function deleteProduct($id)
     {
         $this->model->deleteProduct($id);
     }
     
-
-public function displayAllCategories()
-{
-    
-    $this->model->getAllCategories();
-
-  
-}
-public function displayAllMetals()
-{
-    
-    $this->model->getAllMetals();
-
-  
-}
 }
 
 
 ?>
+
+
+
+

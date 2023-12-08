@@ -53,8 +53,16 @@ class DBh{
         return self::$conn->real_escape_string($string);
     }
 
-  
-
+	public function prepare($sql) {
+		$stmt = $this->conn->prepare($sql);
+		if (!$stmt) {
+		  throw new Exception("Error preparing statement: " . $this->conn->error);
+		}
+		return $stmt;
+	  }
+	function __destruct(){
+		$this->conn->close();
+	}
     // Add your log function here
 }
 ?>

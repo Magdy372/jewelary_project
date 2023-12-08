@@ -1,133 +1,107 @@
-<!DOCTYPE html>
-<html>
+<?php
+define('__ROOT__', "../app/");
+require_once(__ROOT__ . "model/Product.php");
+require_once(__ROOT__ . "controller/ProductController.php");
 
-<head>
+$model = new Product();
+$controller = new ProductController($model);
 
-    <title>Edit Product</title>
-   
-</head>
-
-<body>
- <?php
- define('__ROOT__', "../app/");
- require_once(__ROOT__ . "model/Products.php");
- require_once(__ROOT__ . "controller/ProductController.php");
- require_once(__ROOT__ . "views/ProductView.php");
- 
- $model = new Product();
- $controller = new ProductController($model);
- $view = new ProductView($controller, $model);
- if (isset($_GET['edit_id'])) {
-    $productID = $_GET['edit_id'];
+// Fetch the product details for editing
+$productId = $_GET['edit_id'] ?? null;
+if ($productId !== null) {
+    $product = $model->getProductById($productId);
+    $options = $model->getOptionsForType($product['Product_Type']);
+    $sovValues = $model->getProductSOVValues($productId);
+} else {
+    // Handle the case where $productId is not provided or invalid
+    echo "Error: Invalid product ID.";
+    exit();
 }
-        if (isset($_POST['submit'])) {
-            $ProductID=$_POST['ProductID'];
-            $ProductName = $_POST['ProductName'];
-    $ProductPictures = $_FILES['ProductPicture']['name'];
-    $Description = $_POST['Description'];
-    $Weight = $_POST['Weight'];
-    $Size = $_POST['Size'];
-    $Price = $_POST['Price'];
-    $Availability = $_POST['Availability'];
-    $CategoryID = $_POST['CategoryID'];
-    $MetalID = $_POST['MetalID'];
-    $ProductPictures = $model->uploadProductPictures($_FILES);
-   
- 
-            $controller->updateProduct($ProductID,$ProductName, $ProductPictures, $Description, $Weight, $Size, $Price, $Availability, $CategoryID, $MetalID) ;
-    }
-        ?>
-    <div class="navbar">
+
+if (isset($_POST['submit'])) {
+    $productName = $_POST["productName"];
+    $description = $_POST["description"];
+    $price = $_POST["price"];
+    $optionsValues = $_POST["options"] ?? [];
+    if (empty($_FILES['ProductPicture']['name'][0])) {
+        // No new pictures uploaded, reuse existing ones
+        $productPictures = $product['ProductPicture'];
+      } else {
+        $productPictures = $model->uploadProductPictures($_FILES);
+      }
+
+    $controller->updateProduct( $productId,$productName, $description, $productPictures, $price, $optionsValues);
+    header("Location: crud.php");
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Product</title>
+</head>
+<body>
+<div class="navbar">
         <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
         <a href="admin.php">Admin Dashboard</a>
         <a href="add_admin.php">Add Admin</a>
         <a href="crud.php">Product</a>
         <a href="usercrud.php">Users</a>
     </div>
+<!-- Update Product Form -->
+<form method="post" enctype="multipart/form-data"> <!-- Add enctype for file uploads -->
+    <input type="hidden" name="action" value="update_product">
+    <input type="hidden" name="productId" value="<?php echo $product['id']; ?>">
 
-    <div class="container">
-        <h2>Edit Product</h2>
-        <?php
-         echo $view->editform($productID);
-        ?>
-       
+    <!-- Other form fields -->
+
+    <label for="productName">Product Name:</label>
+    <input type="text" name="productName" value="<?php echo $product['ProductName']; ?>" required><br>
+
+    <label for="description">Description:</label>
+    <input type="text" name="description" value="<?php echo $product['Description']; ?>" required><br>
+    <?php
+    $productPictures = explode(',', $product['ProductPicture']);
+    foreach ($productPictures as $picture) {
+        echo '<img src="../uploads/' . $picture . '" width="80" height="80">';
+    }
+    ?>
+    <label for="ProductPicture">Product Pictures:</label>
+    <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif" >><br>
+
+  
+
+    <!-- Add other input fields as needed -->
+
+    <label for="price">Price:</label>
+    <input type="text" name="price" value="<?php echo $product['Price']; ?>" required><br>
+
+    <!-- Assuming $options contains the available options and $sovValues contains the SOV values -->
+    <div id="optionsContainer">
+        <?php foreach ($options as $option): ?>
+            <?php
+            // Fetch and display existing option value if needed
+            $existingOptionValue = ''; // Default value if no SOV value is found
+            foreach ($sovValues as $sov) {
+                if ($sov['Product_Type_S_O'] == $option['ID']) {
+                    $existingOptionValue = $sov['Value'];
+                    break;
+                }
+            }
+            ?>
+
+            <label for="option_<?php echo $option['ID']; ?>"><?php echo $option['Name']; ?>:</label>
+            <input type="text" name="options[<?php echo $option['ID']; ?>]" value="<?php echo $existingOptionValue; ?>" required><br>
+        <?php endforeach; ?>
     </div>
+
+    <input type="submit" name="submit" value="Update Product">
+</form>
+
 </body>
-
 </html>
-<script>
-    function validateForm() {
-        var productName = document.getElementById("ProductName").value;
-        var nameError = document.getElementById("nameError");
-        var description = document.getElementById("Description").value;
-        var descriptionError = document.getElementById("descriptionError");
-        var price = parseFloat(document.getElementById("Price").value);
-        var priceError = document.getElementById("priceError");
-        var weight = parseFloat(document.getElementById("Weight").value);
-        var weightError = document.getElementById("weightError");
-        var size = parseFloat(document.getElementById("Size").value);
-        var sizeError = document.getElementById("sizeError");
-        var picture = document.querySelector('input[type="file"]').files[0];
-        var pictureError = document.getElementById("pictureError");
-
-        // Validate ProductName and Description
-        var nameDescriptionPattern = /^[A-Za-z\s]+$/;
-        if (!nameDescriptionPattern.test(productName) || productName.length < 8) {
-            nameError.textContent = " enter valid Product Name ";
-            return false;
-        } else {
-            nameError.textContent = "";
-        }
-
-        if (!nameDescriptionPattern.test(description) || description.length < 8) {
-            descriptionError.textContent = " enter valid Description .";
-            return false;
-        } else {
-            descriptionError.textContent = "";
-        }
-
-        // Validate Price, Weight, and Size
-        if (isNaN(price) || price <= 0) {
-            priceError.textContent = "Price must be a positive number.";
-            return false;
-        } else {
-            priceError.textContent = "";
-        }
-
-        if (isNaN(weight) || weight <= 0) {
-            weightError.textContent = "Weight must be a positive number.";
-            return false;
-        } else {
-            weightError.textContent = "";
-        }
-
-        if (isNaN(size) || size < 0) {
-            sizeError.textContent = "Size must be a non-negative number.";
-            return false;
-        } else {
-            sizeError.textContent = "";
-        }
-
-        // Validate ProductPicture file extension
-        if (!isValidImageFile(picture)) {
-            pictureError.textContent = "Image file must be in JPEG, PNG, GIF, or TIFF format.";
-            return false;
-        } else {
-            pictureError.textContent = "";
-        }
-
-        return true;
-    }
-
-    function isValidImageFile(file) {
-        var allowedExtensions = ["jpg", "jpeg", "png", "gif", "tiff"];
-        if (file) {
-            var fileExtension = file.name.split('.').pop().toLowerCase();
-            return allowedExtensions.indexOf(fileExtension) !== -1;
-        }
-        return false;
-    }
-</script>
 <style>
         /* Base styles for the navbar and form */
         .container {
@@ -203,14 +177,40 @@
         .navbar a:hover {
             background-color: #0056b3;
         }
-
         .content {
             margin-left: 0;
             padding: 20px;
         }
 
         /* Media query for smaller screens */
-        @@media (max-width: 768px) {
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+            }
+
+            .navbar {
+                width: 200px;
+                height: 100%;
+                background-color: #333;
+                position: fixed;
+                left: 0;
+                top: 0;
+                color: white;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                /* Stack logo and links vertically */
+                align-items: center;
+                /* Center content horizontally */
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+
+       
+        @media (max-width: 768px) {
             .container {
                 width: 100%;
             }
@@ -239,6 +239,7 @@
             height: auto;
             margin: 20px 0;
         }
+
         @media (max-width: 768px) {
             .navbar {
                 width: 100%;

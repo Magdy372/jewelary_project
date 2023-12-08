@@ -55,7 +55,7 @@
 							<div class="new-product-home-4-active">
 							<?php
 
-								$query = "SELECT * FROM Product";
+								$query = "SELECT * FROM product";
 								$result = mysqli_query($con, $query);
 
 								
@@ -72,7 +72,7 @@
 										<div class="col-lg-12">
 											<div class="single-new-product">
 												<div class="product-img">
-												<a href="product-details.php?details_id=<?=$product['ProductID'];?>">
+												<a href="product-details.php?details_id=<?=$product['id'];?>">
                                                     <img src="<?= $imageSrc ?>" class="first_img" alt="" />
                                                    </a>
 												</div>
@@ -94,8 +94,8 @@
 													<div class="product-icon">
 														<ul>
 															<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-															<li><a href="index.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a></li>
-															<li><a href="index.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart"></span></a></li>
+															<li><a href="index.php?wishlist_id=<?= $product['id']; ?>"><span class="lnr lnr-heart"></span></a></li>
+															<li><a href="index.php?cart_id=<?= $product['id']; ?>"><span class="lnr lnr-cart"></span></a></li>
 														</ul>
 													</div>
 												</div>
@@ -141,7 +141,7 @@
 					<div class="new-product-home-2-active">
 						<?php
 
-								$query = "SELECT * FROM Product";
+								$query = "SELECT * FROM product";
 								$result = mysqli_query($con, $query);
 
 								
@@ -158,7 +158,7 @@
 										<div class="col-lg-12">
 											<div class="single-new-product">
 												<div class="product-img">
-												<a href="product-details.php?details_id=<?=$product['ProductID'];?>">
+												<a href="product-details.php?details_id=<?=$product['id'];?>">
                                                     <img src="<?= $imageSrc ?>" class="first_img" alt="" />
                                                    </a>
 												</div>
@@ -180,8 +180,8 @@
 													<div class="product-icon">
 														<ul>
 															<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-															<li><a href="index.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a></li>
-															<li><a href="index.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart"></span></a></li>
+															<li><a href="index.php?wishlist_id=<?= $product['id']; ?>"><span class="lnr lnr-heart"></span></a></li>
+															<li><a href="index.php?cart_id=<?= $product['id']; ?>"><span class="lnr lnr-cart"></span></a></li>
 														</ul>
 													</div>
 												</div>
@@ -232,7 +232,7 @@
 						<div class="feature-home-2-active feature-home-4-active">
 						<?php
 
-$query = "SELECT * FROM Product";
+$query = "SELECT * FROM product";
 $result = mysqli_query($con, $query);
 
 
@@ -249,7 +249,7 @@ if ($result) {
 		<div class="col-lg-12">
 			<div class="single-new-product">
 				<div class="product-img">
-				<a href="product-details.php?details_id=<?=$product['ProductID'];?>">
+				<a href="product-details.php?details_id=<?=$product['id'];?>">
 					<img src="<?= $imageSrc ?>" class="first_img" alt="" />
 				   </a>
 				</div>
@@ -271,8 +271,8 @@ if ($result) {
 					<div class="product-icon">
 						<ul>
 							<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-							<li><a href="index.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a></li>
-							<li><a href="index.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart"></span></a></li>
+							<li><a href="index.php?wishlist_id=<?= $product['id']; ?>"><span class="lnr lnr-heart"></span></a></li>
+							<li><a href="index.php?cart_id=<?= $product['id']; ?>"><span class="lnr lnr-cart"></span></a></li>
 						</ul>
 					</div>
 				</div>
