@@ -118,6 +118,7 @@ class UserController extends Controller
             }
         }
         //trying to adding validation on Email to check if this email are token or no 
+        // hint lsa m3mltosh momken al7ta deh a3mlha f file msh f controller lw email msh mta5ed yb2a y call function mn alawl b2a 
 		// $sql = "SELECT * FROM users WHERE Email = '$email'";
         // $result = $this->$db->query($sql);
     
@@ -166,6 +167,23 @@ class UserController extends Controller
         $this->model->login($Email, $password);
     }
 
+    public function Edit(){
+        $Fname = $_REQUEST['FName'];
+        $Lname = $_REQUEST['LName'];
+        $Email = $_REQUEST['Email'];
+        //we need validation on this tirms 
+        
+        $this->model->editinfo ($Fname,$Lname,$Email,$_SESSION['UserID']); 
+    }
+
+    public function EditPW(){
+        $oldPass = $_REQUEST['old_Password'];
+        $Password = $_REQUEST['Password'];
+        
+        //we need validation on this tirms 
+        
+        $this->model-> editPW($oldPass,$Password,$_SESSION['UserID']);
+    }
 
     
 }
