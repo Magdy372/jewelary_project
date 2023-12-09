@@ -15,39 +15,38 @@ Use
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 	<!-- all css here -->
 	<!-- bootstrap v3.3.6 css -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
 	<!-- animate css -->
-	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="../css/animate.css">
 	<!-- jquery-ui.min css -->
-	<link rel="stylesheet" href="css/jquery-ui.min.css">
+	<link rel="stylesheet" href="../css/jquery-ui.min.css">
 	<!-- nivo-slider css -->
-	<link rel="stylesheet" href="css/nivo-slider.css">
+	<link rel="stylesheet" href="../css/nivo-slider.css">
 	<!-- magnific-popup css -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="../css/magnific-popup.css">
 	<!-- meanmenu css -->
-	<link rel="stylesheet" href="css/meanmenu.min.css">
+	<link rel="stylesheet" href="../css/meanmenu.min.css">
 	<!-- owl.carousel css -->
-	<link rel="stylesheet" href="css/owl.carousel.css">
+	<link rel="stylesheet" href="../css/owl.carousel.css">
 	<!--linearicons css -->
-	<link rel="stylesheet" href="css/linearicons-icon-font.min.css">
+	<link rel="stylesheet" href="../css/linearicons-icon-font.min.css">
 	<!-- font-awesome css -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
 	<!-- style css -->
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../style.css">
 	<!-- responsive css -->
-	<link rel="stylesheet" href="css/responsive.css" />
+	<link rel="stylesheet" href="../css/responsive.css" />
 	<!-- modernizr css -->
-	<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+	<script src="../js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
 
 	<!-- header-start -->
-	<?php include('partials/header.php'); ?>
+	<?php include('../partials/header.php'); ?>
 	<?php
 	if ($_SESSION["UserID"] !== NULL) {
-		include_once("shoppingcardclass.php");
-
+		
 
 		// to adding product to wishlist 
 
@@ -73,29 +72,30 @@ Use
 
 
 			}
-			if (isset($_GET['cart_id'])) {
-				$productID = $_GET['cart_id'];
-				$userID = $_SESSION["UserID"];
-				$cartObject1 = ShoppingCart::addToCart($userID, $productID);
+			// if (isset($_GET['cart_id'])) {
+			// 	$productID = $_GET['cart_id'];
+			// 	$userID = $_SESSION["UserID"];
+			// 	$cartObject1 = ShoppingCart::addToCart($userID, $productID);
 
-				if ($cartObject1 !== NULL) {
-				} else {
-					echo "Error adding to cart";
-				}
-			}
+			// 	if ($cartObject1 !== NULL) {
+			// 	} else {
+			// 		echo "Error adding to cart";
+			// 	}
+			// }
 
 			//to display user wishlist 
-			$cartObject = ShoppingCart::displayCart($_SESSION["UserID"]);
+			//$cartObject = ShoppingCart::displayCart($_SESSION["UserID"]);
 		}
 		if (isset($_GET['clear_id'])) {
 
 			$userID = $_SESSION["UserID"];
-
-			$ShoppingObj = ShoppingCart::clearCart($userID);
-			if ($ShoppingObj !== NULL) {
-				echo "Your ShoppingCart is empty.";
-				exit();
-			} else {
+			
+			$ShoppingObj = $Cartcontroller->Clear($userID);
+			 if ($ShoppingObj) {
+			 	//echo "Your ShoppingCart is empty.";
+			 	//exit();
+			
+			 } else {
 				echo "Failed to clear the cart.";
 			}
 		}
@@ -185,7 +185,7 @@ Use
 
 											if (!empty($ProductPicture[0])) {
 
-												$imageSrc = "uploads/" . $ProductPicture[0];
+												$imageSrc = "../uploads/" . $ProductPicture[0];
 											} else {
 												$imageSrc = "uploads/default.jpg";
 											}
@@ -260,7 +260,7 @@ Use
 	</div>
 	<!-- cart-main-area end -->
 	<!-- contact-area-start -->
-	<?php include('partials/footer.php'); ?>
+	<?php include('../partials/footer.php'); ?>
 	<!-- footer-area-end -->
 
 </body>
@@ -274,24 +274,24 @@ Use
 
 <!-- all js here -->
 <!-- jquery latest version -->
-<script src="js/vendor/jquery-1.12.0.min.js"></script>
-<!-- bootstrap js -->
-<script src="js/bootstrap.min.js"></script>
-<!-- owl.carousel js -->
-<script src="js/owl.carousel.min.js"></script>
-<!-- meanmenu js -->
-<script src="js/jquery.meanmenu.js"></script>
-<!-- jquery-ui js -->
-<script src="js/jquery-ui.min.js"></script>
-<!-- nivo.slider js -->
-<script src="js/jquery.nivo.slider.js"></script>
-<!-- magnific-popup js -->
-<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="../js/vendor/jquery-1.12.0.min.js"></script>
+<!-- bootstra../p js -->
+<script src="../js/bootstrap.min.js"></script>
+<!-- owl.caro../usel js -->
+<script src="../js/owl.carousel.min.js"></script>
+<!-- meanmenu../ js -->
+<script src="../js/jquery.meanmenu.js"></script>
+<!-- jquery-u../i js -->
+<script src="../js/jquery-ui.min.js"></script>
+<!-- nivo.sli../der js -->
+<script src="../js/jquery.nivo.slider.js"></script>
+<!-- magnific../-popup js -->
+<script src="../js/jquery.magnific-popup.min.js"></script>
 <!-- wow js -->
 <script src="js/wow.min.js"></script>
-<!-- scrolly js -->
-<script src="js/jquery.scrolly.js"></script>
-<!-- plugins js -->
-<script src="js/plugins.js"></script>
-<!-- main js -->
-<script src="js/main.js"></script>
+<!-- scrolly ../js -->
+<script src="../js/jquery.scrolly.js"></script>
+<!-- plugins ../js -->
+<script src="../js/plugins.js"></script>
+<!-- main js ../-->
+<script src="../js/main.js"></script>

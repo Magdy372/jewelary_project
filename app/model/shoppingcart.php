@@ -22,7 +22,7 @@ class ShoppingCart extends Model
         $this->productID = $productID;
     }
 
-    public static function addToCart($userID, $productID)
+    public function addToCart($userID, $productID)
     {
         $select_query = "SELECT * FROM ShoppingCart WHERE UserID = $userID AND ProductID = $productID";
         $result = mysqli_query($GLOBALS['con'], $select_query);
@@ -81,7 +81,7 @@ class ShoppingCart extends Model
     }
 
     
-    static function displayCart($userID)
+    public function displayCart($userID)
 {
     $select_query = "SELECT * FROM ShoppingCart WHERE UserID = $userID";
     $result = mysqli_query($GLOBALS['con'], $select_query);
@@ -140,7 +140,7 @@ class ShoppingCart extends Model
 
 
     }
-    public static function clearCart($userID)
+    public  function clearCart($userID)
     {
         // Use the DELETE query to remove all items from the ShoppingCart for the given user
         $clear_query = "DELETE FROM ShoppingCart WHERE UserID = $userID";
