@@ -18,13 +18,13 @@ class WishlistController extends Controller
     public function Display($userID)
     {
         
-       $Cartobj =  $this->model->displayCart($userID);
-        return $Cartobj;
+       $Wishobj =  $this->model->dispalyWish($userID);
+        return $Wishobj;
     }
 
 
     public function Delete($userID, $productID)
     {
-        $this->model->deleteFromCart($userID, $productID);
+        $this->model->deleteFromWishlist($userID, $productID);
     }
 }

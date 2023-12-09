@@ -7,45 +7,51 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="img/favicon.png" />
+        <link rel="icon" href="../img/favicon.png" />
         <!-- Place favicon.ico in the root directory -->
 		<!-- google-font -->
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> 
 		<!-- all css here -->
 		<!-- bootstrap v3.3.6 css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
 		<!-- animate css -->
-        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="../css/animate.css">
 		<!-- jquery-ui.min css -->
-        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link rel="stylesheet" href="../css/jquery-ui.min.css">
 		<!-- nivo-slider css -->
-        <link rel="stylesheet" href="css/nivo-slider.css">
+        <link rel="stylesheet" href="../css/nivo-slider.css">
 		<!-- magnific-popup css -->
-        <link rel="stylesheet" href="css/magnific-popup.css">		
+        <link rel="stylesheet" href="../css/magnific-popup.css">		
 		<!-- meanmenu css -->
-        <link rel="stylesheet" href="css/meanmenu.min.css">
+        <link rel="stylesheet" href="../css/meanmenu.min.css">
 		<!-- owl.carousel css -->
-        <link rel="stylesheet" href="css/owl.carousel.css">
+        <link rel="stylesheet" href="../css/owl.carousel.css">
 		<!--linearicons css -->
-        <link rel="stylesheet" href="css/linearicons-icon-font.min.css">
+        <link rel="stylesheet" href="../css/linearicons-icon-font.min.css">
 		<!-- font-awesome css -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
 		<!-- style css -->
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../style.css">
 		<!-- responsive css -->
-        <link rel="stylesheet" href="css/responsive.css" />
+        <link rel="stylesheet" href="../css/responsive.css" />
 		<!-- modernizr css -->
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
         
 		<!-- header-start -->
-		<?php include('partials/header.php'); ?>
+		<?php include('../partials/header.php'); ?>
 		<?php
+		
+		require_once(__ROOT__ . "model/Wishlist.php");
+		require_once(__ROOT__ . "controller/WishlistController.php");
+		
 			if($_SESSION["UserID"]!==NULL){
-				include_once ("wishlishClass.php");
 				
 				
+				
+				$Wishlistmodel = new WishlistItem($_SESSION["UserID"]);
+				$Wishlistcontroller = new WishlistController($Wishlistmodel);
 				// to adding product to wishlist 
 
 				// to delete product from Wishlist
@@ -53,8 +59,8 @@
 					$deleteProductID = $_GET['delete_id'];
 					$userID = $_SESSION["UserID"];
 					
-					$wishObject1=WishlistItem::deleteFromWishlist($userID,$deleteProductID);
-					if ($wishObject1!==NULL)
+					$wishObject1= $Wishlistcontroller->Delete($userID,$deleteProductID);
+					if ($wishObject1)
 					{	
 						echo "Deleted Successfully :)";
 					}
@@ -68,7 +74,8 @@
 				
 
 				//to display user wishlist 
-				$wishObject=WishlistItem::dispalyWish($_SESSION["UserID"]);
+
+				$wishObject= $Wishlistcontroller->Display($_SESSION["UserID"]);
 
 			?>
 
@@ -115,23 +122,29 @@
 
 										<?php
 											if (!is_null($wishObject) && !empty($wishObject)) {
-												foreach ($wishObject as $element) { 
-													$ProductPictures = explode(',', $element->ProductPicture);
+												// Assuming $wishObject and $wisharr have the same length
+												$count = count($wishObject);
+											
+												for ($i = 0; $i < $count; $i++) {
+													$element = $wishObject[$i];
+											
+													// Assuming $element and $value are arrays
+													$ProductPictures = explode(',', $element['ProductPicture']);
 													if (!empty($ProductPictures[0])) {
-														$imageSrc = "uploads/" . $ProductPictures[0];
+														$imageSrc = "../uploads/" . $ProductPictures[0];
 													} else {
-														$imageSrc = "uploads/default.jpg";
-													} 
-										?>
+														$imageSrc = "../uploads/default.jpg";
+													}
+											?>
 													<tr>
-														<td class="product-remove"><a href="wishlist.php?delete_id=<?=$element->ProductID?>">x</a></td>
-														<td class="product-thumbnail"><a href="#"><img src="<?=$imageSrc?>" alt="" /></a></td>
-														<td class="product-name"><a href="#"><?=$element->ProductName?></a></td>
-														<td class="product-price"><span class="amount">$<?=$element->Price?></span></td>
+														<td class="product-remove"><a href="wishlist.php?delete_id=<?= $element['ProductID'] ?>">x</a></td>
+														<td class="product-thumbnail"><a href="#"><img src="<?= $imageSrc ?>" alt="" /></a></td>
+														<td class="product-name"><a href="#"><?= $element['ProductName'] ?></a></td>
+														<td class="product-price"><span class="amount">$<?= $element['ProductPrice'] ?></span></td>
 														<td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-														<td class="product-add-to-cart"><a href="wishlist.php?cart_id=<?= $element->ProductID ?>">Add to Cart</a></td>
+														<td class="product-add-to-cart"><a href="wishlist.php?cart_id=<?= $element['ProductID'] ?>">Add to Cart</a></td>
 													</tr>
-										<?php 
+											<?php
 												}
 											} else {
 												// Handle the case where there are no items in the wishlist
@@ -171,31 +184,31 @@
 		?>
 		<!-- wishlist-area end -->
 		<!-- contact-area-start -->
-		<?php include('partials/footer.php'); ?>
+		<?php include('../partials/footer.php'); ?>
 		<!-- .copyright-area-end -->
 		
 		<!-- all js here -->
 		<!-- jquery latest version -->
-        <script src="js/vendor/jquery-1.12.0.min.js"></script>
-		<!-- bootstrap js -->
-        <script src="js/bootstrap.min.js"></script>
-		<!-- owl.carousel js -->
-        <script src="js/owl.carousel.min.js"></script>
-		<!-- meanmenu js -->
-        <script src="js/jquery.meanmenu.js"></script>
-		<!-- jquery-ui js -->
-        <script src="js/jquery-ui.min.js"></script>
-		<!-- nivo.slider js -->
-        <script src="js/jquery.nivo.slider.js"></script>	
-		<!-- magnific-popup js -->
-        <script src="js/jquery.magnific-popup.min.js"></script>		
+        <script src="../js/vendor/jquery-1.12.0.min.js"></script>
+		<!-- bootstra../p js -->
+        <script src="../js/bootstrap.min.js"></script>
+		<!-- owl.caro../usel js -->
+        <script src="../js/owl.carousel.min.js"></script>
+		<!-- meanmenu../ js -->
+        <script src="../js/jquery.meanmenu.js"></script>
+		<!-- jquery-u../i js -->
+        <script src="../js/jquery-ui.min.js"></script>
+		<!-- nivo.sli../der js -->
+        <script src="../js/jquery.nivo.slider.js"></script>	
+		<!-- magnific../-popup js -->
+        <script src="../js/jquery.magnific-popup.min.js"></script>		
 		<!-- wow js -->
-        <script src="js/wow.min.js"></script>
-		<!-- scrolly js -->
-        <script src="js/jquery.scrolly.js"></script>		
-		<!-- plugins js -->
-        <script src="js/plugins.js"></script>
-		<!-- main js -->
-        <script src="js/main.js"></script>
+        <script src="../js/wow.min.js"></script>
+		<!-- scrolly ../js -->
+        <script src="../js/jquery.scrolly.js"></script>		
+		<!-- plugins ../js -->
+        <script src="../js/plugins.js"></script>
+		<!-- main js ../-->
+        <script src="../js/main.js"></script>
     </body>
 </html>

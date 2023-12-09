@@ -19,7 +19,7 @@ class WishlistItem  extends Model{
     }
 
 
-    static function addToWishlist($userID, $productID) {
+    public function addToWishlist($userID, $productID) {
         $userID=$userID;
         $productID=$productID;
         $check = false;
@@ -61,30 +61,44 @@ class WishlistItem  extends Model{
     }
     
 
-    static function dispalyWish($userID){
+    public function dispalyWish($userID){
        
-        include_once ("productClass.php");
 
         $select_query = "SELECT * FROM Wishlist WHERE UserID = $userID";
         $result = mysqli_query($GLOBALS['con'], $select_query);
 
         $wishlistItems = array(); // Initialize an empty array to store wishlist items
         $finallarr = array(); // Initialize an empty array to store Product objects
-        
+        $products = array();
+
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 // Append each row to the $wishlistItems array
                 $wishlistItems[] = $row;
             }
-            
             // Loop through $wishlistItems to create Product objects and store them in $finallarr
             foreach ($wishlistItems as $element) {
-                $obj = new Product($element['ProductID']);
-                $finallarr[] = $obj;
+                $productID = $element['ProductID'];
+
+                $product_query = "SELECT * FROM product WHERE id = $productID";
+                $product_result = mysqli_query($GLOBALS['con'], $product_query);
+    
+                if ($product_result) {
+                    $product_details = mysqli_fetch_assoc($product_result);
+    
+                    // Add product details to the products array
+                    $products[] = array(
+                        'ProductID' => $productID,
+                        'ProductName' => $product_details['ProductName'],
+                        'ProductPrice' => $product_details['Price'],
+                        'ProductPicture' => $product_details['ProductPicture'], // Assuming you have a 'ProductPicture' column in the Product table
+                    );
+                }
             }
-            return $finallarr;
+            return $products;
         } else {
             // Error handling
+            return false;
         }
     
     }
@@ -92,19 +106,14 @@ class WishlistItem  extends Model{
 
 
 
-    public static function deleteFromWishlist($userID, $productID) {
+    public function deleteFromWishlist($userID, $productID) {
         // Implement the code to delete the item with $productID from the wishlist of the user with $userID.
         // You can use SQL queries to perform the deletion.
         // Return true if the item is successfully deleted, or false if there's an error.
 
         $delete_query = "DELETE FROM Wishlist WHERE UserID = $userID AND ProductID = $productID";
         $result = mysqli_query($GLOBALS['con'], $delete_query);
-        
-        if ($result) {
-            // Successfully removed from the wishlist
-        } else {
-            // Error handling
-        }
+       
 
 
     }

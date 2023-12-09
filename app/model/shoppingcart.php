@@ -132,12 +132,6 @@ class ShoppingCart extends Model
         $delete_query = "DELETE FROM ShoppingCart WHERE UserID = $userID AND ProductID = $productID";
         $result = mysqli_query($GLOBALS['con'], $delete_query);
         
-        if ($result) {
-       
-        } else {
-           
-        }
-
 
     }
     public  function clearCart($userID)
