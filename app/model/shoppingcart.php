@@ -126,7 +126,7 @@ class ShoppingCart extends Model
     }
 }
 
-    public static function deleteFromCart($userID, $productID) {
+    public function deleteFromCart($userID, $productID) {
        
 
         $delete_query = "DELETE FROM ShoppingCart WHERE UserID = $userID AND ProductID = $productID";

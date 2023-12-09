@@ -20,11 +20,16 @@ class CartController extends Controller
         return $Cartobj;
     }
 
-    
+
     public function Clear($userID)
     {
         
         $Cartobj =  $this->model->clearCart($userID);
         return $Cartobj;
+    }
+
+    public function Delete($userID, $productID)
+    {
+        $this->model->deleteFromCart($userID, $productID);
     }
 }

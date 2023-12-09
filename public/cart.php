@@ -33,7 +33,7 @@ Use
 	<!-- font-awesome css -->
 	<link rel="stylesheet" href="../css/font-awesome.min.css">
 	<!-- style css -->
-	<link rel="stylesheet" href="../style.css">
+	<link rel="stylesheet" href="../css/style.css">
 	<!-- responsive css -->
 	<link rel="stylesheet" href="../css/responsive.css" />
 	<!-- modernizr css -->
@@ -55,23 +55,24 @@ Use
 			$deleteProductID = $_GET['delete_id'];
 			$userID = $_SESSION["UserID"];
 
-			$ShoppingObj = ShoppingCart::deleteFromCart($userID, $deleteProductID);
+			
+			$ShoppingObj = $Cartcontroller->Delete($userID, $deleteProductID);
 			if ($ShoppingObj !== NULL) {
 				echo "Deleted Successfully :)";
 			}
-			if (isset($_GET['delete_id'])) {
-				$deleteProductID = $_GET['delete_id'];
-				$userID = $_SESSION["UserID"];
+			// if (isset($_GET['delete_id'])) {
+			// 	$deleteProductID = $_GET['delete_id'];
+			// 	$userID = $_SESSION["UserID"];
 
-				$ShoppingObj = ShoppingCart::deleteFromCart($userID, $deleteProductID);
-				if ($ShoppingObj !== NULL) {
-					echo "Deleted Successfully :)";
-				}
-				// Implement the code to delete the item with $deleteProductID from the wishlist.
-				// You can use your WishlistItem class to delete the item.
+			// 	$ShoppingObj = $Cartcontroller->Delete($userID, $deleteProductID);
+			// 	if ($ShoppingObj !== NULL) {
+			// 		echo "Deleted Successfully :)";
+			// 	}
+			// 	// Implement the code to delete the item with $deleteProductID from the wishlist.
+			// 	// You can use your WishlistItem class to delete the item.
 
 
-			}
+			// }
 			// if (isset($_GET['cart_id'])) {
 			// 	$productID = $_GET['cart_id'];
 			// 	$userID = $_SESSION["UserID"];

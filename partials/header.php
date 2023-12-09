@@ -64,22 +64,22 @@ if (!empty($_SESSION['UserID'])) {
     }
 } else {
     // Guests cannot access wishlist or add anything to it
-    if (isset($_GET['wishlist_id']) || isset($_GET['cart_id'])) {
+    if (isset($_GET['wishlist_id']) || isset($_GET['cart_id']) || isset($_GET['cart']) || isset($_GET['wishlist']) ) {
         header("Location: customer-login.php");
         exit;
     }
 }
 
-// if (isset($_GET['product_id']) || isset($_GET['cart_id'])) {
-//     if (isset($_GET['product_id'])) {
-//         $productID = $_GET['product_id'];
-//     } else {
-//         $productID = $_GET['cart_id'];
-//     }
+if (isset($_GET['product_id']) || isset($_GET['cart_id'])) {
+    if (isset($_GET['product_id'])) {
+        $productID = $_GET['product_id'];
+    } else {
+        $productID = $_GET['cart_id'];
+    }
     
-//     // Assuming Product::getProductID is a method to get product details
-//     $productObject1 = Product::getProductID($con, $productID);
-// }
+    // Assuming Product::getProductID is a method to get product details
+    $productObject1 = Product::getProductID($con, $productID);
+}
 
 
 if (isset($_GET['details_id'])) {
@@ -131,6 +131,7 @@ if (isset($_GET['details_id'])) {
 					</div>
 				</div>
 			</div>
+
 			<div class="header-bottom-area home-page-2 ptb-10">
 				<div class="container">
 					<div class="row">
@@ -148,7 +149,7 @@ if (isset($_GET['details_id'])) {
 								</form>
 							</div>
 						</div>
-						
+					<?php if(!empty($_SESSION['UserID'])): ?> 
 						<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
 							<div class="header-bottom-right-4-inner">
 								<a href="wishlist.php"><span class="lnr lnr-heart"></span></a>
@@ -159,73 +160,91 @@ if (isset($_GET['details_id'])) {
 								</div>
 									<div class="shop-cart-hover shop-cart-hover-4 fix">
 										<ul>
-										<?php 
- if (!empty($_SESSION['UserID'])):
-	
-	$Cartmodel = new ShoppingCart($_SESSION["UserID"]);
-	$Cartcontroller = new CartController($Cartmodel);
-
-    $cartObject = $Cartcontroller->Display($_SESSION["UserID"]);
-    $sum = 0;
-
-    if (!is_null($cartObject) && !empty($cartObject)) :
-        foreach ($cartObject as $element) :
-            // Check if $element is an array or an object
-            if (is_array($element)) {
-                $ProductPicture = explode(',', $element['ProductPicture']);
-                $ProductID = $element['ProductID'];
-                $ProductName = $element['ProductName'];
-                $ProductPrice = $element['ProductPrice'];
-                $Quantity = $element['Quantity'];
-                $Subtotal = $element['Subtotal'];
-            } else {
-                // Assuming $element is an object
-                $ProductPicture = explode(',', $element->ProductPicture);
-                $ProductName = $element->ProductName;
-                $ProductPrice = $element->ProductPrice;
-                $Quantity = $element->Quantity;
-                $Subtotal = $element->Subtotal;
-                $ProductID = $element->ProductID;
-            }
-			if (!empty($ProductPicture[0])) {
+											<?php 
+											if (!empty($_SESSION['UserID'])):
 												
-				$imageSrc = "../uploads/" . $ProductPicture[0];
-			} else {
-				$imageSrc = "uploads/default.jpg";
-			}
-?>
-            <li>
-                <div class="cart-img">
-                    <a href="product-details.php?details_id=<?=$ProductID;?>"><img src="<?=$imageSrc?>" alt="" /></a>
-                </div>
-                <div class="cart-content">
-                    <h4><a href="product-details.php?details_id=<?=$ProductID;?>"><?=$ProductName?></a></h4>
-                    
-                    <span class="cart-price">Quantity:<?=$Quantity?></span>
-                    <span class="cart-price">$<?=$ProductPrice?></span>
-                </div>
-                <div class="cart-del">
-                    <a href="cart.php?delete_id=<?=$ProductID?>"><i  class="fa fa-times-circle"></i> </a>
-                </div>
-            </li>
-<?php
-            $sum += $Subtotal;
-        endforeach;
-?>
-        <li class="total-price"><span>Total $<?=$sum?></span></li>
-        <li class="checkout-bg">
-            <a href="checkout.php">checkout <i class="fa fa-angle-right"></i></a>
-        </li>
-<?php
-    endif;
- endif;
-?>
+												$Cartmodel = new ShoppingCart($_SESSION["UserID"]);
+												$Cartcontroller = new CartController($Cartmodel);
+
+												$cartObject = $Cartcontroller->Display($_SESSION["UserID"]);
+												$sum = 0;
+
+												if (!is_null($cartObject) && !empty($cartObject)) :
+													foreach ($cartObject as $element) :
+														// Check if $element is an array or an object
+														if (is_array($element)) {
+															$ProductPicture = explode(',', $element['ProductPicture']);
+															$ProductID = $element['ProductID'];
+															$ProductName = $element['ProductName'];
+															$ProductPrice = $element['ProductPrice'];
+															$Quantity = $element['Quantity'];
+															$Subtotal = $element['Subtotal'];
+														} else {
+															// Assuming $element is an object
+															$ProductPicture = explode(',', $element->ProductPicture);
+															$ProductName = $element->ProductName;
+															$ProductPrice = $element->ProductPrice;
+															$Quantity = $element->Quantity;
+															$Subtotal = $element->Subtotal;
+															$ProductID = $element->ProductID;
+														}
+														if (!empty($ProductPicture[0])) {
+																							
+															$imageSrc = "../uploads/" . $ProductPicture[0];
+														} else {
+															$imageSrc = "uploads/default.jpg";
+														}
+											?>
+														<li>
+															<div class="cart-img">
+																<a href="product-details.php?details_id=<?=$ProductID;?>"><img src="<?=$imageSrc?>" alt="" /></a>
+															</div>
+															<div class="cart-content">
+																<h4><a href="product-details.php?details_id=<?=$ProductID;?>"><?=$ProductName?></a></h4>
+																
+																<span class="cart-price">Quantity:<?=$Quantity?></span>
+																<span class="cart-price">$<?=$ProductPrice?></span>
+															</div>
+															<div class="cart-del">
+																<a href="cart.php?delete_id=<?=$ProductID?>"><i  class="fa fa-times-circle"></i> </a>
+															</div>
+														</li>
+											<?php
+														$sum += $Subtotal;
+													endforeach;
+											?>
+													<li class="total-price"><span>Total $<?=$sum?></span></li>
+													<li class="checkout-bg">
+														<a href="checkout.php">checkout <i class="fa fa-angle-right"></i></a>
+													</li>
+											<?php
+												endif;
+											endif;
+											?>
 
 										</ul>
 									</div>
 									
 							</div>
 						</div>
+						<?php else: ?>
+						<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
+							<div class="header-bottom-right-4-inner">
+								<a href="customer-login.php"><span class="lnr lnr-heart"></span></a>
+							</div>					
+							<div class="header-bottom-right header-bottom-right-4">
+								<div class="shop-cart shop-cart-4">									
+									<a href="customer-login.php"><span class="lnr lnr-cart"></span></a>
+								</div>
+									<div class="shop-cart-hover shop-cart-hover-4 fix">
+										
+									</div>
+									
+							</div>
+						</div>
+						<?php
+							endif;
+						?>
 					</div>
 				</div>
 			</div>
