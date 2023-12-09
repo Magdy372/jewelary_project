@@ -16,4 +16,10 @@ class CartController extends Controller
         $this->model->addToCart($userID, $productID);
 
     }
+    public function Display($userID)
+    {
+        
+       $Cartobj =  $this->model->displayCart($userID);
+        return $Cartobj;
+    }
 }

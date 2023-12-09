@@ -53,7 +53,7 @@ if (!empty($_SESSION['UserID'])) {
 
     } else if (isset($_GET['cart_id'])) {
         $productID = $_GET['cart_id'];
-		
+
 		
 		$Cartmodel = new ShoppingCart($_SESSION["UserID"],$productID);
 		$Cartcontroller = new CartController($Cartmodel);
@@ -160,60 +160,65 @@ if (isset($_GET['details_id'])) {
 									<div class="shop-cart-hover shop-cart-hover-4 fix">
 										<ul>
 										<?php 
-//  if (!empty($_SESSION['UserID'])):
-//     $cartObject = ShoppingCart::displayCart($_SESSION["UserID"]);
-//     $sum = 0;
+ if (!empty($_SESSION['UserID'])):
+	
+	$Cartmodel = new ShoppingCart($_SESSION["UserID"]);
+	$Cartcontroller = new CartController($Cartmodel);
 
-//     if (!is_null($cartObject) && !empty($cartObject)) :
-//         foreach ($cartObject as $element) :
-//             // Check if $element is an array or an object
-//             if (is_array($element)) {
-//                 $ProductPicture = explode(',', $element['ProductPicture']);
-//                 $ProductID = $element['ProductID'];
-//                 $ProductName = $element['ProductName'];
-//                 $ProductPrice = $element['ProductPrice'];
-//                 $Quantity = $element['Quantity'];
-//                 $Subtotal = $element['Subtotal'];
-//             } else {
-//                 // Assuming $element is an object
-//                 $ProductPicture = explode(',', $element->ProductPicture);
-//                 $ProductName = $element->ProductName;
-//                 $ProductPrice = $element->ProductPrice;
-//                 $Quantity = $element->Quantity;
-//                 $Subtotal = $element->Subtotal;
-//                 $ProductID = $element->ProductID;
-//             }
-// 			if (!empty($ProductPicture[0])) {
+    $cartObject = $Cartcontroller->Display($_SESSION["UserID"]);
+    $sum = 0;
+
+    if (!is_null($cartObject) && !empty($cartObject)) :
+        foreach ($cartObject as $element) :
+            // Check if $element is an array or an object
+            if (is_array($element)) {
+                $ProductPicture = explode(',', $element['ProductPicture']);
+                $ProductID = $element['ProductID'];
+                $ProductName = $element['ProductName'];
+                $ProductPrice = $element['ProductPrice'];
+                $Quantity = $element['Quantity'];
+                $Subtotal = $element['Subtotal'];
+            } else {
+                // Assuming $element is an object
+                $ProductPicture = explode(',', $element->ProductPicture);
+                $ProductName = $element->ProductName;
+                $ProductPrice = $element->ProductPrice;
+                $Quantity = $element->Quantity;
+                $Subtotal = $element->Subtotal;
+                $ProductID = $element->ProductID;
+            }
+			if (!empty($ProductPicture[0])) {
 												
-// 				$imageSrc = "uploads/" . $ProductPicture[0];
-// 			} else {
-// 				$imageSrc = "uploads/default.jpg";
-// 			}
+				$imageSrc = "../uploads/" . $ProductPicture[0];
+			} else {
+				$imageSrc = "uploads/default.jpg";
+			}
 ?>
             <li>
-                <!--<div class="cart-img">
+                <div class="cart-img">
                     <a href="product-details.php?details_id=<?=$ProductID;?>"><img src="<?=$imageSrc?>" alt="" /></a>
                 </div>
                 <div class="cart-content">
                     <h4><a href="product-details.php?details_id=<?=$ProductID;?>"><?=$ProductName?></a></h4>
                     
+                    <span class="cart-price">Quantity:<?=$Quantity?></span>
                     <span class="cart-price">$<?=$ProductPrice?></span>
                 </div>
                 <div class="cart-del">
                     <a href="cart.php?delete_id=<?=$ProductID?>"><i  class="fa fa-times-circle"></i> </a>
-                </div>-->
+                </div>
             </li>
 <?php
-        //     $sum += $Subtotal;
-        // endforeach;
+            $sum += $Subtotal;
+        endforeach;
 ?>
-        <!--<li class="total-price"><span>Total $<?=$sum?></span></li>
+        <li class="total-price"><span>Total $<?=$sum?></span></li>
         <li class="checkout-bg">
             <a href="checkout.php">checkout <i class="fa fa-angle-right"></i></a>
-        </li>-->
+        </li>
 <?php
-//     endif;
-// endif;
+    endif;
+ endif;
 ?>
 
 										</ul>

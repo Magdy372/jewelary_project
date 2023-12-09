@@ -14,7 +14,7 @@ class ShoppingCart extends Model
     private $subtotal;
      // Use a static property to store the total price
 
-    public function __construct($userID, $productID)
+    public function __construct($userID, $productID="")
     {
         $this->db = $this->connect();
 
@@ -70,7 +70,6 @@ class ShoppingCart extends Model
                 
 
                 if (mysqli_query($GLOBALS['con'], $insert_query)) {
-                    echo "added successfully";
                     return true; // Return success
                 } else {
                     return false; // Failed to add the product
@@ -84,8 +83,6 @@ class ShoppingCart extends Model
     
     static function displayCart($userID)
 {
-    include_once("productClass.php");
-
     $select_query = "SELECT * FROM ShoppingCart WHERE UserID = $userID";
     $result = mysqli_query($GLOBALS['con'], $select_query);
 
@@ -104,7 +101,7 @@ class ShoppingCart extends Model
             $quantity = $item['Quantity'];
 
             // Fetch product details from the Product table
-            $product_query = "SELECT * FROM Product WHERE ProductID = $productID";
+            $product_query = "SELECT * FROM product WHERE id = $productID";
             $product_result = mysqli_query($GLOBALS['con'], $product_query);
 
             if ($product_result) {
@@ -121,7 +118,6 @@ class ShoppingCart extends Model
                 );
             }
         }
-
         // Return the array containing product details
         return $products;
     } else {
