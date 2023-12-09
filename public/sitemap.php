@@ -12,7 +12,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/handlebars/4.7.7/handlebars.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-        <link rel="stylesheet" href="css/sitemap.css">
+        <link rel="stylesheet" href="../css/sitemap.css">
 
         <link rel="icon" href="img/favicon.png" />
         <!-- Place favicon.ico in the root directory -->
@@ -20,29 +20,29 @@
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> 
 		<!-- all css here -->
 		<!-- bootstrap v3.3.6 css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
 		<!-- animate css -->
-        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="../css/animate.css">
 		<!-- jquery-ui.min css -->
-        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link rel="stylesheet" href="../css/jquery-ui.min.css">
 		<!-- nivo-slider css -->
-        <link rel="stylesheet" href="css/nivo-slider.css">
+        <link rel="stylesheet" href="../css/nivo-slider.css">
 		<!-- magnific-popup css -->
-        <link rel="stylesheet" href="css/magnific-popup.css">		
+        <link rel="stylesheet" href="../css/magnific-popup.css">		
 		<!-- meanmenu css -->
-        <link rel="stylesheet" href="css/meanmenu.min.css">
+        <link rel="stylesheet" href="../css/meanmenu.min.css">
 		<!-- owl.carousel css -->
-        <link rel="stylesheet" href="css/owl.carousel.css">
+        <link rel="stylesheet" href="../css/owl.carousel.css">
 		<!--linearicons css -->
-        <link rel="stylesheet" href="css/linearicons-icon-font.min.css">
+        <link rel="stylesheet" href="../css/linearicons-icon-font.min.css">
 		<!-- font-awesome css -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
 		<!-- style css -->
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../css/style.css">
 		<!-- responsive css -->
-        <link rel="stylesheet" href="css/responsive.css" />
+        <link rel="stylesheet" href="../css/responsive.css" />
 		<!-- modernizr css -->
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -51,7 +51,7 @@
 
         <!-- Add your site or application content here -->
 		
-        <?php include('partials/header.php'); ?>
+        <?php include('../partials/header.php'); ?>
 
 		<!-- page-title-wrapper-start -->
 		<div class="page-title-wrapper">
@@ -723,7 +723,7 @@
       <!-- contact-area-start -->
       <!-- .copyright-area-start -->
       <!-- footer-area-start -->
-      <?php include('partials/footer.php'); ?>
+      <?php include('../partials/footer.php'); ?>
       <!-- footer-area-end -->
       <!-- .copyright-area-end -->
       <!-- contact-area-end -->

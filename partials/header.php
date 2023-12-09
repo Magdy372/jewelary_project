@@ -29,6 +29,9 @@ require_once(__ROOT__ . "controller/UserController.php");
 require_once(__ROOT__ . "model/shoppingcart.php");
 require_once(__ROOT__ . "controller/CartController.php");
 
+require_once(__ROOT__ . "model/Wishlist.php");
+require_once(__ROOT__ . "controller/WishlistController.php");
+
 
 // Check if a user is logged in
 if (!empty($_SESSION['UserID'])) {
@@ -47,9 +50,14 @@ if (!empty($_SESSION['UserID'])) {
 
 
     if (isset($_GET['wishlist_id'])) {
+
+		$productID = $_GET['wishlist_id'];
+
+		$Wishlistmodel = new WishlistItem($_SESSION["UserID"],$productID);
+		$Wishlistcontroller = new WishlistController($Wishlistmodel);
         
-        $productID = $_GET['wishlist_id'];
-        $wishObject1 = WishlistItem::addToWishlist($userID, $productID);
+        
+    	$Wishlistcontroller->Adding($userID, $productID);
 
     } else if (isset($_GET['cart_id'])) {
         $productID = $_GET['cart_id'];
