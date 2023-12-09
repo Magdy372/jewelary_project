@@ -1,72 +1,85 @@
 <?php
-class ShoppingCart
+require_once(__ROOT__ . "model/Model.php");
+require_once(__ROOT__ . "controller/UserController.php");
+
+
+$con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o","Jewelry_project");
+
+
+class ShoppingCart extends Model
 {
     private $userID;
     private $productID;
+    private $quantity;
+    private $subtotal;
      // Use a static property to store the total price
 
     public function __construct($userID, $productID)
     {
+        $this->db = $this->connect();
+
         $this->userID = $userID;
         $this->productID = $productID;
     }
 
     public static function addToCart($userID, $productID)
-{
-    $select_query = "SELECT * FROM ShoppingCart WHERE UserID = $userID AND ProductID = $productID";
-    $result = mysqli_query($GLOBALS['con'], $select_query);
+    {
+        $select_query = "SELECT * FROM ShoppingCart WHERE UserID = $userID AND ProductID = $productID";
+        $result = mysqli_query($GLOBALS['con'], $select_query);
 
-    if ($result) {
-        $row = mysqli_fetch_assoc($result);
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
 
-        if ($row) {
-            // If product is already in the cart, update quantity and subtotal
-            $quantity = $row['Quantity'] + 1;
+            if ($row) {
+                // If product is already in the cart, update quantity and subtotal
+                $quantity = $row['Quantity'] + 1;
 
-            // Fetch the product price from the Product table
-            $priceQuery = "SELECT Price FROM Product WHERE ProductID = $productID";
-            $priceResult = mysqli_query($GLOBALS['con'], $priceQuery);
+                // Fetch the product price from the Product table
+                $priceQuery = "SELECT Price FROM product WHERE ID = $productID";
+                $priceResult = mysqli_query($GLOBALS['con'], $priceQuery);
 
-            if ($priceResult) {
-                $priceRow = mysqli_fetch_assoc($priceResult);
+                if ($priceResult) {
+                    $priceRow = mysqli_fetch_assoc($priceResult);
 
-                // Check if the product exists
-                if ($priceRow) {
-                    $productPrice = $priceRow['Price'];
+                    // Check if the product exists
+                    if ($priceRow) {
+                        $productPrice = $priceRow['Price'];
 
-                    // Calculate subtotal
-                    $subtotal = $row['Subtotal'] + $productPrice;
+                        // Calculate subtotal
+                        $subtotal = $row['Subtotal'] + $productPrice;
 
-                    // Update the cart
-                    $update_query = "UPDATE ShoppingCart SET Quantity = $quantity, Subtotal = $subtotal WHERE UserID = $userID AND ProductID = $productID";
+                        // Update the cart
+                        $update_query = "UPDATE ShoppingCart SET Quantity = $quantity, Subtotal = $subtotal WHERE UserID = $userID AND ProductID = $productID";
 
-                    if (mysqli_query($GLOBALS['con'], $update_query)) {
-                        return true; // Return success
+                        if (mysqli_query($GLOBALS['con'], $update_query)) {
+                            return true; // Return success
+                        } else {
+                            return false; // Failed to update the product quantity
+                        }
                     } else {
-                        return false; // Failed to update the product quantity
+                        // Handle the case where the product does not exist
+                        return false;
                     }
                 } else {
-                    // Handle the case where the product does not exist
+                    // Failed to fetch product price
                     return false;
                 }
             } else {
-                // Failed to fetch product price
-                return false;
+                // If the product is not in the cart, insert a new row with Subtotal as ProductPrice
+                $insert_query = "INSERT INTO ShoppingCart (UserID, ProductID, Quantity, Subtotal) VALUES ($userID, $productID, 1, (SELECT Price FROM product WHERE id = $productID))";
+                
+
+                if (mysqli_query($GLOBALS['con'], $insert_query)) {
+                    echo "added successfully";
+                    return true; // Return success
+                } else {
+                    return false; // Failed to add the product
+                }
             }
         } else {
-            // If the product is not in the cart, insert a new row with Subtotal as ProductPrice
-            $insert_query = "INSERT INTO ShoppingCart (UserID, ProductID, Quantity, Subtotal) VALUES ($userID, $productID, 1, (SELECT Price FROM Product WHERE ProductID = $productID))";
-
-            if (mysqli_query($GLOBALS['con'], $insert_query)) {
-                return true; // Return success
-            } else {
-                return false; // Failed to add the product
-            }
+            return false; // Failed to fetch product details
         }
-    } else {
-        return false; // Failed to fetch product details
     }
-}
 
     
     static function displayCart($userID)

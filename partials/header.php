@@ -26,12 +26,17 @@ define('__ROOT__', "../app/");
 require_once(__ROOT__ . "model/User.php");
 require_once(__ROOT__ . "controller/UserController.php");
 
+require_once(__ROOT__ . "model/shoppingcart.php");
+require_once(__ROOT__ . "controller/CartController.php");
+
 
 // Check if a user is logged in
 if (!empty($_SESSION['UserID'])) {
 	
 	$model = new User($_SESSION["UserID"]);
 	$controller = new UserController($model);
+
+	
 	
 	
 	$userID = $_SESSION['UserID'];
@@ -48,9 +53,14 @@ if (!empty($_SESSION['UserID'])) {
 
     } else if (isset($_GET['cart_id'])) {
         $productID = $_GET['cart_id'];
-        $cartObject1 = ShoppingCart::addToCart($userID, $productID);
+		
+		
+		$Cartmodel = new ShoppingCart($_SESSION["UserID"],$productID);
+		$Cartcontroller = new CartController($Cartmodel);
 
-       
+       // $cartObject1 = ShoppingCart::addToCart($userID, $productID);
+
+       $Cartcontroller->addToCart($_SESSION["UserID"],$productID);
     }
 } else {
     // Guests cannot access wishlist or add anything to it
@@ -60,16 +70,16 @@ if (!empty($_SESSION['UserID'])) {
     }
 }
 
-if (isset($_GET['product_id']) || isset($_GET['cart_id'])) {
-    if (isset($_GET['product_id'])) {
-        $productID = $_GET['product_id'];
-    } else {
-        $productID = $_GET['cart_id'];
-    }
+// if (isset($_GET['product_id']) || isset($_GET['cart_id'])) {
+//     if (isset($_GET['product_id'])) {
+//         $productID = $_GET['product_id'];
+//     } else {
+//         $productID = $_GET['cart_id'];
+//     }
     
-    // Assuming Product::getProductID is a method to get product details
-    $productObject1 = Product::getProductID($con, $productID);
-}
+//     // Assuming Product::getProductID is a method to get product details
+//     $productObject1 = Product::getProductID($con, $productID);
+// }
 
 
 if (isset($_GET['details_id'])) {
