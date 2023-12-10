@@ -40,11 +40,12 @@ class Product extends Model {
             return 'Unknown'; // Default value if the product type is not found
         }
     }
-    public function getProductById($productId) {
+     public function getProductById($productId) {
         $productId = $productId;
         $sql = "SELECT * FROM product WHERE id = $productId";
         $result = $this->connect()->query($sql);
-        return $this->connect()->fetchRow($result);
+        $row = $this->connect()->fetchRow($result);
+        return $row;
     }
     public function getProductSOVValues($productId) {
     $productId =($productId);

@@ -32,6 +32,9 @@ require_once(__ROOT__ . "controller/CartController.php");
 require_once(__ROOT__ . "model/Wishlist.php");
 require_once(__ROOT__ . "controller/WishlistController.php");
 
+require_once(__ROOT__ . "model/Product.php");
+require_once(__ROOT__ . "controller/ProductController.php");
+
 
 // Check if a user is logged in
 if (!empty($_SESSION['UserID'])) {
@@ -91,8 +94,11 @@ if (!empty($_SESSION['UserID'])) {
 
 
 if (isset($_GET['details_id'])) {
+	$Productmodel = new Product();
+	$Productcontroller = new ProductController($Productmodel);
+
     $productID = $_GET['details_id'];
-    $productData = Product::getProductID($con, $productID);
+    $productData = $Productcontroller->displayProduct($productID);
 
  
 } 
