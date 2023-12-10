@@ -1,6 +1,6 @@
 
 <?php
-$conn = mysqli_connect("172.232.216.8", "root", "Omarsalah123o", "habd");
+$conn = mysqli_connect("172.232.216.8", "root", "Omarsalah123o", "Jewelry_project");
 define('__ROOT__', "../app/");
 require_once(__ROOT__ . "model/Product.php");
 require_once(__ROOT__ . "controller/ProductController.php");
@@ -12,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["selectProductType"])) {
         $_SESSION["Type"] = ($_POST["selectProductType"]);
         $selectedProductType = $_SESSION["Type"];
-        echo "$selectedProductType";
         $result = $model->getOptionsForType($selectedProductType);
     } elseif (isset($_POST["productName"], $_POST["description"], $_FILES["ProductPicture"], $_POST["price"])) {
         // Retrieve form data
@@ -20,8 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $description = ($_POST["description"]);
         $productPictures = $_FILES['ProductPicture']['name'];
         $price = ($_POST["price"]);
-        $optionsValues = $_POST["options"] ?? []; // Ensure optionsValues is defined
-       
+        $optionsValues = $_POST["options"] ?? [];
 
         // Check if product type is set in session
         if (!isset($_SESSION["Type"])) {
@@ -31,14 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $productType = $_SESSION["Type"];
 
-       
-
         // Insert into the database
         $controller->insertProduct($productName, $description, $productPictures, $price, $productType, $optionsValues);
         header("Location: crud.php");
-    
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -50,14 +46,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <div class="navbar">
-        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
-        <a href="admin.php">Admin Dashboard</a>
-        <a href="add_admin.php">Add Admin</a>
-        <a href="crud.php">Product</a>
-        <a href="usercrud.php">Users</a>
-    </div>
+    <img src="alhedia.png" alt="Jewelry Website Logo" class="logo">
+    <a href="admin.php">Admin Dashboard</a>
+    <a href="add_admin.php">Add Admin</a>
+    <a href="crud.php">Product</a>
+    <a href="usercrud.php">Users</a>
+</div>
+
 <!-- Add Product Form -->
-<form method="post"  action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
     <?php if (!isset($_SESSION["Type"])): ?>
         <label for="selectProductType">Select Product Type:</label>
         <select name="selectProductType" required>
@@ -82,27 +79,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="price">Price:</label>
         <input type="number" name="price" required><br>
 
-        <!-- Display options based on the selected product type -->
-        <div id="optionsContainer">
-            <?php
-            if (isset($result)) {
-                foreach ($result as $row) {
-                    $optionId = $row['ID'];
-                    $optionName = $row['Name'];
-
-                    echo "<label for='option_$optionId'>$optionName:</label>";
-                    $inputType = ($optionName == 'Size') ? 'number' : 'text';
-
-    echo "<input type='$inputType' name='options[$optionId]' required><br>";
+        <!-- Fetch options values from the database -->
+      <?php
+        if (isset($result)) {
+            foreach ($result as $row) {
+                $optionId = $row['ID'];
+                $optionName = $row['Name'];
+        
+                echo "<label for='option_$optionId'>$optionName:</label>";
+        
+                // Check if the option is 'Size'
+                if ($optionName == 'Size') {
+                    echo "<input type='number' name='options[$optionId]' required><br>";
+                } else {
+                    // Fetch option values for the dropdown
+                    $optionValuesQuery = "SELECT * FROM option_values WHERE Option_ID = '$optionId'";
+                    $optionValuesResult = $conn->query($optionValuesQuery);
+        
+                    if ($optionValuesResult && $optionValuesResult->num_rows > 0) {
+                        echo "<select name='options[$optionId]' required>";
+                        while ($valueRow = $optionValuesResult->fetch_assoc()) {
+                            $optionValue = $valueRow['Value'];
+                            echo "<option value='$optionValue'>$optionValue</option>";
+                        }
+                        echo "</select><br>";
+                    } else {
+                        echo "Error fetching option values.";
+                    }
                 }
             }
-            ?>
-        </div>
-
+        }
+        ?>
+        
+        
         <input type="submit" value="Add Product">
     <?php endif; ?>
 </form>
-
 </body>
 </html>
 <style>
