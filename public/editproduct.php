@@ -1,4 +1,5 @@
 <?php
+$conn = mysqli_connect("172.232.216.8", "root", "Omarsalah123o", "Jewelry_project");
 define('__ROOT__', "../app/");
 require_once(__ROOT__ . "model/Product.php");
 require_once(__ROOT__ . "controller/ProductController.php");
@@ -26,11 +27,11 @@ if (isset($_POST['submit'])) {
     if (empty($_FILES['ProductPicture']['name'][0])) {
         // No new pictures uploaded, reuse existing ones
         $productPictures = $product['ProductPicture'];
-      } else {
+    } else {
         $productPictures = $model->uploadProductPictures($_FILES);
-      }
+    }
 
-    $controller->updateProduct( $productId,$productName, $description, $productPictures, $price, $optionsValues);
+    $controller->updateProduct($productId, $productName, $description, $productPictures, $price, $optionsValues);
     header("Location: crud.php");
 }
 ?>
@@ -44,12 +45,12 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
 <div class="navbar">
-        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
-        <a href="admin.php">Admin Dashboard</a>
-        <a href="add_admin.php">Add Admin</a>
-        <a href="crud.php">Product</a>
-        <a href="usercrud.php">Users</a>
-    </div>
+    <img src="alhedia.png" alt="Jewelry Website Logo" class="logo">
+    <a href="admin.php">Admin Dashboard</a>
+    <a href="add_admin.php">Add Admin</a>
+    <a href="crud.php">Product</a>
+    <a href="usercrud.php">Users</a>
+</div>
 <!-- Update Product Form -->
 <form method="post" enctype="multipart/form-data"> <!-- Add enctype for file uploads -->
     <input type="hidden" name="action" value="update_product">
@@ -62,6 +63,8 @@ if (isset($_POST['submit'])) {
 
     <label for="description">Description:</label>
     <input type="text" name="description" value="<?php echo $product['Description']; ?>" required><br>
+
+    <!-- Display existing product pictures -->
     <?php
     $productPictures = explode(',', $product['ProductPicture']);
     foreach ($productPictures as $picture) {
@@ -69,9 +72,7 @@ if (isset($_POST['submit'])) {
     }
     ?>
     <label for="ProductPicture">Product Pictures:</label>
-    <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif" >><br>
-
-  
+    <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif"><br>
 
     <!-- Add other input fields as needed -->
 
@@ -93,12 +94,35 @@ if (isset($_POST['submit'])) {
             ?>
 
             <label for="option_<?php echo $option['ID']; ?>"><?php echo $option['Name']; ?>:</label>
-            <input type="text" name="options[<?php echo $option['ID']; ?>]" value="<?php echo $existingOptionValue; ?>" required><br>
+            <?php
+            // Check if the option is 'Size'
+            if ($option['Name'] == 'Size') {
+                echo "<input type='number' name='options[{$option['ID']}]' value='{$existingOptionValue}' required><br>";
+            } else {
+                // Fetch option values for the dropdown
+                $optionValuesQuery = "SELECT * FROM option_values WHERE Option_ID = '{$option['ID']}'";
+                $optionValuesResult = $conn->query($optionValuesQuery);
+
+                if ($optionValuesResult && $optionValuesResult->num_rows > 0) {
+                    echo "<select name='options[{$option['ID']}]' required>";
+                    while ($valueRow = $optionValuesResult->fetch_assoc()) {
+                        $optionValue = $valueRow['Value'];
+                        $isSelected = ($existingOptionValue == $optionValue) ? 'selected' : '';
+                        echo "<option value='{$optionValue}' {$isSelected}>{$optionValue}</option>";
+                    }
+                    echo "</select><br>";
+                } else {
+                    echo "Error fetching option values.";
+                }
+            }
+            ?>
         <?php endforeach; ?>
     </div>
 
     <input type="submit" name="submit" value="Update Product">
 </form>
+</body>
+</html>
 
 </body>
 </html>

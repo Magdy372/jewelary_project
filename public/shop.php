@@ -15,28 +15,28 @@
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> 
 		<!-- all css here -->
 		<!-- bootstrap v3.3.6 css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
 		<!-- animate css -->
-        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="../css/animate.css">
 		<!-- jquery-ui.min css -->
-        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link rel="stylesheet" href="../css/jquery-ui.min.css">
 		<!-- meanmenu css -->
-        <link rel="stylesheet" href="css/meanmenu.min.css">
+        <link rel="stylesheet" href="../css/meanmenu.min.css">
 		<!-- owl.carousel css -->
-        <link rel="stylesheet" href="css/owl.carousel.css">
+        <link rel="stylesheet" href="../css/owl.carousel.css">
 		<!--linearicons css -->
-        <link rel="stylesheet" href="css/linearicons-icon-font.min.css">
+        <link rel="stylesheet" href="../css/linearicons-icon-font.min.css">
 		<!-- font-awesome css -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
 		<!-- style css -->
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../css/style.css">
 		<!-- responsive css -->
-        <link rel="stylesheet" href="css/responsive.css" />
+        <link rel="stylesheet" href="../css/responsive.css" />
 		<!-- modernizr css -->
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
-        <?php include('partials/header.php'); ?>
+        <?php include('../partials/header.php'); ?>
         	<!-- page-title-wrapper-end -->
 		<!-- bedroom-all-product-area-start -->
 		<div class="bedroom-all-product-area ptb-80">
@@ -165,73 +165,52 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="viewed">
                                     <div class="row">
-									<?php
-                // Include your database connection code here (e.g., $con)
-				$query = ''; 
-                // Get the category from the URL query parameter
-				if (isset($_GET['category'])) {
-                    $categoryName = $_GET['category'];
+									<div class="row">
+    <?php
 
-                    // Find the CategoryID based on the category name
-                    $categoryQuery = "SELECT CategoryID FROM Categories WHERE CategoryName = '$categoryName'";
-                    $categoryResult = mysqli_query($con, $categoryQuery);
-
-                    if ($categoryResult && $category = mysqli_fetch_assoc($categoryResult)) {
-                        $categoryID = $category['CategoryID'];
-                        $query = "SELECT * FROM Product WHERE CategoryID = $categoryID";
-                    } else {
-                        echo '<div style="text-align: center; margin-top: 125px;">No products found for category: ' . $categoryName . '</div>';
-                    }
-                } else {
-                    // If no category is selected, display all products
-                    $query = "SELECT * FROM Product";
-                }
-
-                $result = mysqli_query($con, $query);
-
-                if ($result && mysqli_num_rows($result) > 0) {
-                    while ($product = mysqli_fetch_assoc($result)) {
-                        $ProductPictures = explode(',', $product['ProductPicture']);
-                        if (!empty($ProductPictures[0])) {
-                            $imageSrc = "uploads/" . $ProductPictures[0];
-                        } else {
-                            $imageSrc = "uploads/default.jpg";
-                        }
-                ?>
-                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-new-product mt-40 category-new-product">
-                        <div class="product-img">
-                            <a href="product-details.php?details_id=<?= $product['ProductID']; ?>">
-                                <img src="<?php echo $imageSrc; ?>" class="first_img" alt="" />
-                            </a>
-                            <div class="new-product-action">
-                                <!-- Uncomment the following line if needed -->
-                                <!-- <a href="#"><span class="lnr lnr-sync"></span></a> -->
-                                <a href="shop.php?cart_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
-                                <a href="shop.php?wishlist_id=<?= $product['ProductID']; ?>"><span class="lnr lnr-heart"></span></a>
-                            </div>
+    if (!empty($products)) {
+        foreach ($products as $product) {
+            $ProductPictures = explode(',', $product['ProductPicture']);
+            if (!empty($ProductPictures[0])) {
+                $imageSrc = "../uploads/" . $ProductPictures[0];
+            } else {
+                $imageSrc = "../uploads/default.jpg";
+            }
+            ?>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="single-new-product mt-40 category-new-product">
+                    <div class="product-img">
+                        <a href="product-details.php?details_id=<?= $product['id']; ?>">
+                            <img src="<?php echo $imageSrc; ?>" class="first_img" alt="" />
+                        </a>
+                        <div class="new-product-action">
+                            <a href="shop.php?cart_id=<?= $product['id']; ?>"><span class="lnr lnr-cart cart_pad"></span>Add to Cart</a>
+                            <a href="shop.php?wishlist_id=<?= $product['id']; ?>"><span class="lnr lnr-heart"></span></a>
                         </div>
-                        <div class= "product-content text-center">
-                            <a href="product-details.html"><h3><?php echo  $product['ProductName']; ?></h3></a>
-                            <div class="product-price-star">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                            </div>
-                            <div class="price">
-                                <h4>$<?=$product['Price']?></h4>
-                            </div>
+                    </div>
+                    <div class= "product-content text-center">
+                        <a href="product-details.html"><h3><?php echo  $product['ProductName']; ?></h3></a>
+                        <div class="product-price-star">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                        </div>
+                        <div class="price">
+                            <h4>$<?=$product['Price']?></h4>
                         </div>
                     </div>
                 </div>
-                <?php
-                    }
-                } else {
-                    echo '<div style="text-align: center; margin-top: 125px;">No products found.</div>';
-                }
-                ?>
+            </div>
+            <?php
+        }
+    } else {
+        echo '<div style="text-align: center; margin-top: 125px;">No products found.</div>';
+    }
+    ?>
+</div>
+
             </div>
         </div>
     </div>
@@ -248,27 +227,27 @@
 		
 		<!-- all js here -->
 		<!-- jquery latest version -->
-        <script src="js/vendor/jquery-1.12.0.min.js"></script>
+        <script src="../js/vendor/jquery-1.12.0.min.js"></script>
 		<!-- bootstrap js -->
-        <script src="js/bootstrap.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
 		<!-- owl.carousel js -->
-        <script src="js/owl.carousel.min.js"></script>
+        <script src="../js/owl.carousel.min.js"></script>
 		<!-- meanmenu js -->
-        <script src="js/jquery.meanmenu.js"></script>
+        <script src="../js/jquery.meanmenu.js"></script>
 		<!-- jquery-ui js -->
-        <script src="js/jquery-ui.min.js"></script>
+        <script src="../js/jquery-ui.min.js"></script>
 		<!-- nivo.slider js -->
-        <script src="js/jquery.nivo.slider.js"></script>			
+        <script src="../js/jquery.nivo.slider.js"></script>			
 		<!-- magnific-popup js -->
-        <script src="js/jquery.magnific-popup.min.js"></script>			
+        <script src="../js/jquery.magnific-popup.min.js"></script>			
 		<!-- wow js -->
-        <script src="js/wow.min.js"></script>
+        <script src="../js/wow.min.js"></script>
 		<!-- scrolly js -->
-        <script src="js/jquery.scrolly.js"></script>
+        <script src="../js/jquery.scrolly.js"></script>
 		<!-- plugins js -->
-        <script src="js/plugins.js"></script>
+        <script src="../js/plugins.js"></script>
 		<!-- main js -->
-        <script src="js/main.js"></script>
+        <script src="../js/main.js"></script>
     </body>
 </html>
 

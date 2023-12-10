@@ -205,6 +205,33 @@ class Product extends Model {
         }
         return $options;
     }
+
+
+    function displaybytype($typeid = null) {
+    
+        if ($typeid !== null) {
+            $query = "SELECT * FROM product WHERE Product_Type = '$typeid'";
+        } else {
+            $query = "SELECT * FROM product";
+        }
+
+        $categoryResult = $this->connect()->query($query);
+
+       
+        if (!$categoryResult) {
+            die("Error in SQL query: " . mysqli_error($this->connect()));
+        }
+
+       
+        $products = [];
+        while ($row = mysqli_fetch_assoc($categoryResult)) {
+            $products[] = $row;
+        }
+
+        return $products;
+    }
+
+
      // Setters
      public function setProductName($productName) {
         $this->productName = $this->real_escape_string($productName);

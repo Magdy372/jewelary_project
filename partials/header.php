@@ -31,10 +31,10 @@ require_once(__ROOT__ . "controller/CartController.php");
 
 require_once(__ROOT__ . "model/Wishlist.php");
 require_once(__ROOT__ . "controller/WishlistController.php");
-
+ 
 require_once(__ROOT__ . "model/Product.php");
 require_once(__ROOT__ . "controller/ProductController.php");
-
+require_once(__ROOT__ . "controller/homeController.php");
 
 // Check if a user is logged in
 if (!empty($_SESSION['UserID'])) {
@@ -102,6 +102,13 @@ if (isset($_GET['details_id'])) {
 
  
 } 
+if (isset($_GET['category'])) {
+	$typeid = $_GET['category'];
+	$Productmodel = new Product();
+		$Homecontroller = new HomeController($Productmodel);
+	$typeid = $_GET['category'];
+		$products=$Homecontroller->displaybytype($typeid);
+}
 
 ?>
 		<header>
@@ -276,12 +283,12 @@ if (isset($_GET['details_id'])) {
 										<div class="megamenu">
 											<span>
 												<a href="shop.php" class="megatitle">Little H</a>
-												<a href="shop.php?category=Necklaces">Necklaces</a>
-												<a href="shop.php?category=Pendants">Pendants</a>
-												<a href="shop.php?category=Rings">Rings</a>
-												<a href="shop.php?category=Bracelets">Bracelets</a>
-												<a href="shop.php?category=Earrings">Earrings</a>
-												<a href="shop.php?category=ColoredStones">Colored Stones</a>
+												<a href="shop.php?category=1">Necklaces</a>
+												<a href="shop.php?category=2">Pendants</a>
+												<a href="shop.php?category=3">Rings</a>
+												<a href="shop.php?category=4">Bracelets</a>
+												<a href="shop.php?category=5">Earrings</a>
+												<a href="shop.php?category=11">Colored Stones</a>
 												
 											</span>
 											<span>
@@ -299,13 +306,13 @@ if (isset($_GET['details_id'])) {
 										<div class="megamenu">
 											<span>
 												<a href="shop.php" class="megatitle">New in</a>
-												<a href="shop.php?category=Necklaces">Necklaces</a>
-												<a href="shop.php?category=Pendants">Pendants</a>
-												<a href="shop.php?category=Rings">Rings</a>
-												<a href="shop.php?category=Bracelets">Bracelets</a>
-												<a href="shop.php?category=Earrings">Earrings</a>
-												<a href="shop.php?category=ColoredStones">Colored Stones</a>
-												<a href="shop.php?category=Anklets">Anklets</a>
+												<a href="shop.php?category=1">Necklaces</a>
+												<a href="shop.php?category=2">Pendants</a>
+												<a href="shop.php?category=3">Rings</a>
+												<a href="shop.php?category=4">Bracelets</a>
+												<a href="shop.php?category=5">Earrings</a>
+												<a href="shop.php?category=6">Colored Stones</a>
+												<a href="shop.php?category=7">Anklets</a>
 											
 												
 											</span>
@@ -325,12 +332,12 @@ if (isset($_GET['details_id'])) {
 											<span>
 												<a href="shop.php" class="megatitle">Gold Jewellery</a>
 												<a href="shop.php" class="megatitle">New in</a>
-												<a href="shop.php?category=Necklaces">Necklaces</a>
-												<a href="shop.php?category=Pendants">Pendants</a>
-												<a href="shop.php?category=Rings">Rings</a>
-												<a href="shop.php?category=Bracelets">Bracelets</a>
-												<a href="shop.php?category=Earrings">Earrings</a>
-												<a href="shop.php?category=ColoredStones">Colored Stones</a>
+												<a href="shop.php?category=1">Necklaces</a>
+												<a href="shop.php?category=2">Pendants</a>
+												<a href="shop.php?category=3">Rings</a>
+												<a href="shop.php?category=4">Bracelets</a>
+												<a href="shop.php?category=5">Earrings</a>
+												<a href="shop.php?category=11">Colored Stones</a>
 												
 											</span>
 											<span>
@@ -344,18 +351,18 @@ if (isset($_GET['details_id'])) {
 											
 										</div>									
 									</li>
-									<li><a href="shop.php?category=Gold Bars">Gold Bars</a>
+									<li><a href="shop.php?category=6">Gold Bars</a>
 																		
 									</li>
-									<li><a href="shop.php?category=Gold Coins">Gold Coins</a>
+									<li><a href="shop.php?category=8">Gold Coins</a>
 																		
 									</li>
 									
-									<li><a href="shop.php?category=Sets">Sets</a>
+									<li><a href="shop.php?category=9">Sets</a>
 																		
 									</li>
 
-									<li><a href="shop.php?category=Wedding Bands">Wedding Bands</a>
+									<li><a href="shop.php?category=10">Wedding Bands</a>
 																		
 									</li>
 
@@ -376,7 +383,7 @@ if (isset($_GET['details_id'])) {
 								<ul>
 									<li class="active"><a href="shop.php">LITTLE H</a>
 									<ul>
-											<li><a href="shop.php?category=Necklaces">Necklaces</a>
+											<li><a href="shop.php?category=1">Necklaces</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -385,7 +392,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=Pendants">Pendants</a>
+											<li><a href="shop.php?category=2">Pendants</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -394,7 +401,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=Rings">Rings</a>
+											<li><a href="shop.php?category=Rings">3</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -403,7 +410,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=Bracelets">Bracelets</a>
+											<li><a href="shop.php?category=4">Bracelets</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -412,7 +419,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<a href="shop.php?category=Earrings">Earrings</a>
+											<a href="shop.php?category=5">Earrings</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -421,7 +428,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=ColoredStones">Colored Stones</a>
+											<li><a href="shop.php?category=11">Colored Stones</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -434,7 +441,7 @@ if (isset($_GET['details_id'])) {
 									</li>
 									<li><a href="shop.php">New IN</a>
 									<ul>
-									<a href="shop.php?category=Necklaces">Necklaces</a>
+											<li><a href="shop.php?category=1">Necklaces</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -443,7 +450,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=Pendants">Pendants</a>
+											<li><a href="shop.php?category=2">Pendants</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -452,7 +459,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=Rings">Rings</a>
+											<li><a href="shop.php?category=Rings">3</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -461,7 +468,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=Bracelets">Bracelets</a>
+											<li><a href="shop.php?category=4">Bracelets</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -470,7 +477,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=Earrings">Earrings</a>
+											<a href="shop.php?category=5">Earrings</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -479,7 +486,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=ColoredStones">Colored Stones</a>
+											<li><a href="shop.php?category=11">Colored Stones</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -491,8 +498,8 @@ if (isset($_GET['details_id'])) {
 										</ul>
 									</li>
 									<li><a href="shop.php">Gold Jewellery</a>
-										<ul>
-										<a href="shop.php?category=Necklaces">Necklaces</a>
+									<ul>
+											<li><a href="shop.php?category=1">Necklaces</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -501,7 +508,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=Pendants">Pendants</a>
+											<li><a href="shop.php?category=2">Pendants</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -510,7 +517,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=Rings">Rings</a>
+											<li><a href="shop.php?category=Rings">3</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -519,7 +526,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php">Bracelets</a>
+											<li><a href="shop.php?category=4">Bracelets</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -528,7 +535,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=Earrings">Earrings</a>
+											<a href="shop.php?category=5">Earrings</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
@@ -537,7 +544,7 @@ if (isset($_GET['details_id'])) {
 													<li><a href="shop.php">Rose Gold</a></li>
 												</ul>
 											</li>
-											<li><a href="shop.php?category=ColoredStones">Colored Stones</a>
+											<li><a href="shop.php?category=11">Colored Stones</a>
 												<ul>
 													<li><a href="shop.php">18k Gold</a></li>
 													<li><a href="shop.php">21k Gold</a></li>
