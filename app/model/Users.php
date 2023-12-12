@@ -24,7 +24,7 @@ class Users extends Model {
         //     $emailTaken = true;
         // }
 
-		$sql1 = "insert into users(FName,LName,Email,Password,UserType_id) values ('$FN','$LN','$EM','$PW',2)";
+		$sql1 = "insert into users(FName,LName,Email,Password,UserType_id) values ('$FN','$LN','$EM','$PW',2)"; //2 de user id 
 		if($this->db->query($sql1) === true){
 			echo "Records inserted successfully.";
 		} 
@@ -35,7 +35,20 @@ class Users extends Model {
 		
 	}
 
-    
+	function InsertinDB_Static_admin($FN, $LN, $EM, $PW) {
+		$sql1 = "INSERT INTO users (FName, LName, Email, Password, UserType_id) VALUES ('$FN', '$LN', '$EM', '$PW', 1)"; //1 de admin id
+	
+		if ($this->db->query($sql1) === true) {
+			echo "Records inserted successfully.";
+		} else {
+			echo "ERROR: Could not able to execute $sql1. " . $this->db->error;
+		}
+	}
+	
+	
+
+	
+
     function login($Email, $Password) {
 		$sql = "SELECT * FROM users WHERE Email = '$Email'";
 		//$result = mysqli_query($GLOBALS['con'], $sql);
