@@ -66,5 +66,16 @@ class Users extends Model {
 			}
 		}
 	}
+
+	function EmailCheck ($email){
+        $db = $this->connect();
+        $sql = "SELECT * FROM users WHERE Email = '$email'";
+		$result = $this->db->query($sql);
+        if ($result->num_rows == 1) {
+          return true;
+        } else {
+           return false;
+        }
+    }
 	
 }

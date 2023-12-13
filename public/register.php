@@ -122,27 +122,27 @@ if (isset($_POST['Submit'])){
 							<div class="login-form">
 							<form method="post">
 									<div class="form-group login-page">
-										<label for="exampleInputName1">First Name <span>*<?php echo $controller-> getFnameErr();?></span></label>
+										<label for="exampleInputName1">First Name <span style="color: red;">*<?php echo $controller-> getFnameErr();?></span></label>
 										<input type="text" name="FName" class="form-control" id="exampleInputName1" required >
 										
 									</div>
 									<div class="form-group login-page">
-										<label for="exampleInputName2">Last Name <span>*<?php echo $controller-> getLnameErr();;?></span></label>
+										<label for="exampleInputName2">Last Name <span style="color: red;">*<?php echo $controller-> getLnameErr();;?></span></label>
 										<input type="text" name="LName" class="form-control" id="exampleInputName2" required >
 										
 									</div>					
 									<div class="form-group login-page">
-										<label for="exampleInputEmail1">Email <span>*<?php echo $controller-> getEmailErr();?></span></label>
+										<label for="exampleInputEmail1">Email <span style="color: red;" >*<?php echo $controller-> getEmailErr();?></span></label>
 										<input type="email" name="Email" class="form-control" id="exampleInputEmail1" required >
 										
 									</div>								
 									<div class="form-group login-page">
-										<label for="exampleInputPassword1">Password <span>* <?php echo $controller-> getpasswordErr();?></span></label>
+										<label for="exampleInputPassword1">Password <span style="color: red;">* <?php echo $controller-> getpasswordErr();?></span></label>
 										<input type="Password" name="Password" class="form-control" id="exampleInputPassword1" required >
 										
 									</div>							
 									<div class="form-group login-page">
-										<label for="exampleInputPassword2">Confirm Password <span>*  <?php echo $controller-> getconfirmErr();?></span></label>
+										<label for="exampleInputPassword2">Confirm Password <span style="color: red;">*  <?php echo $controller-> getconfirmErr();?></span></label>
 										<input type="Password" name="conPass" class="form-control" id="exampleInputPassword2" required >
 										
 									</div>

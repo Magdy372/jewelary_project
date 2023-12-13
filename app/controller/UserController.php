@@ -121,11 +121,14 @@ class UserController extends Controller
         // hint lsa m3mltosh momken al7ta deh a3mlha f file msh f controller lw email msh mta5ed yb2a y call function mn alawl b2a 
 		// $sql = "SELECT * FROM users WHERE Email = '$email'";
         // $result = $this->$db->query($sql);
+
+        
+        $check = $this->model->EmailCheck ($email);
     
-        // if ($result && $result->num_rows > 0) {
-        //     $EmailErr = "Email is already taken. Please, login.";
-        //     $emailTaken = true;
-        // }
+        if ($check) {
+            $this->setEmailErr("Email is already taken. Please, login.");
+            $this->setEmailTaken(true);
+        }
         
 
         // Validate the password field
