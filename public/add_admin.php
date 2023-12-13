@@ -1,3 +1,36 @@
+<?php
+
+define('__ROOT__', "../app/");
+require_once(__ROOT__ . "model/Users.php");
+require_once(__ROOT__ . "controller/AdminController.php");
+
+$model = new Users();
+//$model = new User();
+$controller = new AdminController($model);
+//$view = new ViewUser($controller, $model);
+
+
+
+if (isset($_POST['Submit'])){
+    
+
+	$Fname =  $_POST['FName'];
+	$Lname =  $_POST['LName'];
+	$password=$_POST['Password'];
+	$Conpass=$_POST['conPass'];
+	$email =  $_POST['Email'];
+
+
+   $controller->insert($Fname, $Lname, $password,$Conpass, $email) ;
+   
+   
+}
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -166,24 +199,35 @@
 
     <div class="container">
         <h2>Add a New Admin</h2>
-        <form action="process_product.php" method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="Username">Username</label>
-                <input type="text" name="Username" id="Username" required>
+                <label for="First">Fisrt Name <span>*<?php echo $controller-> getFnameErr();?></span></label> 
+                <input type="text" name="FName" id="First" required>
             </div>
 
             <div class="form-group">
-                <label for="Password">Password</label>
-                <input type="text" name="Password" id="Password" required>
+                <label for="Last">Last Name <span>*<?php echo $controller-> getLnameErr();;?></span></label>
+                <input type="text" name="LName" id="Last" required>
             </div>
-
 
             <div class="form-group">
-                <label for="Admin_image">Admin Image</label>
-                <input type="file" name="Admin_image" id="Admin_image" accept="image/*" required>
+                <label for="Email">E-mail <span>*<?php echo $controller-> getEmailErr();?></span></label>
+                <input type="text" name="Email" id="Email" required>
             </div>
 
-            <button type="submit">Add admin</button>
+            <div class="form-group">
+            <form method="POST" enctype="multipart/form-data">
+
+            <label for="Pass">Password <span>* <?php echo $controller->getPasswordErr();?></span></label>
+             <input type="password" name="Password" id="Pass" required>
+            </div>
+
+            <div class="form-group">
+            <label for="ConfPass">Confirm Password <span>* <?php echo $controller->getConfirmErr();?></span></label>
+            <input type="password" name="conPass" id="ConfPass" required>
+            </div>
+
+            <button type="submit" name="Submit">Add admin</button>
         </form>
     </div>
 </body>
