@@ -46,7 +46,7 @@ Use
 	<?php include('../partials/header.php'); ?>
 	<?php
 	if ($_SESSION["UserID"] !== NULL) {
-		
+
 
 		// to adding product to wishlist 
 
@@ -55,7 +55,7 @@ Use
 			$deleteProductID = $_GET['delete_id'];
 			$userID = $_SESSION["UserID"];
 
-			
+
 			$ShoppingObj = $Cartcontroller->Delete($userID, $deleteProductID);
 			if ($ShoppingObj !== NULL) {
 				echo "Deleted Successfully :)";
@@ -90,13 +90,13 @@ Use
 		if (isset($_GET['clear_id'])) {
 
 			$userID = $_SESSION["UserID"];
-			
+
 			$ShoppingObj = $Cartcontroller->Clear($userID);
-			 if ($ShoppingObj) {
-			 	//echo "Your ShoppingCart is empty.";
-			 	//exit();
-			
-			 } else {
+			if ($ShoppingObj) {
+				//echo "Your ShoppingCart is empty.";
+				//exit();
+
+			} else {
 				echo "Failed to clear the cart.";
 			}
 		}
@@ -178,11 +178,13 @@ Use
 												'ProductPrice' => $ProductPrice,
 												'Quantity' => $Quantity,
 												'Subtotal' => $Subtotal
+
 											);
 
 											$cartDetails[] = $productDetails;
 
 											$sum += $Subtotal;
+											$cartDetails['UserID'] = $_SESSION["UserID"];
 
 											if (!empty($ProductPicture[0])) {
 
@@ -216,8 +218,9 @@ Use
 											// add the sum fel session variable l cartDetails
 											$cartDetails['sum'] = $sum;
 
-											
+
 											$_SESSION['cartDetails'] = $cartDetails;
+
 													?>
 
 								</tbody>

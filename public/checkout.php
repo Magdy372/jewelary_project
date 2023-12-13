@@ -37,9 +37,51 @@
 	<link rel="stylesheet" href="../css/responsive.css" />
 	<!-- modernizr css -->
 	<script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+
+	<?php
+	// Start the session
+
+	// Check if the form is submitted
+	if (isset($_POST['submit'])) {
+		// Assuming you have established a database connection, replace the following placeholders with your actual database credentials
+
+		// Create connection
+		$conn = new mysqli("172.232.216.8", "root", "Omarsalah123o", "Jewelry_project");
+
+		// Check connection
+		if ($conn->connect_error) {
+			die("Connection failed: " . $conn->connect_error);
+		}
+
+		// Get address data from the form
+		$street = $_POST['street'];
+		$city = $_POST['city'];
+		$apartmentNumber = $_POST['apartmentNumber'];
+
+		// Assuming you have a user ID stored in the session, replace 'your_user_id_key' with the actual key you use to store the user ID
+		$userID = $_SESSION["UserID"];
+
+		// Prepare and execute the SQL query
+		$sql = "INSERT INTO address (street, city, apartmentnumber, UserID) VALUES ('$street', '$city', '$apartmentNumber', '$userID')";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Address inserted successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+
+		// Close the database connection
+		$conn->close();
+	}
+	?>
+
+
+
 </head>
 
 <body>
+
+
 
 
 	<!--[if lt IE 8]>
@@ -51,17 +93,7 @@
 	<?php include('../partials/header.php'); ?>
 	<!-- mainmenu-area-end -->
 	<!-- page-title-wrapper-start -->
-	<div class="page-title-wrapper">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="page-title">
-						<h3>Checkout</h3>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<!-- page-title-wrapper-end -->
 	<!-- entry-header-area start -->
 	<div class="entry-header-area ptb-40">
@@ -77,63 +109,13 @@
 	</div>
 	<!-- entry-header-area end -->
 	<!-- coupon-area start -->
-	<div class="coupon-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="coupon-accordion">
-						<!-- ACCORDION START -->
-						<h3>Returning customer? <span id="showlogin">Click here to login</span></h3>
-						<div id="checkout-login" class="coupon-content">
-							<div class="coupon-info">
-								<!--<p class="coupon-text">Quisque gravida turpis sit amet nulla posuere lacinia. Cras sed est sit amet ipsum luctus.</p>-->
-								<form action="#">
-									<p class="form-row-first">
-										<label>Email <span class="required">*</span></label>
-										<input type="text" />
-									</p>
-									<p class="form-row-last">
-										<label>Password <span class="required">*</span></label>
-										<input type="text" />
-									</p>
-									<p class="form-row">
-										<input type="submit" value="Login" />
-										<label>
-											<input type="checkbox" />
-											Remember me
-										</label>
-									</p>
-									<p class="lost-password">
-										<a href="#">Lost your password?</a>
-									</p>
-								</form>
-							</div>
-						</div>
-						<!-- ACCORDION END -->
-						<!-- ACCORDION START -->
-						<h3>Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
-						<div id="checkout_coupon" class="coupon-checkout-content">
-							<div class="coupon-info">
-								<form action="#">
-									<p class="checkout-coupon">
-										<input type="text" placeholder="Coupon code" />
-										<input type="submit" value="Apply Coupon" />
-									</p>
-								</form>
-							</div>
-						</div>
-						<!-- ACCORDION END -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<!-- coupon-area end -->
 	<!-- checkout-area start -->
 	<div class="checkout-area pb-50">
 		<div class="container">
 			<div class="row">
-				<form action="#">
+				<form action="checkout.php" id="checkoutForm" method="POST">
 					<div class="col-lg-6 col-md-6">
 
 						<div class="checkbox-form">
@@ -191,27 +173,22 @@
 										<input type="text" placeholder="" />
 									</div>
 								</div>
-								<!--<div class="col-md-12">
-										<div class="checkout-form-list">
-											<label>Company Name</label>
-											<input type="text" placeholder="" />
-										</div>
-									</div>-->
+
 								<div class="col-md-12">
 									<div class="checkout-form-list">
 										<label>Address <span class="required">*</span></label>
-										<input type="text" placeholder="Street address" />
+										<input type="text" name="street" placeholder="Street address" />
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="checkout-form-list">
-										<input type="text" placeholder="Apartment, suite, unit etc. (optional)" />
+										<input type="text" name="apartmentNumber" placeholder="Apartment, suite, unit etc. (optional)" />
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="checkout-form-list">
 										<label>Town / City <span class="required">*</span></label>
-										<input type="text" placeholder="Town / City" />
+										<input type="text" name="city" placeholder="Town / City" />
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -302,24 +279,7 @@
 
 
 
-										<tr class="shipping">
-											<th>Shipping</th>
-											<td>
-												<ul>
-													<li>
-														<input type="radio" />
-														<label>
-															Flat Rate: <span class="amount">$7.00</span>
-														</label>
-													</li>
-													<li>
-														<input type="radio" />
-														<label>Free Shipping:</label>
-													</li>
-													<li></li>
-												</ul>
-											</td>
-										</tr>
+
 										<tr class="order-total">
 											<th>Order Total</th>
 											<td><strong><span class="amount">$<?= $sum ?></span></strong></td>
@@ -389,6 +349,91 @@
 	<!-- contact-area-start -->
 	<?php include('../partials/footer.php'); ?>
 	<!-- .copyright-area-end -->
+
+	<!-- <script>
+		function validateForm() {
+			var requiredFields = document.querySelectorAll('[required]');
+			var isValid = true;
+
+			requiredFields.forEach(function(field) {
+				if (!validateField(field)) {
+					isValid = false;
+				}
+			});
+
+			return isValid;
+		}
+
+		function validateField(field) {
+			var value = field.value.trim();
+			var label = field.closest('.checkout-form-list').querySelector('label').textContent;
+
+			if (value === '') {
+				alert(label + ' is required.');
+				return false;
+			}
+
+			// General email format validation
+			if (field.type === 'email' && !isValidEmail(value)) {
+				alert('Please enter a valid email address.');
+				return false;
+			}
+
+			// General phone number format validation
+			if (field.type === 'tel' && !isValidPhoneNumber(value)) {
+				alert('Please enter a valid phone number.');
+				return false;
+			}
+
+			// Specific validations for certain fields
+			switch (field.id) {
+				case 'postcode':
+					if (!isValidZipCode(value)) {
+						alert('Please enter a valid postcode/zip code.');
+						return false;
+					}
+					break;
+					// Add more specific cases as needed
+
+				default:
+					// Additional general validations for other fields
+					if (field.classList.contains('validate-number') && !isNumeric(value)) {
+						alert('Please enter a valid numeric value.');
+						return false;
+					}
+					break;
+			}
+
+			// Add more rules as needed
+
+			return true;
+		}
+
+		function isValidEmail(email) {
+			// Basic email format validation
+			var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			return emailRegex.test(email);
+		}
+
+		function isValidPhoneNumber(phoneNumber) {
+			// Basic phone number format validation
+			var phoneRegex = /^\d{10}$/;
+			return phoneRegex.test(phoneNumber);
+		}
+
+		function isValidZipCode(zipCode) {
+			// Basic zip code format validation
+			var zipCodeRegex = /^\d{5}$/;
+			return zipCodeRegex.test(zipCode);
+		}
+
+		function isNumeric(value) {
+			// Check if the value is numeric
+			return !isNaN(value);
+		}
+	</script> -->
+
+
 
 	<!-- all js here -->
 	<!-- jquery latest version -->
