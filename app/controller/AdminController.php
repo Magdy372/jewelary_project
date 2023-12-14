@@ -64,7 +64,7 @@ class AdminController extends Controller
         $this->emailTaken = $emailTaken;
     }
 
-    public function insert() {
+    public function insert_admin() {
         $Fname = $_REQUEST['FName'];
         $Lname = $_REQUEST['LName'];
         $password = $_REQUEST['Password'];
@@ -82,16 +82,19 @@ class AdminController extends Controller
             }
         
             if (empty($this->getFnameErr()) && empty($this->getLnameErr()) && empty($this->getEmailErr()) && empty($this->getPasswordErr()) && empty($this->getConfirmErr())) {
+               
                 // Use the correct method for adding admin user
+                // $this->model->setUsertypeid(1);
+
                 $this->model->insertInDB_Static_admin($Fname, $Lname, $email, $hashedPW);
             }
         
 
-        function isStrongPassword($password) {
-            // Password requirements: at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character
-            $pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/';
-            return preg_match($pattern, $password);
-        }
+        // function isStrongPassword($password) {
+        //     // Password requirements: at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character
+        //     $pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/';
+        //     return preg_match($pattern, $password);
+        // }
 
         function test_input($data)
         {
@@ -144,12 +147,12 @@ class AdminController extends Controller
         // }
         
 
-        // Validate the password field
-        if (empty($password)) {
-            $this->setPasswordErr("Password is required");
-        } elseif (!isStrongPassword($password)) {
-            $this->setPasswordErr("Password must be at least 8 characters long and contain one uppercase letter, one lowercase letter, one number, and one special character");
-        }
+        //Validate the password field
+        // if (empty($password)) {
+        //     $this->setPasswordErr("Password is required");
+        // } elseif (!isStrongPassword($password)) {
+        //     $this->setPasswordErr("Password must be at least 8 characters long and contain one uppercase letter, one lowercase letter, one number, and one special character");
+        // }
 
         // Validate the confirm password field
         if (empty($Conpass)) {
@@ -170,10 +173,11 @@ class AdminController extends Controller
         }
 
 
-        if (empty($this->getFnameErr()) && empty($this->getLnameErr()) && empty($this->getEmailErr()) && empty($this->getPasswordErr()) && empty($this->getConfirmErr()) && empty($birthErr) && !$this->getEmailTaken()) {
-            $this->model->InsertinDB_Static($Fname, $Lname, $email, $hashedPW);
-        } 
+        // if (empty($this->getFnameErr()) && empty($this->getLnameErr()) && empty($this->getEmailErr()) && empty($this->getPasswordErr()) && empty($this->getConfirmErr()) && empty($birthErr) && !$this->getEmailTaken()) {
+        //     $this->model->InsertinDB_Static_admin($Fname, $Lname, $email, $hashedPW);
+        // } 
     }
+
 
     public function Login(){
 

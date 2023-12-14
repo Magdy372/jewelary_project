@@ -11,24 +11,27 @@ $controller = new AdminController($model);
 
 
 
-if (isset($_POST['Submit'])){
+// if (isset($_POST['Submit'])){
     
 
-	$Fname =  $_POST['FName'];
-	$Lname =  $_POST['LName'];
-	$password=$_POST['Password'];
-	$Conpass=$_POST['conPass'];
-	$email =  $_POST['Email'];
+// 	$Fname =  $_POST['FName'];
+// 	$Lname =  $_POST['LName'];
+// 	$password=$_POST['Password'];
+// 	$Conpass=$_POST['conPass'];
+// 	$email =  $_POST['Email'];
 
 
-   $controller->insert($Fname, $Lname, $password,$Conpass, $email) ;
+//    $controller->insert($Fname, $Lname, $password,$Conpass, $email) ;
    
-   
+   if (isset($_POST['Submit'])){
+    $Fname =  $_POST['FName'];
+    $Lname =  $_POST['LName'];
+    $password = $_POST['Password'];
+    $Conpass = $_POST['conPass'];
+    $email =  $_POST['Email'];
+
+    $controller->insert_admin($Fname, $Lname, $password, $Conpass, $email);
 }
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -216,8 +219,6 @@ if (isset($_POST['Submit'])){
             </div>
 
             <div class="form-group">
-            <form method="POST" enctype="multipart/form-data">
-
             <label for="Pass">Password <span>* <?php echo $controller->getPasswordErr();?></span></label>
              <input type="password" name="Password" id="Pass" required>
             </div>

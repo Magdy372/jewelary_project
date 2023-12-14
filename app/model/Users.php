@@ -36,9 +36,11 @@ class Users extends Model {
 	}
 
 	function InsertinDB_Static_admin($FN, $LN, $EM, $PW) {
-		$sql1 = "INSERT INTO users (FName, LName, Email, Password, UserType_id) VALUES ('$FN', '$LN', '$EM', '$PW', 1)"; //1 de admin id
+		$sql2 = "INSERT INTO users (FName, LName, Email, Password, UserType_id) VALUES ('$FN', '$LN', '$EM', '$PW', 1)"; //1 de admin id
 	
-		if ($this->db->query($sql1) === true) {
+		
+
+		if ($this->db->query($sql2) === true) {
 			echo "Records inserted successfully.";
 		} else {
 			echo "ERROR: Could not able to execute $sql1. " . $this->db->error;
@@ -77,5 +79,6 @@ class Users extends Model {
            return false;
         }
     }
-	
 }
+
+
