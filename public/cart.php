@@ -1,4 +1,4 @@
-Use
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -149,79 +149,75 @@ Use
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$sum = 0;
+								<?php
+$sum = 0;
 
-									if (!is_null($cartObject) && !empty($cartObject)) {
-										foreach ($cartObject as $element) {
-											// Check if $element is an array or an object
-											if (is_array($element)) {
-												$ProductPicture = explode(',', $element['ProductPicture']);
-												$ProductID = $element['ProductID'];
-												$ProductName = $element['ProductName'];
-												$ProductPrice = $element['ProductPrice'];
-												$Quantity = $element['Quantity'];
-												$Subtotal = $element['Subtotal'];
-											} else {
-												// Assuming $element is an object
-												$ProductPicture = explode(',', $element->ProductPicture);
-												$ProductName = $element->ProductName;
-												$ProductPrice = $element->ProductPrice;
-												$Quantity = $element->Quantity;
-												$Subtotal = $element->Subtotal;
-												$ProductID = $element->ProductID;
-											}
+if (!is_null($cartObject) && !empty($cartObject)) {
+    foreach ($cartObject as $element) {
+        // Check if $element is an array or an object
+        if (is_array($element)) {
+            $ProductPicture = explode(',', $element['ProductPicture']);
+            $ProductID = $element['ProductID'];
+            $ProductName = $element['ProductName'];
+            $ProductPrice = $element['ProductPrice'];
+            $Quantity = $element['Quantity'];
+            $Subtotal = $element['Subtotal'];
+        } else {
+            // Assuming $element is an object
+            $ProductPicture = explode(',', $element->ProductPicture);
+            $ProductName = $element->ProductName;
+            $ProductID = $element->ProductID;
+            $ProductPrice = $element->ProductPrice;
+            $Quantity = $element->Quantity;
+            $Subtotal = $element->Subtotal;
+        }
 
-											// session 3ashn product details
-											$productDetails = array(
-												'ProductName' => $ProductName,
-												'ProductPrice' => $ProductPrice,
-												'Quantity' => $Quantity,
-												'Subtotal' => $Subtotal
+        // session 3ashn product details
+        $productDetails = array(
+            'ProductID' => $ProductID,
+            'ProductName' => $ProductName,
+			'ProductPicture'=> $ProductPicture[0],
+            'ProductPrice' => $ProductPrice,
+            'Quantity' => $Quantity,
+            'Subtotal' => $Subtotal
+        );
 
-											);
+        $cartDetails[] = $productDetails;
 
-											$cartDetails[] = $productDetails;
+        $sum += $Subtotal;
 
-											$sum += $Subtotal;
-											$cartDetails['UserID'] = $_SESSION["UserID"];
+        if (!empty($ProductPicture[0])) {
+            $imageSrc = "../uploads/" . $ProductPicture[0];
+        } else {
+            $imageSrc = "uploads/default.jpg";
+        }
+?>
+        <tr>
+            <td class="product-thumbnail"><a href="#"><img src="<?= $imageSrc ?>" alt="" /></a></td>
+            <td class="product-name"><a href="#"><?= $ProductName ?></a></td>
+            <td class="product-price">
+                <span class="amount">$<?= $ProductPrice ?></span>
+            </td>
+            <td class="product-quantity">
+                <span class="amount"><?= $Quantity ?></span>
+            </td>
+            <td class="totalproduct">
+                <span class="totalproduct">$<?= $Subtotal ?></span>
+            </td>
+            <td class="product-remove"><a href="cart.php?delete_id=<?= $ProductID ?>">x</a></td>
+        </tr>
+<?php
+    }
+} else {
+    // Handle the case where there are no items in the wishlist
+    echo "Your ShoppingCart is empty.";
+}
 
-											if (!empty($ProductPicture[0])) {
+// Add the sum to the session variable cartDetails
+$cartDetails['sum'] = $sum;
+$_SESSION['cartDetails'] = $cartDetails;
+?>
 
-												$imageSrc = "../uploads/" . $ProductPicture[0];
-											} else {
-												$imageSrc = "uploads/default.jpg";
-											}
-									?>
-											<tr>
-												<td class="product-thumbnail"><a href="#"><img src="<?= $imageSrc ?>" alt="" /></a></td>
-												<td class="product-name"><a href="#"><?= $ProductName ?></a></td>
-												<td class="product-price">
-													<span class="amount">$<?= $ProductPrice ?></span>
-												</td>
-												<td class="product-quantity">
-
-													<span class="amount"><?= $Quantity ?></span>
-												</td>
-
-												<td class="totalproduct">
-													<span class="totalproduct">$<?= $Subtotal ?></span>
-												</td>
-												<td class="product-remove"><a href="cart.php?delete_id=<?= $ProductID ?>">x</a></td>
-											</tr><?php
-												}
-											} else {
-												// Handle the case where there are no items in the wishlist
-												echo "Your ShoppingCart is empty.";
-											}
-
-											// add the sum fel session variable l cartDetails
-											$cartDetails['sum'] = $sum;
-
-
-											$_SESSION['cartDetails'] = $cartDetails;
-
-													?>
 
 								</tbody>
 							</table>
@@ -252,7 +248,8 @@ Use
 									</tbody>
 									</table>
 									<div class="wc-proceed-to-checkout">
-										<a href="checkout.php">Proceed to Checkout</a>
+									<a href="checkout.php?action=proceedToCheckout">Proceed to Checkout</a>
+
 									</div>
 								</div>
 							</div>

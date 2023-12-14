@@ -306,7 +306,28 @@ class User extends Model
 				  echo $sql;
 			  }
 	  }
+      public function createAddress($country, $street, $city, $apartmentNumber, $postalCode, $userID) {
+        $sql = "INSERT INTO `address` (`Country`, `street`, `city`, `apartmentnumber`, `PostalCode`, `UserID`)
+                VALUES ('$country', '$street', '$city', $apartmentNumber, $postalCode, $userID)";
+
+        return $this->connect()->query($sql);
+    }
+    public function getAddressByUserID($userID) {
+        $sql = "SELECT * FROM `address` WHERE `UserID` = $userID";
+        $result = $this->connect()->query($sql);
+
+        $addresses = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $this->connect()->fetchRow($result)) {
+                $addresses[] = $row;
+            }
+        }
+
+        return $addresses;
+    }
 }
+
 
 $con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o","Jewelry_project");
 
@@ -345,6 +366,8 @@ class UserType {
 		return $Result;
 	}
 }
+
+
 
 class pages {
 	public $ID;

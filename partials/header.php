@@ -18,8 +18,8 @@
     }
 </style>
     </head>
-    <body>
-	<?php
+    <body> 
+<?php
 //session_start();
 
 define('__ROOT__', "../app/");
@@ -35,7 +35,8 @@ require_once(__ROOT__ . "controller/WishlistController.php");
 require_once(__ROOT__ . "model/Product.php");
 require_once(__ROOT__ . "controller/ProductController.php");
 require_once(__ROOT__ . "controller/homeController.php");
-
+require_once(__ROOT__ . "model/OrderModel.php");
+require_once(__ROOT__ . "controller/OrderController.php");
 // Check if a user is logged in
 if (!empty($_SESSION['UserID'])) {
 	
@@ -109,6 +110,27 @@ if (isset($_GET['category'])) {
 	$typeid = $_GET['category'];
 		$products=$Homecontroller->displaybytype($typeid);
 }
+if (isset($_GET['action']) && $_GET['action'] === 'proceedToCheckout') {
+    $userID = $_SESSION['UserID'];
+    $Usermodel = new User($_SESSION['UserID']);
+    $addresses = $Usermodel->getAddressByUserID($userID);
+    // ... other actions
+
+
+  
+}if (isset($_GET['order_ID'])) {
+
+	
+
+	$userID = $_SESSION['UserID'];
+	$Cartmodel = new ShoppingCart($_SESSION["UserID"]);
+	$Cartcontroller = new CartController($Cartmodel);
+	$Cartcontroller->Clear($userID);
+	
+
+	
+}
+ 
 
 ?>
 		<header>
