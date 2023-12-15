@@ -48,7 +48,20 @@ class Users extends Model {
 	}
 	
 	
+	public function getAdminsByUserType($userType)
+    {
+        // Adjust the query based on your database structure
+        $sql = "SELECT * FROM users WHERE UserType_id = $userType";
+        $result = $this->db->query($sql);
 
+        $admins = [];
+        while ($row = $result->fetch_assoc()) {
+            $admins[] = $row;
+        }
+
+        return $admins;
+    }
+	
 	
 
     function login($Email, $Password) {
@@ -95,6 +108,11 @@ class Users extends Model {
 		// echo "</pre>";
 	
 		return $result;
+	}
+	public function deleteAdmin($adminID) {
+		// Adjust the query based on your database structure
+		$sql = "DELETE FROM users WHERE ID = $adminID";
+		$this->db->query($sql);
 	}
 }
 

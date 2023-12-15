@@ -205,5 +205,16 @@ class AdminController extends Controller
         $this->model-> editPW($oldPass,$Password,$_SESSION['UserID']);
     }
 
-    
+    public function getAdminsByUserType($userType)
+    {
+        // Assuming your model has a method to fetch admins by user type
+        return $this->model->getAdminsByUserType($userType);
+    }    
+
+    public function deleteAdmin($adminID) {
+        // Call the delete method from your model
+        $this->model->deleteAdmin($adminID);
+    }
+
 }
+
