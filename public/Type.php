@@ -22,6 +22,8 @@ require_once(__ROOT__. "controller/ProductController.php");
         <a href="add_admin.php">Add Admin</a>
         <a href="crud.php">Product</a>
         <a href="usercrud.php">Users</a>
+        <a href="Admins.php">Admins</a>
+
     </div>
 <!-- Product Type Selection Page -->
 <form method="post" action="addproduct.php">
