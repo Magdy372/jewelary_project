@@ -158,6 +158,8 @@ $admins = $controller->getAdminsByUserType(1);
         <a href="add_admin.php">Add Admin</a>
         <a href="crud.php">Product</a>
         <a href="usercrud.php">Users</a>
+        <a href="Admins.php">Admins</a>
+
     </div>
 
 
