@@ -4,9 +4,12 @@ class OrderModel extends Model
 {
   
 
-    public function __construct()
+    public function __construct($userID = null)
     {
         $this->db = $this->connect();
+        if (!is_null($userID)) {
+            $this->getOrdersByUserID($userID);
+        }
     }
     public function createOrder($userID, $totalAmount, $status, $cartDetails, $selectedAddressID)
 {
@@ -32,9 +35,7 @@ class OrderModel extends Model
             $this->db->query($sqlOrderDetails);
         }
 
-        // Clear the user's cart after creating the order
-        // You might have a method in ShoppingCart class for this
-        // ShoppingCart::clearCart($userID);
+
 
         return $orderID; // Return the ID of the created order
     } catch (Exception $e) {
@@ -55,5 +56,50 @@ private function getLastInsertId()
 
     return null; // Return null or handle the case where the result is empty
 }
+public function getOrdersByUserID($userID)
+    {
+        // Retrieve orders by UserID from Order_table
+        $sql = "SELECT * FROM `Order_table` WHERE `UserID` = '$userID'";
+        $result = $this->db->query($sql);
 
+        $orders = array();
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $orderID = $row['OrderId'];
+                $orders[] = array(
+                    'OrderID' => $orderID,
+                    'AddressID' => $row['AddressID'],
+                    'TotalAmount' => $row['TotalAmount'],
+                    'Status' => $row['Status'],
+                    'OrderDetails' => $this->getOrderDetailsByOrderID($orderID)
+                );
+            }
+        }
+
+        return $orders;
+    }
+
+    public function getOrderDetailsByOrderID($orderID)
+    {
+        // Retrieve order details by OrderID from OrderDetails
+        $sql = "SELECT * FROM `OrderDetails` WHERE `OrderID` = '$orderID'";
+        $result = $this->db->query($sql);
+
+        $orderDetails = array();
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $orderDetails[] = array(
+                    'ProductID' => $row['ProductID'],
+                    'Quantity' => $row['Quantity'],
+                    'Subtotal' => $row['Subtotal']
+                );
+            }
+        }
+
+        return $orderDetails;
+    }
 }
+
+

@@ -110,6 +110,12 @@ if (isset($_GET['category'])) {
 	$typeid = $_GET['category'];
 		$products=$Homecontroller->displaybytype($typeid);
 }
+else {
+    // If no category is specified, display all products
+	$Productmodel = new Product();
+		$Homecontroller = new HomeController($Productmodel);
+    $products = $Homecontroller->displaybytype();
+}
 if (isset($_GET['action']) && $_GET['action'] === 'proceedToCheckout') {
     $userID = $_SESSION['UserID'];
     $Usermodel = new User($_SESSION['UserID']);
@@ -194,6 +200,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'proceedToCheckout') {
 						</div>
 					<?php if(!empty($_SESSION['UserID'])): ?> 
 						<div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
+							
 							<div class="header-bottom-right-4-inner">
 								<a href="wishlist.php"><span class="lnr lnr-heart"></span></a>
 							</div>					
@@ -201,6 +208,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'proceedToCheckout') {
 								<div class="shop-cart shop-cart-4">									
 									<a href="cart.php"><span class="lnr lnr-cart"></span></a>
 								</div>
+								<div class="shop-cart shop-cart-4">									
+    <a href="Orders.php">
+	<span class="lnr lnr-store" style="position: absolute; left: 255px;"></span>
+
+    </a>
+</div>
+
+								
 									<div class="shop-cart-hover shop-cart-hover-4 fix">
 										<ul>
 											<?php 

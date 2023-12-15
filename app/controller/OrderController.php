@@ -18,5 +18,9 @@ public function createOrder($userID,  $totalAmount, $status, $cartDetails,$selec
             // Create the order and get the order ID
             $orderID = $this->model->createOrder($userID, $totalAmount, $status, $_SESSION['cartDetails'],$selectedAddressID);
 
-        }}
+        }
+        public function getOrdersByUserID($userID){
+           return $this->model->getOrdersByUserID($userID);
+        }  
+    }
         ?>

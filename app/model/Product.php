@@ -12,11 +12,32 @@ class Product extends Model {
     private $price;
     private $productType;
     private $optionsValues;
-    public function __construct()
+    public function __construct($productID = null)
     {
-        
- $this->db = $this->connect();
-        
+        $this->db = $this->connect();
+
+        // If a productID is provided, load the product data
+        if (!is_null($productID)) {
+            $this->readProduct($productID);
+        }
+    }
+    public function readProduct($productID)
+    {
+        $sql = "SELECT * FROM `product` WHERE id = $productID";
+        $result = $this->db->query($sql);
+
+        if ($result && $row = $result->fetch_assoc()) {
+            
+            $this->productName = $row['ProductName'];
+            $this->description = $row['Description'];
+            $this->productPicture = $row['ProductPicture'];
+            $this->price = $row['Price'];
+
+
+            return true; // Product found and attributes set
+        } else {
+            return false; // Product not found
+        }
     }
     public function getAllProducts() {
         $sql = "SELECT * FROM product";
