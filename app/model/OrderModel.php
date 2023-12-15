@@ -1,5 +1,8 @@
 <?php
 require_once(__ROOT__ . "model/Model.php");
+?>
+<?php
+
 class OrderModel extends Model
 {
   
@@ -57,49 +60,83 @@ private function getLastInsertId()
     return null; // Return null or handle the case where the result is empty
 }
 public function getOrdersByUserID($userID)
-    {
-        // Retrieve orders by UserID from Order_table
-        $sql = "SELECT * FROM `Order_table` WHERE `UserID` = '$userID'";
-        $result = $this->db->query($sql);
+{
+    // Retrieve orders by UserID from Order_table
+    $sql = "SELECT * FROM `Order_table` WHERE `UserID` = '$userID'";
+    $result = $this->db->query($sql);
 
-        $orders = array();
+    $orders = array();
 
-        if ($result) {
-            while ($row = $result->fetch_assoc()) {
-                $orderID = $row['OrderId'];
-                $orders[] = array(
-                    'OrderID' => $orderID,
-                    'AddressID' => $row['AddressID'],
-                    'TotalAmount' => $row['TotalAmount'],
-                    'Status' => $row['Status'],
-                    'OrderDetails' => $this->getOrderDetailsByOrderID($orderID)
-                );
-            }
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $orderID = $row['OrderId'];
+           
+
+           
+            $order = array(
+                'OrderID' => $orderID,
+                'AddressID' => $row['AddressID'],
+                'TotalAmount' => $row['TotalAmount'],
+                'Status' => $row['Status'],
+                
+            );
+
+            $orders[] = $order;
         }
-
-        return $orders;
     }
 
-    public function getOrderDetailsByOrderID($orderID)
+    return $orders;
+}
+
+  
+}
+class OrderDetails extends Model
+{
+    public $orderID;
+    public $productID;
+    public $quantity;
+    public $subtotal;
+
+    public function __construct($orderID)
+    {
+        $this->db = $this->connect();
+
+        // If an orderID is provided, load the order details
+        if (!is_null($orderID)) {
+            $this->orderID = $orderID;
+            $this->fetchOrderDetails($orderID);
+        }
+    }
+
+    public function fetchOrderDetails($orderID)
     {
         // Retrieve order details by OrderID from OrderDetails
         $sql = "SELECT * FROM `OrderDetails` WHERE `OrderID` = '$orderID'";
         $result = $this->db->query($sql);
 
-        $orderDetails = array();
-
         if ($result) {
             while ($row = $result->fetch_assoc()) {
-                $orderDetails[] = array(
-                    'ProductID' => $row['ProductID'],
-                    'Quantity' => $row['Quantity'],
-                    'Subtotal' => $row['Subtotal']
-                );
+                // Set individual attributes for each product in the order
+                $this->productID[] = $row['ProductID'];
+                $this->quantity[] = $row['Quantity'];
+                $this->subtotal[] = $row['Subtotal'];
             }
         }
+    }
 
-        return $orderDetails;
+    // Add a method to get all order details as an array
+    public function getAllOrderDetails()
+    {
+        $details = array();
+
+        foreach ($this->productID as $key => $productID) {
+            $details[] = array(
+                'ProductID' => $productID,
+                'Quantity' => $this->quantity[$key],
+                'Subtotal' => $this->subtotal[$key],
+            );
+        }
+
+        return $details;
     }
 }
-
-

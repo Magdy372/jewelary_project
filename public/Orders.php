@@ -41,83 +41,80 @@
 </head>
 
 <body>
-    <?php include('../partials/header.php'); ?>
+<?php include('../partials/header.php'); ?>
 
-    <div class="container mt-5">
-        <?php
-        if ($_SESSION["UserID"] !== NULL) {
-            $userID = $_SESSION["UserID"];
-            $ordermodel = new OrderModel($userID);
-            $orderController = new OrderController($ordermodel);
+<div class="container mt-5">
+    <?php
+    if (isset($_SESSION["UserID"])) {
+        $userID = $_SESSION["UserID"];
+        $orderModel = new OrderModel($userID);
 
-            $orders = $orderController->getOrdersByUserID($userID);
-            if (!empty($orders)) {
-                foreach ($orders as $order) {
-        ?>
-                    <div class="card">
-                        <table class="table table-bordered">
+        $orders = $orderModel->getOrdersByUserID($userID);
+
+        if (!empty($orders)) {
+            foreach ($orders as $order) {
+                ?>
+               <div class="card mb-4">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Order ID: <?php echo $order['OrderID']; ?></h5>
+                <span class="badge badge-info"><?php echo ucfirst(strtolower($order['Status'])); ?></span>
+            </div>
+            <p class="text-muted mb-0">Total Amount: $<?php echo number_format($order['TotalAmount'], 2); ?></p>
+        </div>
+        <div class="card-body">
+            <?php
+            $orderDetailsModel = new OrderDetails($order['OrderID']);
+            
+            $details = $orderDetailsModel->getAllOrderDetails();
+
+            if (!empty($details)) {
+                ?>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product Image</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($details as $detail) {
+                            $productID = $detail['ProductID'];
+                            $productModel = new Product($productID);
+                            $productPictures = explode(',', $productModel->getProductPicture());
+                            $imageSrc = !empty($productPictures[0]) ? "../uploads/" . $productPictures[0] : "../uploads/default.jpg";
+                            ?>
                             <tr>
-                                <td class="card-header" colspan="2">
-                                    <div class="header-content d-flex flex-column align-items-center">
-                                        <h5 class="card-title mb-2">Order ID: <?php echo $order['OrderID']; ?></h5>
-                                        <p class="text-muted mb-2">Total Amount: $<?php echo number_format($order['TotalAmount'], 2); ?></p>
-                                        <p class="text-muted">Status: <?php echo ucfirst(strtolower($order['Status'])); ?></p>
-                                    </div>
-                                </td>
+                                <td><img src="<?php echo $imageSrc; ?>" alt="Product Image" width="100"></td>
+                                <td><?php echo $productModel->getProductName(); ?></td>
+                                <td><?php echo $detail['Quantity']; ?></td>
                             </tr>
-                            <tr>
-                                <td class="card-body" colspan="2">
-                                    <!-- Display order details in a table -->
-                                    <?php
-                                    $orderDetails = $order['OrderDetails'];
-                                    if (!empty($orderDetails)) {
-                                    ?>
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Product Image</th>
-                                                    <th>Product Name</th>
-                                                    <th>Quantity</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                foreach ($orderDetails as $orderDetail) {
-                                                    $productModel = new Product($orderDetail['ProductID']);
-                                                    $ProductPictures = explode(',', $productModel->getProductPicture());
-                                                    $imageSrc = !empty($ProductPictures[0]) ? "../uploads/" . $ProductPictures[0] : "../uploads/default.jpg";
-                                                ?>
-                                                    <tr>
-                                                        <td><img src="<?php echo $imageSrc; ?>" alt="Product Image" width="100"></td>
-                                                        <td><?php echo $productModel->getProductName(); ?></td>
-                                                        <td><?php echo $orderDetail['Quantity']; ?></td>
-                                                    </tr>
-                                                <?php
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    <?php
-                                    } else {
-                                        echo "<p class='text-center'>No order details found.</p>";
-                                    }
-                                    ?>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-        <?php
-                }
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            <?php
             } else {
-                echo "<p class='text-center'>No orders found for the user.</p>";
+                echo "<p class='text-center'>No order details found for Order ID: " . $order['OrderID'] . "</p>";
+            }
+                        ?>
+                    </div>
+                </div>
+            <?php
             }
         } else {
-            echo "<p class='text-center'>User is not logged in.</p>";
+            echo "<p class='text-center'>No orders found for the user.</p>";
         }
-        ?>
-    </div>
+    } else {
+        echo "<p class='text-center'>User is not logged in.</p>";
+    }
+    ?>
+</div>
 
-    <?php include('../partials/footer.php'); ?>
+<?php include('../partials/footer.php'); ?>
 
     <!-- .copyright-area-end -->
 
