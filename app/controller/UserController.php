@@ -193,6 +193,10 @@ class UserController extends Controller
        $Users = $this->model-> SelectAllUsersInDB();
         return $Users;
     }
-
+    
+    public function deleteUser($Userobj){
+        $check = $this->model-> deleteUser($Userobj);
+        return $check;
+    }
     
 }

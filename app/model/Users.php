@@ -100,8 +100,8 @@ class Users extends Model {
 		$result = array(); // Initialize $result as an array
 	
 		while ($row = $this->db->fetchRow($users)) { // Use the fetchRow function
-			$userObj = new User($row["ID"]);
-			$result[] = $userObj;
+			//$userObj = new User($row["ID"]);
+			$result[] = $row;
 		}
 		// echo "<pre>";
 		// print_r($result);

@@ -179,35 +179,40 @@
 
             define('__ROOT__', "../app/");
             require_once(__ROOT__ . "model/Users.php");
+            require_once(__ROOT__ . "model/User.php");
             require_once(__ROOT__ . "controller/UserController.php");
 
 
             $model = new Users();
-            //$model = new User();
             $controller = new UserController($model);
+            
+           
 
            // include_once "UserClass.php"; // Include your User class file
             $users = $controller -> getUsers(); // Fetch all users
 
             if (isset($_GET['delete_id'])) {
                 $userID = $_GET['delete_id'];
-                $UserObject = new User($userID);
-                if (User::deleteUser($UserObject)) {
-                    header("Location:usercrud.php");
-                    exit;
+                $model1 = new User($userID);
+                //$UserObject = new User($userID);
+                $controller1 = new UserController($model1);
+                if ($controller1 ->deleteUser($model1)) {
+                   //header("Location:usercrud.php");
+                    //exit;
                 }
             }
+            
 
             // echo '<a href="#">Create New User</a>';
-
+           
             // Display the user list
             foreach ($users as $user) {
                 echo "<tr>";
-                echo "<td>{$user->ID}</td>";
-                echo "<td>{$user->FName}</td>";
-                echo "<td>{$user->LName}</td>";
-                echo "<td>{$user->Email}</td>";
-                echo "<td><a class='edit' href='edituser.php?edit_id={$user->ID}'>Edit</a> | <a class='delete' href='usercrud.php?delete_id={$user->ID}'>Delete</a></td>";
+                echo "<td>" . $user['ID'] . "</td>";
+                echo "<td>" . $user['FName'] . "</td>";
+                echo "<td>" . $user['LName'] . "</td>";
+                echo "<td>" . $user['Email'] . "</td>";
+                echo "<td><a class='edit' href='edituser.php?edit_id={$user['ID']}'>Edit</a> | <a class='delete' href='usercrud.php?delete_id={$user['ID']}'>Delete</a></td>";
                 echo "</tr>";
             }
             ?>

@@ -133,30 +133,7 @@ class User extends Model
 	
 	
 	
-	static function deleteUser($ObjUser){
-		// $sql="delete from users where ID=".$ObjUser->ID;
-		// if(mysqli_query($GLOBALS['con'],$sql))
-		// 	return true;
-		// else
-		// 	return false;
-
-
-		// $userID = $ObjUser->ID;
-		// $con = $GLOBALS['con'];
-		
-		// // Delete related records in the ShoppingCart table
-		// $deleteShoppingCartQuery = "DELETE FROM ShoppingCart WHERE UserID = $userID";
-		// if (mysqli_query($con, $deleteShoppingCartQuery)) {
-		// 	// Then, delete the user
-		// 	$deleteUserQuery = "DELETE FROM users WHERE ID = $userID";
-		// 	if (mysqli_query($con, $deleteUserQuery)) {
-		// 		return true; // User and related ShoppingCart records deleted successfully
-		// 	}
-		// }
-		
-		// return false; // Deletion failed	
-
-
+	public function deleteUser($ObjUser){
 		$userID = $ObjUser->ID;
 		$con = $GLOBALS['con'];
 
@@ -175,6 +152,7 @@ class User extends Model
 			// Then, delete the user
 			$deleteUserQuery = "DELETE FROM users WHERE ID = $userID";
 			if (mysqli_query($con, $deleteUserQuery)) {
+                //header("Location:usercrud.php");
 				return true; // User and related ShoppingCart and Wishlist records deleted successfully
 			}
 		}
