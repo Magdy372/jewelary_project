@@ -5,7 +5,7 @@ class HomeController extends Controller
     {
 
 
-        public function displaybytype($typeid){
+        public function displaybytype($typeid = null){
             return $this->model->displaybytype($typeid);
         }
     }
