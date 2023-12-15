@@ -191,7 +191,7 @@
            
 
            // include_once "UserClass.php"; // Include your User class file
-            $users = $controller -> getUsers(); // Fetch all users
+            $users = $controller -> getUsers(2); // Fetch all users
 
             if (isset($_GET['delete_id'])) {
                 $userID = $_GET['delete_id'];
