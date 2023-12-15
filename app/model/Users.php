@@ -79,6 +79,23 @@ class Users extends Model {
            return false;
         }
     }
+
+	public function SelectAllUsersInDB() {
+		$sql = "SELECT * FROM users";
+		$users = $this->db->query($sql); // Use the query function
+	
+		$result = array(); // Initialize $result as an array
+	
+		while ($row = $this->db->fetchRow($users)) { // Use the fetchRow function
+			$userObj = new User($row["ID"]);
+			$result[] = $userObj;
+		}
+		// echo "<pre>";
+		// print_r($result);
+		// echo "</pre>";
+	
+		return $result;
+	}
 }
 
 

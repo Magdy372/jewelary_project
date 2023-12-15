@@ -156,8 +156,8 @@
 </head>
 
 <body>
-    <div class="navbar">
-        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
+    <<div class="navbar">
+        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> 
         <a href="admin.php">Admin Dashboard</a>
         <a href="add_admin.php">Add Admin</a>
         <a href="crud.php">Product</a>
@@ -176,8 +176,18 @@
             </tr>
 
             <?php
-            include_once "UserClass.php"; // Include your User class file
-            $users = User::SelectAllUsersInDB(); // Fetch all users
+
+            define('__ROOT__', "../app/");
+            require_once(__ROOT__ . "model/Users.php");
+            require_once(__ROOT__ . "controller/UserController.php");
+
+
+            $model = new Users();
+            //$model = new User();
+            $controller = new UserController($model);
+
+           // include_once "UserClass.php"; // Include your User class file
+            $users = $controller -> getUsers(); // Fetch all users
 
             if (isset($_GET['delete_id'])) {
                 $userID = $_GET['delete_id'];

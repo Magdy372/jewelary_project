@@ -130,21 +130,7 @@ class User extends Model
     }
       
 
-	static function SelectAllUsersInDB(){
-		$sql = "select * from users";
-		$con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o", "Jewelry_project");
-		$Users = mysqli_query($con, $sql);
-		$i = 0;
-		$Result = array(); // Initialize $Result as an array
 	
-		while ($row = mysqli_fetch_array($Users)) {
-			$MyObj = new User($row["ID"]);
-			$Result[$i] = $MyObj;
-			$i++;
-		}
-	
-		return $Result;
-	}
 	
 	
 	static function deleteUser($ObjUser){

@@ -188,5 +188,11 @@ class UserController extends Controller
         $this->model-> editPW($oldPass,$Password,$_SESSION['UserID']);
     }
 
+    public function getUsers(){
+
+       $Users = $this->model-> SelectAllUsersInDB();
+        return $Users;
+    }
+
     
 }
