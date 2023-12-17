@@ -41,14 +41,12 @@
     <body>
     <?php include('../partials/header.php'); 
 if (isset($_GET['details_id'])) {
-    $Productmodel = new Product();
+    $productID = $_GET['details_id'];
+    $Productmodel = new Product($productID);
 	$Productcontroller = new ProductController($Productmodel);
 
 
-    $productID = $_GET['details_id'];
-    $productData = $Productcontroller->displayProduct($productID);
-
-    if ($productData) {
+    if ($Productmodel) {
 ?>
     <div class="page-title-wrapper">
     <div class="container">
@@ -101,41 +99,29 @@ if (isset($_GET['details_id'])) {
                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                             <div class="product-simple-content">
                                 <div class="sinple-c-title">
-                                    <h3><?php echo $productData['ProductName']; ?></h3>
+                                <h3><?php echo $Productmodel->getProductName(); ?></h3>
+
                                 </div>
                                 <div class="checkbox">
                                     <span><i class="fa fa-check-square" aria-hidden="true"></i><?php echo ($productData['Availability'] ? 'In stock' : 'Out of stock'); ?></span>
                                 </div>
                               	<?php
-                              try {
-                                  // Replace this with the actual CategoryID you want to search for
-                                  $categoryId = $productData['CategoryID'];
-                                  
-                                  $stmt = $con->prepare("SELECT CategoryName FROM Categories WHERE CategoryID = ?");
-                                  $stmt->bind_param('i', $categoryId); // 'i' represents an integer
-                                  $stmt->execute();
-                                  $stmt->bind_result($categoryName);
-                                  
-                                  if ($stmt->fetch()) {
-                                      echo '<span style ="font-size: 30px;
-									  font-weight: 900;
-									  margin-bottom: 20px; color:black">  ' . $categoryName . '</span>';
-                                  } else {
-                                      echo '<span>Category not found</span>';
-                                  }
-                                  
-                                  $stmt->close();
-                              } catch (mysqli_sql_exception $e) {
-                                  echo 'Database query error: ' . $e->getMessage();
-                              }
+                             
+                                $productTypeId = $Productmodel->getProductType();
+$typeName = $Productmodel->getProductTypeName($productTypeId);
+
+echo '<span style ="font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 20px; color:black">' . $typeName . '</span>';
+                               
                               ?>
                               
                               
 								
-                                <h4>EGP<?php echo $productData['Price']; ?></h4>
+                                <h4>EGP<?php echo  $Productmodel->getPrice(); ?></h4>
                                 <button class="btn btn-lg btn-success" type="submit">
                                       
-                                      <a class="add-cart-produt" href="cart.php?cart_id=<?= $productData['id'] ?>"><span class="lnr lnr-cart"></span> Add to Cart</a>
+                                      <a class="add-cart-produt" href="cart.php?cart_id=<?= $productID ?>"><span class="lnr lnr-cart"></span> Add to Cart</a>
                             </button>
 
                                 <br />
@@ -148,8 +134,8 @@ if (isset($_GET['details_id'])) {
                                     
 									<div class="action-heiper">
 											<!--<a href="#"><span class="lnr lnr-sync"></span></a>-->
-											<a href="cart.php?cart_id=<?= $productData['id'] ?>"><span class="lnr lnr-cart"></span></a>
-											<a href="cart.php?wishlist_id=<?= $productData['id']; ?>"><span class="lnr lnr-heart"></span></a>
+											<a href="cart.php?cart_id=<?= $productID?>"><span class="lnr lnr-cart"></span></a>
+											<a href="cart.php?wishlist_id=<?= $productID ?>"><span class="lnr lnr-heart"></span></a>
 
 										</div>	
                                 </div>

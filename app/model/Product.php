@@ -6,12 +6,12 @@ require_once(__ROOT__ . "controller/ProductController.php");
 
 
 class Product extends Model {
-    private $productName;
-    private $description;
-    private $productPicture;
-    private $price;
-    private $productType;
-    private $optionsValues;
+    public $productName;
+    public $description;
+    public $productPicture;
+    public $price;
+    public $productType;
+    public $optionsValues;
     public function __construct($productID = null)
     {
         $this->db = $this->connect();
@@ -27,12 +27,14 @@ class Product extends Model {
         $result = $this->db->query($sql);
 
         if ($result && $row = $result->fetch_assoc()) {
-            
             $this->productName = $row['ProductName'];
             $this->description = $row['Description'];
             $this->productPicture = $row['ProductPicture'];
             $this->price = $row['Price'];
+            $this->productType = $row['Product_Type'];
 
+            // Assuming $this->optionsValues is an array property
+            $this->optionsValues = $this->getProductSOVValues($productID);
 
             return true; // Product found and attributes set
         } else {

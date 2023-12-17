@@ -82,16 +82,7 @@ if (!empty($_SESSION['UserID'])) {
     }
 }
 
-// if (isset($_GET['product_id']) || isset($_GET['cart_id'])) {
-//     if (isset($_GET['product_id'])) {
-//         $productID = $_GET['product_id'];
-//     } else {
-//         $productID = $_GET['cart_id'];
-//     }
-    
-//     // Assuming Product::getProductID is a method to get product details
-//     $productObject1 = Product::getProductID($con, $productID);
-// }
+
 
 
 if (isset($_GET['details_id'])) {
