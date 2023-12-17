@@ -252,7 +252,18 @@ class Product extends Model {
         return $products;
     }
 
+    public function getOptionValues($optionId) {
+        $optionValuesQuery = "SELECT * FROM option_values WHERE Option_ID = '$optionId'";
+        $optionValuesResult = $this->connect()->query($optionValuesQuery);
 
+        $optionValues = [];
+        while ($valueRow = $optionValuesResult->fetch_assoc()) {
+            $optionValues[] = $valueRow['Value'];
+        }
+
+        return $optionValues;
+    }
+    
      // Setters
      public function setProductName($productName) {
         $this->productName = $this->real_escape_string($productName);

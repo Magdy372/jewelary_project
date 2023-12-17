@@ -1,6 +1,8 @@
 
 <?php
-$conn = mysqli_connect("172.232.216.8", "root", "Omarsalah123o", "Jewelry_project");
+
+
+
 define('__ROOT__', "../app/");
 require_once(__ROOT__ . "model/Product.php");
 require_once(__ROOT__ . "controller/ProductController.php");
@@ -52,7 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="crud.php">Product</a>
     <a href="usercrud.php">Users</a>
     <a href="Admins.php">Admins</a>
-
 </div>
 
 <!-- Add Product Form -->
@@ -61,8 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="selectProductType">Select Product Type:</label>
         <select name="selectProductType" required>
             <?php
-            $productTypes = $conn->query("SELECT * FROM product_type");
-            while ($row = $productTypes->fetch_assoc()) {
+            $productTypes = $model->getAllProductTypes();
+            foreach ($productTypes as $row) {
                 echo "<option value='{$row['ID']}'>{$row['Type']}</option>";
             }
             ?>
@@ -82,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="number" name="price" required><br>
 
         <!-- Fetch options values from the database -->
-      <?php
+        <?php
         if (isset($result)) {
             foreach ($result as $row) {
                 $optionId = $row['ID'];
@@ -95,30 +96,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<input type='number' name='options[$optionId]' required><br>";
                 } else {
                     // Fetch option values for the dropdown
-                    $optionValuesQuery = "SELECT * FROM option_values WHERE Option_ID = '$optionId'";
-                    $optionValuesResult = $conn->query($optionValuesQuery);
-        
-                    if ($optionValuesResult && $optionValuesResult->num_rows > 0) {
-                        echo "<select name='options[$optionId]' required>";
-                        while ($valueRow = $optionValuesResult->fetch_assoc()) {
-                            $optionValue = $valueRow['Value'];
-                            echo "<option value='$optionValue'>$optionValue</option>";
-                        }
-                        echo "</select><br>";
-                    } else {
-                        echo "Error fetching option values.";
+                    $optionValues = $model->getOptionValues($optionId);
+
+                    echo "<select name='options[$optionId]' required>";
+                    foreach ($optionValues as $optionValue) {
+                        echo "<option value='$optionValue'>$optionValue</option>";
                     }
+                    echo "</select><br>";
                 }
             }
         }
         ?>
-        
         
         <input type="submit" value="Add Product">
     <?php endif; ?>
 </form>
 </body>
 </html>
+
 <style>
         /* Base styles for the navbar and form */
         .container {
