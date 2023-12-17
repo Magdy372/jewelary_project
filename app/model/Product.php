@@ -10,6 +10,7 @@ class Product extends Model {
     public $description;
     public $productPicture;
     public $price;
+    public $availability;
     public $productType;
     public $optionsValues;
     public function __construct($productID = null)
@@ -25,22 +26,24 @@ class Product extends Model {
     {
         $sql = "SELECT * FROM `product` WHERE id = $productID";
         $result = $this->db->query($sql);
-
+    
         if ($result && $row = $result->fetch_assoc()) {
             $this->productName = $row['ProductName'];
             $this->description = $row['Description'];
             $this->productPicture = $row['ProductPicture'];
             $this->price = $row['Price'];
             $this->productType = $row['Product_Type'];
-
+            $this->availability = $row['Availability']; // Add this line
+    
             // Assuming $this->optionsValues is an array property
             $this->optionsValues = $this->getProductSOVValues($productID);
-
+    
             return true; // Product found and attributes set
         } else {
             return false; // Product not found
         }
     }
+    
     public function getAllProducts() {
         $sql = "SELECT * FROM product";
         $result = $this->connect()->query($sql);
@@ -306,6 +309,9 @@ class Product extends Model {
 
     public function getPrice() {
         return $this->price;
+    }
+    public function getAvailability() {
+        return $this->availability;
     }
 
     public function getProductType() {

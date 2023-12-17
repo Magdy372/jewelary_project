@@ -85,15 +85,7 @@ if (!empty($_SESSION['UserID'])) {
 
 
 
-if (isset($_GET['details_id'])) {
-	$Productmodel = new Product();
-	$Productcontroller = new ProductController($Productmodel);
 
-    $productID = $_GET['details_id'];
-    $productData = $Productcontroller->displayProduct($productID);
-
- 
-} 
 if (isset($_GET['category'])) {
 	$typeid = $_GET['category'];
 	$Productmodel = new Product();

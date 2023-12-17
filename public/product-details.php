@@ -43,7 +43,7 @@
 if (isset($_GET['details_id'])) {
     $productID = $_GET['details_id'];
     $Productmodel = new Product($productID);
-	$Productcontroller = new ProductController($Productmodel);
+
 
 
     if ($Productmodel) {
@@ -71,7 +71,7 @@ if (isset($_GET['details_id'])) {
                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <div class="tab-content">
                                 <?php
-                                $productImages = explode(',', $productData['ProductPicture']);
+                                $productImages = explode(',', $Productmodel->getProductPicture());
                                 foreach ($productImages as $index => $image) {
                                 ?>
                                     <div class="tab-pane<?php echo ($index === 0) ? ' active' : ''; ?>" id="view<?php echo $index + 1; ?>">
@@ -103,7 +103,8 @@ if (isset($_GET['details_id'])) {
 
                                 </div>
                                 <div class="checkbox">
-                                    <span><i class="fa fa-check-square" aria-hidden="true"></i><?php echo ($productData['Availability'] ? 'In stock' : 'Out of stock'); ?></span>
+                                <span><i class="fa fa-check-square" aria-hidden="true"></i><?php echo ($Productmodel->getAvailability() ? 'In stock' : 'Out of stock'); ?></span>
+
                                 </div>
                               	<?php
                              
@@ -175,7 +176,7 @@ echo '<span style ="font-size: 30px;
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="details">
                                                 <div class="product-info-tab-content">
-                                                    <p><?php echo $productData['Description']; ?></p>
+                                                    <p><?php echo $Productmodel->getDescription() ?></p>
                                                     <!-- Additional product details can be displayed here -->
                                                 </div>
                                             </div>
