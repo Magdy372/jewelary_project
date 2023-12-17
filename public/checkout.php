@@ -36,7 +36,15 @@
 	<script src="../js/vendor/modernizr-2.8.3.min.js"></script>
     <?php
 ob_start();
-include('../partials/header.php'); 
+
+include('../partials/header.php');
+
+if (isset($_GET['action']) && $_GET['action'] === 'proceedToCheckout') {
+    $userID = $_SESSION['UserID'];
+    $Usermodel = new User($_SESSION['UserID']);
+    $addresses = $Usermodel->getAddressByUserID($userID);
+    // ... other actions
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['placeOrder'])) {
     // Validate and sanitize input if necessary
@@ -54,27 +62,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['placeOrder'])) {
 
         // Create the order and get the order ID
         $orderID = $orderController->createOrder($userID, $totalAmount, $status, $_SESSION['cartDetails'], $selectedAddressID);
-            header('Location: OrderConfirmation.php?order_ID=' . $orderID);
-            ob_end_flush();
+        header('Location: OrderConfirmation.php?order_ID=' . $orderID);
+        ob_end_flush();
     } else {
         // Handle the case where no address is selected
         echo "Please select an address before placing the order.";
     }
 }
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['AddAddress'])) {
-	$userID = $_SESSION['UserID'];
-	$model = new User($userID);
+    $userID = $_SESSION['UserID'];
+    $model = new User($userID);
 
     $newCountry = $_POST['newCountry'];
     $newStreet = $_POST['newStreet'];
     $newCity = $_POST['newCity'];
     $newApartmentNumber = $_POST['newApartmentNumber'];
     $newPostalCode = $_POST['newPostalCode'];
-	$addres=$model->createAddress($newCountry, $newStreet, $newCity, $newApartmentNumber, $newPostalCode, $userID);
+    $addres = $model->createAddress($newCountry, $newStreet, $newCity, $newApartmentNumber, $newPostalCode, $userID);
+    $addresses = $model->getAddressByUserID($userID);
     if ($addres) {
-      
-        header('Location: ' . $_SERVER['PHP_SELF']);
-    exit();
+        
+        header('Location: ' . $_SERVER['REQUEST_URI']);
+        exit();
     } else {
         echo "Failed to add address.";
     }
@@ -210,11 +220,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['AddAddress'])) {
                     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <h3>Choose Address</h3>
                         <?php
-                        foreach ($addresses as $address) {
-                            echo "<label>";
-                            echo "<input type='radio' name='selectedAddressID' value='{$address['address_id']}'>";
-                            echo "{$address['street']}, {$address['city']}, {$address['Country']}";
-                            echo "</label><br>";
+                         if (!empty($addresses)) {
+                            foreach ($addresses as $address) {
+                                echo "<label>";
+                                echo "<input type='radio' name='selectedAddressID' value='{$address['address_id']}'>";
+                                echo "{$address['street']}, {$address['city']}, {$address['Country']}";
+                                echo "</label><br>";
+                            }
+                        } else {
+                            echo "No addresses available.";
                         }
                         ?>
                         <div class="order-button-payment">

@@ -99,15 +99,7 @@ else {
 		$Homecontroller = new HomeController($Productmodel);
     $products = $Homecontroller->displaybytype();
 }
-if (isset($_GET['action']) && $_GET['action'] === 'proceedToCheckout') {
-    $userID = $_SESSION['UserID'];
-    $Usermodel = new User($_SESSION['UserID']);
-    $addresses = $Usermodel->getAddressByUserID($userID);
-    // ... other actions
-
-
-  
-}if (isset($_GET['order_ID'])) {
+if (isset($_GET['order_ID'])) {
 
 	
 
