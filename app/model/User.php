@@ -137,15 +137,20 @@ class User extends Model
 		$userID = $ObjUser->ID;
 		$con = $GLOBALS['con'];
 
+
 		// Delete related records in the ShoppingCart table
 		$deleteShoppingCartQuery = "DELETE FROM ShoppingCart WHERE UserID = $userID";
 		// Delete related records in the Wishlist table
 		$deleteWishlistQuery = "DELETE FROM Wishlist WHERE UserID = $userID";
-
+		// Delete related records in the Orders table
+		$deleteOrdersQuery = "DELETE FROM Order_table WHERE UserID = $userID";
+		// Delete related records in the Order Details  table
+		//$deleteOrdersQuery = "DELETE FROM OrderDetails WHERE UserID = $userID";
+        
 		// Use a transaction to ensure both deletions succeed or fail together
 		mysqli_autocommit($con, false);
 		
-		if (mysqli_query($con, $deleteShoppingCartQuery) && mysqli_query($con, $deleteWishlistQuery)) {
+		if (mysqli_query($con, $deleteShoppingCartQuery) && mysqli_query($con, $deleteWishlistQuery) && mysqli_query($con, $deleteOrdersQuery)) {
 			// Both deletions were successful, commit the transaction
 			mysqli_commit($con);
 			mysqli_autocommit($con, true); // Restore autocommit mode
@@ -270,7 +275,7 @@ class User extends Model
 				  echo $sql;
 			  }
 	  }
-      public function createAddress($country, $street, $city, $apartmentNumber, $postalCode, $userID) {
+    public function createAddress($country, $street, $city, $apartmentNumber, $postalCode, $userID) {
         $sql = "INSERT INTO `address` (`Country`, `street`, `city`, `apartmentnumber`, `PostalCode`, `UserID`)
                 VALUES ('$country', '$street', '$city', $apartmentNumber, $postalCode, $userID)";
 
