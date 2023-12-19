@@ -10,17 +10,17 @@ if ($user_role !== "1") {
 }
 ?>
 
-<a href="Type.php">add product</a>
-<div class="navbar">
-        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
-        <a href="admin.php">Admin Dashboard</a>
-        <!-- <a href="add_admin.php">Add Admin</a> -->
-        <a href="crud.php">Product</a>
-        <a href="usercrud.php">Users</a>
-        <a href="Admins.php">Admins</a>
 
-        
-    </div>
+<div class="navbar">
+    <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
+    <a href="admin.php">Admin Dashboard</a>
+    <a href="add_admin.php">Add Admin</a>
+    <a href="crud.php">Product</a>
+    <a href="usercrud.php">Users</a>
+    <a href="Admins.php">Admins</a>
+
+
+</div>
 
 <?php
 define('__ROOT__', "../");
@@ -49,7 +49,7 @@ if (isset($_GET['action'])) {
 
 
 // HTML Table Header
-echo "<table border='1'>";
+echo "<table>";
 echo "<tr>";
 echo "<th>Product Name</th>";
 echo "<th>Description</th>";
@@ -75,7 +75,7 @@ foreach ($products as $product) {
     echo "<td>{$product['Price']}</td>";
     $productTypeId = $product['Product_Type'];
     $model2 = new ProductType($productTypeId);
-$controller = new ProductController($model2);
+    $controller = new ProductController($model2);
     $productTypeName = $model2->getType();
     echo "<td>{$productTypeName}</td>";
     echo "<td>";
@@ -97,45 +97,126 @@ $controller = new ProductController($model2);
 // HTML Table Footer
 echo "</table>";
 ?>
+<a href="Type.php" class="add-product-button">add product</a>
 <style>
-        /* Base styles for the navbar and form */
+    /* Base styles for the navbar and form */
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+    }
+
+    button {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .navbar {
+        width: 250px;
+        height: 100%;
+        background-color: white;
+        position: fixed;
+        left: 0;
+        top: 0;
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    body {
+        color: black;
+        background: #D3D3D3;
+        font-family: 'Lato', sans-serif;
+        font-size: 15px;
+        line-height: 1.42857;
+        margin-left: 300px;
+        /* Increase the margin to shift the content further right */
+    }
+
+    .navbar a {
+        display: block;
+        width: 60%;
+        padding: 10px 20px;
+        text-decoration: none;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        margin: 10px 0;
+        border-radius: 5px;
+        background-color: gray;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .navbar a:hover {
+        background-color: #0056b3;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
         .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        textarea {
             width: 100%;
-            padding: 10px;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
         }
 
         .navbar {
-            width: 250px;
+            width: 200px;
             height: 100%;
-            background-color: white;
+            background-color: #333;
+            position: fixed;
+            left: 0;
+            top: 0;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            /* Stack logo and links vertically */
+            align-items: center;
+            /* Center content horizontally */
+        }
+
+        .content {
+            margin-left: 0;
+        }
+    }
+
+
+    @media (max-width: 768px) {
+        .container {
+            width: 100%;
+        }
+
+        .navbar {
+            width: 200px;
+            height: 100%;
+            background-color: #333;
             position: fixed;
             left: 0;
             top: 0;
@@ -146,126 +227,154 @@ echo "</table>";
             align-items: center;
         }
 
-        body {
-    color: black;
-    background: #D3D3D3;
-    font-family: 'Lato', sans-serif;
-    font-size: 15px;
-    line-height: 1.42857;
-    margin-left: 300px; /* Increase the margin to shift the content further right */
-}
-
-.navbar a {
-            display: block;
-            width: 60%;
-            padding: 10px 20px;
-            text-decoration: none;
-            text-align: center;
-            color: white;
-            font-weight: bold;
-            margin: 10px 0;
-            border-radius: 5px;
-            background-color: gray;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .navbar a:hover {
-            background-color: #0056b3;
-        }
         .content {
             margin-left: 0;
-            padding: 20px;
+        }
+    }
+
+    .logo {
+        width: 150px;
+        height: auto;
+        margin: 20px 0;
+    }
+
+    @media (max-width: 768px) {
+        .navbar {
+            width: 100%;
+            background-color: #007BFF;
+            padding: 10px;
+            align-items: flex-start;
         }
 
-        /* Media query for smaller screens */
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-            }
-
-            .navbar {
-                width: 200px;
-                height: 100%;
-                background-color: #333;
-                position: fixed;
-                left: 0;
-                top: 0;
-                color: white;
-                padding: 20px;
-                display: flex;
-                flex-direction: column;
-                /* Stack logo and links vertically */
-                align-items: center;
-                /* Center content horizontally */
-            }
-
-            .content {
-                margin-left: 0;
-            }
-        }
-
-       
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-            }
-
-            .navbar {
-                width: 200px;
-                height: 100%;
-                background-color: #333;
-                position: fixed;
-                left: 0;
-                top: 0;
-                color: white;
-                padding: 20px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .content {
-                margin-left: 0;
-            }
+        .navbar a {
+            padding: 10px 20px;
+            margin: 10px 0;
         }
 
         .logo {
-            width: 150px;
-            height: auto;
-            margin: 20px 0;
+            width: 100px;
+            margin: 10px 0;
         }
+    }
 
-        @media (max-width: 768px) {
-            .navbar {
-                width: 100%;
-                background-color: #007BFF;
-                padding: 10px;
-                align-items: flex-start;
-            }
+    .stats {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+    }
 
-            .navbar a {
-                padding: 10px 20px;
-                margin: 10px 0;
-            }
+    .stat-box {
+        width: 30%;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        text-align: center;
+    }
 
-            .logo {
-                width: 100px;
-                margin: 10px 0;
-            }
-        }
+    .add-product-button {
+        display: block;
+        width: 200px;
+        padding: 10px;
+        margin: 20px 0;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #007BFF;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s;
+    }
 
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-        }
+    .add-product-button:hover {
+        background-color: #0056b3;
 
-        .stat-box {
-            width: 30%;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            text-align: center;
-        }
-    </style>
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    /* Style for table header cells */
+    th {
+        background-color: #007BFF;
+        /* Header background color */
+        color: #fff;
+        /* Header text color */
+        padding: 10px;
+        text-align: left;
+    }
+
+    /* Style for table data cells */
+    td {
+        border: 1px solid #ddd;
+        /* Border color */
+        padding: 10px;
+    }
+
+    /* Style for alternating row colors */
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+        /* Even row background color */
+    }
+
+    /* Style for the edit and delete buttons */
+    .edit-button {
+        display: inline-block;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        width: 60px;
+        height: 20px;
+        /* Set a fixed width for the buttons */
+    }
+
+    .delete {
+        display: inline-block;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        width: 80px;
+        /* Set a fixed width for the buttons */
+    }
+
+    .edit-button {
+        background-color: #28a745;
+    }
+
+    .delete {
+        background-color: #dc3545;
+    }
+
+    /* Hover effect for buttons */
+    .edit-button:hover,
+    .delete:hover {
+        filter: brightness(90%);
+    }
+
+    .edit-button+.delete {
+        margin-left: 5px;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    table {
+        margin: 0 auto;
+    }
+
+    .add-product-button {
+        display: block;
+        margin: 20px auto;
+        /* Center the button horizontally */
+    }
+</style>
