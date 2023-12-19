@@ -14,6 +14,7 @@
 	<!-- google-font -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 	<!-- all css here -->
+
 	<!-- bootstrap v3.3.6 css -->
 	<link rel="stylesheet" href="../../css/bootstrap.min.css">
 	<!-- animate css -->.
