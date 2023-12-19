@@ -1,63 +1,64 @@
 <!doctype html>
 <html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Wishlist</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="../../img/favicon.png" />
-        <!-- Place favicon.ico in the root directory -->
-		
-		<!-- modernizr css -->
-        <script src="../../js/vendor/modernizr-2.8.3.min.js"></script>
-    </head>
-    <body>
-        
-		<!-- header-start -->
-		<?php include('../../partials/header.php'); ?>
-		<?php
-		
-		require_once(__ROOT__ . "model/Wishlist.php");
-		require_once(__ROOT__ . "controller/WishlistController.php");
-		
-			if($_SESSION["UserID"]!==NULL){
-				
-				
-				
-				$Wishlistmodel = new WishlistItem($_SESSION["UserID"]);
-				$Wishlistcontroller = new WishlistController($Wishlistmodel);
-				// to adding product to wishlist 
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Wishlist</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-				// to delete product from Wishlist
-				if (isset($_GET['delete_id'])) {
-					$deleteProductID = $_GET['delete_id'];
-					$userID = $_SESSION["UserID"];
-					
-					$wishObject1= $Wishlistcontroller->Delete($userID,$deleteProductID);
-					if ($wishObject1)
-					{	
-						echo "Deleted Successfully :)";
-					}
-					// Implement the code to delete the item with $deleteProductID from the wishlist.
-					// You can use your WishlistItem class to delete the item.
+	<link rel="icon" href="../../img/favicon.png" />
+	<!-- Place favicon.ico in the root directory -->
+
+	<!-- modernizr css -->
+	<script src="../../js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body>
+
+	<!-- header-start -->
+	<?php include('../../partials/header.php'); ?>
+	<?php
+
+	require_once(__ROOT__ . "model/Wishlist.php");
+	require_once(__ROOT__ . "controller/WishlistController.php");
+
+	if ($_SESSION["UserID"] !== NULL) {
 
 
-				}
+
+		$Wishlistmodel = new WishlistItem($_SESSION["UserID"]);
+		$Wishlistcontroller = new WishlistController($Wishlistmodel);
+		// to adding product to wishlist 
+	
+		// to delete product from Wishlist
+		if (isset($_GET['delete_id'])) {
+			$deleteProductID = $_GET['delete_id'];
+			$userID = $_SESSION["UserID"];
+
+			$wishObject1 = $Wishlistcontroller->Delete($userID, $deleteProductID);
+			if ($wishObject1) {
+				echo "Deleted Successfully :)";
+			}
+			// Implement the code to delete the item with $deleteProductID from the wishlist.
+			// You can use your WishlistItem class to delete the item.
+	
+
+		}
 
 
-				
 
-				//to display user wishlist 
 
-				$wishObject= $Wishlistcontroller->Display($_SESSION["UserID"]);
+		//to display user wishlist 
+	
+		$wishObject = $Wishlistcontroller->Display($_SESSION["UserID"]);
 
-			?>
+		?>
 
-		
-		
-		
+
+
+
 		<!-- mainmenu-area-end -->
 		<!-- page-title-wrapper-start -->
 		<div class="page-title-wrapper">
@@ -90,20 +91,21 @@
 												<th class="product-thumbnail">Image</th>
 												<th class="product-name"><span class="nobr">Product Name</span></th>
 												<th class="product-price"><span class="nobr"> Unit Price </span></th>
-												<th class="product-stock-stauts"><span class="nobr"> Stock Status </span></th>
+												<th class="product-stock-stauts"><span class="nobr"> Stock Status </span>
+												</th>
 												<th class="product-add-to-cart"><span class="nobr">add-to-cart </span></th>
 											</tr>
 										</thead>
 										<tbody>
 
-										<?php
+											<?php
 											if (!is_null($wishObject) && !empty($wishObject)) {
 												// Assuming $wishObject and $wisharr have the same length
 												$count = count($wishObject);
-											
+
 												for ($i = 0; $i < $count; $i++) {
 													$element = $wishObject[$i];
-											
+
 													// Assuming $element and $value are arrays
 													$ProductPictures = explode(',', $element['ProductPicture']);
 													if (!empty($ProductPictures[0])) {
@@ -111,22 +113,32 @@
 													} else {
 														$imageSrc = "../../uploads/default.jpg";
 													}
-											?>
+													?>
 													<tr>
-														<td class="product-remove"><a href="wishlist.php?delete_id=<?= $element['ProductID'] ?>">x</a></td>
-														<td class="product-thumbnail"><a href="#"><img src="<?= $imageSrc ?>" alt="" /></a></td>
-														<td class="product-name"><a href="#"><?= $element['ProductName'] ?></a></td>
-														<td class="product-price"><span class="amount">$<?= $element['ProductPrice'] ?></span></td>
-														<td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-														<td class="product-add-to-cart"><a href="wishlist.php?cart_id=<?= $element['ProductID'] ?>">Add to Cart</a></td>
+														<td class="product-remove"><a
+																href="wishlist.php?delete_id=<?= $element['ProductID'] ?>">x</a>
+														</td>
+														<td class="product-thumbnail"><a href="#"><img src="<?= $imageSrc ?>"
+																	alt="" /></a></td>
+														<td class="product-name"><a href="#">
+																<?= $element['ProductName'] ?>
+															</a></td>
+														<td class="product-price"><span class="amount">$
+																<?= $element['ProductPrice'] ?>
+															</span></td>
+														<td class="product-stock-status"><span class="wishlist-in-stock">In
+																Stock</span></td>
+														<td class="product-add-to-cart"><a
+																href="wishlist.php?cart_id=<?= $element['ProductID'] ?>">Add to
+																Cart</a></td>
 													</tr>
-											<?php
+													<?php
 												}
 											} else {
 												// Handle the case where there are no items in the wishlist
 												echo "Your wishlist is empty.";
 											}
-										?>
+											?>
 
 
 										</tbody>
@@ -147,22 +159,23 @@
 											</tr>
 										</tfoot>
 									</table>
-								</div>	
+								</div>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<?php }else{
-			header("Location:index.php");
-		}
-		?>
-		<!-- wishlist-area end -->
-		<!-- contact-area-start -->
-		<?php include('../../partials/footer.php'); ?>
-		<!-- .copyright-area-end -->
-		
-		
-    </body>
+	<?php } else {
+		header("Location:index.php");
+	}
+	?>
+	<!-- wishlist-area end -->
+	<!-- contact-area-start -->
+	<?php include('../../partials/footer.php'); ?>
+	<!-- .copyright-area-end -->
+
+
+</body>
+
 </html>
