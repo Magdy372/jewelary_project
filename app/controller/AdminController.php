@@ -216,5 +216,12 @@ class AdminController extends Controller
         $this->model->deleteAdmin($adminID);
     }
 
+    public function getTotalAdmins()
+    {
+        // Get total admins
+        $totalAdmins = count($this->model->getAdminsByUserType(1));
+        return $totalAdmins;
+    }
+
 }
 

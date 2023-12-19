@@ -62,6 +62,11 @@ class ProductController extends Controller
         $this->model->getOptionsForType($productType);
     }
     
+    public function getTotalProducts() {
+        $products = $this->model->getAllProducts();
+        return count($products);
+    }
+
 }
 
 
