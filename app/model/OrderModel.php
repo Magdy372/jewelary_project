@@ -1,5 +1,5 @@
 <?php
-require_once(__ROOT__ . "model/Model.php");
+require_once(_ROOT_ . "model/Model.php");
 ?>
 <?php
 
@@ -18,7 +18,7 @@ class OrderModel extends Model
 {
     try {
         // Insert order information into Order_table
-        $sqlOrder = "INSERT INTO `Order_table` (`UserID`, `AddressID`, `TotalAmount`, `Status`) 
+        $sqlOrder = "INSERT INTO Order_table (UserID, AddressID, TotalAmount, Status) 
                 VALUES ('$userID', '$selectedAddressID', '$totalAmount', '$status')";
         $this->db->query($sqlOrder);
 
@@ -33,7 +33,7 @@ class OrderModel extends Model
             $quantity = $product['Quantity'];
             $subtotal = $product['Subtotal'];
 
-            $sqlOrderDetails = "INSERT INTO `OrderDetails` (`OrderID`, `ProductID`, `Quantity`, `Subtotal`) 
+            $sqlOrderDetails = "INSERT INTO OrderDetails (OrderID, ProductID, Quantity, Subtotal) 
                                VALUES ('$orderID', '$productID', '$quantity', '$subtotal')";
             $this->db->query($sqlOrderDetails);
         }
@@ -59,10 +59,11 @@ private function getLastInsertId()
 
     return null; // Return null or handle the case where the result is empty
 }
+
 public function getOrdersByUserID($userID)
 {
     // Retrieve orders by UserID from Order_table
-    $sql = "SELECT * FROM `Order_table` WHERE `UserID` = '$userID'";
+    $sql = "SELECT * FROM Order_table WHERE UserID = '$userID'";
     $result = $this->db->query($sql);
 
     $orders = array();
@@ -88,7 +89,35 @@ public function getOrdersByUserID($userID)
     return $orders;
 }
 
-  
+public function getOrders()
+{
+    // Retrieve orders by UserID from Order_table
+    $sql = "SELECT * FROM Order_table";
+    $result = $this->db->query($sql);
+
+    $orders = array();
+
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $orderID = $row['OrderId'];
+           
+
+           
+            $order = array(
+                'OrderID' => $orderID,
+                'AddressID' => $row['AddressID'],
+                'TotalAmount' => $row['TotalAmount'],
+                'Status' => $row['Status'],
+                
+            );
+
+            $orders[] = $order;
+        }
+    }
+
+    return $orders;
+}
+
 }
 class OrderDetails extends Model
 {
@@ -111,7 +140,7 @@ class OrderDetails extends Model
     public function fetchOrderDetails($orderID)
     {
         // Retrieve order details by OrderID from OrderDetails
-        $sql = "SELECT * FROM `OrderDetails` WHERE `OrderID` = '$orderID'";
+        $sql = "SELECT * FROM OrderDetails WHERE OrderID = '$orderID'";
         $result = $this->db->query($sql);
 
         if ($result) {
