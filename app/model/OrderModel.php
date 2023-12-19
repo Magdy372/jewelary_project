@@ -168,5 +168,26 @@ class OrderDetails extends Model
 
         return $details;
     }
+    public function deleteOrder($orderID)
+    {
+        try {
+            // Delete order from Order_table
+            $sqlDeleteOrder = "DELETE FROM Order_table WHERE OrderID = '$orderID'";
+            $this->db->query($sqlDeleteOrder);
+
+            // Optionally, delete corresponding order details from OrderDetails table
+            // Uncomment the following lines if needed
+            /*
+            $sqlDeleteOrderDetails = "DELETE FROM OrderDetails WHERE OrderID = '$orderID'";
+            $this->db->query($sqlDeleteOrderDetails);
+            */
+
+            return true; // Return true if the deletion is successful
+        } catch (Exception $e) {
+            // Log the exception message
+            error_log("Error deleting order: " . $e->getMessage());
+            return false; // Return false to indicate an error
+        }
+    }
 }
 ?>
