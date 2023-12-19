@@ -1,7 +1,7 @@
 <?php
 
-define('_ROOT_', "../");
-require_once(_ROOT_ . "model/OrderModel.php");
+define('__ROOT__', "../");
+require_once(__ROOT__ . "model/OrderModel.php");
 $orderModel = new OrderModel("models/Order");
 $orders = $orderModel->getOrders();
 ?>
