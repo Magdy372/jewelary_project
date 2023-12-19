@@ -1,4 +1,3 @@
-
 <?php
 
 if (session_status() == PHP_SESSION_NONE) {
@@ -10,7 +9,6 @@ if ($user_role !== "1") {
     header("Location: access_denied.php");
     exit();
 }
-
 
 
 define('__ROOT__', "../");
@@ -52,118 +50,201 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
 </head>
+
 <body>
-<div class="navbar">
-    <img src="alhedia.png" alt="Jewelry Website Logo" class="logo">
-    <a href="admin.php">Admin Dashboard</a>
-    <!-- <a href="add_admin.php">Add Admin</a> -->
-    <a href="crud.php">Product</a>
-    <a href="usercrud.php">Users</a>
-    <a href="Admins.php">Admins</a>
-</div>
+    <div class="navbar">
+        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo">
+        <a href="admin.php">Admin Dashboard</a>
+        <!-- <a href="add_admin.php">Add Admin</a> -->
+        <a href="crud.php">Product</a>
+        <a href="usercrud.php">Users</a>
+        <a href="Admins.php">Admins</a>
+    </div>
 
-<!-- Add Product Form -->
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-    <?php if (!isset($_SESSION["Type"])): ?>
-        <label for="selectProductType">Select Product Type:</label>
-        <select name="selectProductType" required>
+    <!-- Add Product Form -->
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+        <?php if (!isset($_SESSION["Type"])): ?>
+            <label for="selectProductType">Select Product Type:</label>
+            <select name="selectProductType" required>
+                <?php
+                $productTypes = $controller->getAllProductTypes();
+                foreach ($productTypes as $row) {
+                    echo "<option value='{$row['ID']}'>{$row['Type']}</option>";
+                }
+                ?>
+            </select>
+            <input type="submit" value="Next">
+        <?php else: ?>
+            <label for="productName">Product Name:</label>
+            <input type="text" name="productName" required><br>
+
+            <label for="description">Description:</label>
+            <input type="text" name="description" required><br>
+
+            <label for="ProductPicture">Product Pictures:</label>
+            <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif"><br>
+
+            <label for="price">Price:</label>
+            <input type="number" name="price" required><br>
+
+            <!-- Fetch options values from the database -->
             <?php
-            $productTypes = $controller->getAllProductTypes();
-            foreach ($productTypes as $row) {
-                echo "<option value='{$row['ID']}'>{$row['Type']}</option>";
-            }
-            ?>
-        </select>
-        <input type="submit" value="Next">
-    <?php else: ?>
-        <label for="productName">Product Name:</label>
-        <input type="text" name="productName" required><br>
+            if (isset($result)) {
+                foreach ($result as $row) {
+                    $optionId = $row['ID'];
+                    $optionName = $row['Name'];
 
-        <label for="description">Description:</label>
-        <input type="text" name="description" required><br>
+                    echo "<label for='option_$optionId'>$optionName:</label>";
 
-        <label for="ProductPicture">Product Pictures:</label>
-        <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif"><br>
+                    // Check if the option is 'Size'
+                    if ($optionName == 'Size') {
+                        echo "<input type='number' name='options[$optionId]' required><br>";
+                    } else {
+                        // Fetch option values for the dropdown
+                        $optionValues = $model->getOptionValues($optionId);
 
-        <label for="price">Price:</label>
-        <input type="number" name="price" required><br>
-
-        <!-- Fetch options values from the database -->
-        <?php
-        if (isset($result)) {
-            foreach ($result as $row) {
-                $optionId = $row['ID'];
-                $optionName = $row['Name'];
-        
-                echo "<label for='option_$optionId'>$optionName:</label>";
-        
-                // Check if the option is 'Size'
-                if ($optionName == 'Size') {
-                    echo "<input type='number' name='options[$optionId]' required><br>";
-                } else {
-                    // Fetch option values for the dropdown
-                    $optionValues = $model->getOptionValues($optionId);
-
-                    echo "<select name='options[$optionId]' required>";
-                    foreach ($optionValues as $optionValue) {
-                        echo "<option value='$optionValue'>$optionValue</option>";
+                        echo "<select name='options[$optionId]' required>";
+                        foreach ($optionValues as $optionValue) {
+                            echo "<option value='$optionValue'>$optionValue</option>";
+                        }
+                        echo "</select><br>";
                     }
-                    echo "</select><br>";
                 }
             }
-        }
-        ?>
-        
-        <input type="submit" value="Add Product">
-    <?php endif; ?>
-</form>
+            ?>
+
+            <input type="submit" value="Add Product">
+        <?php endif; ?>
+    </form>
 </body>
+
 </html>
 
 <style>
-        /* Base styles for the navbar and form */
+    /* Base styles for the navbar and form */
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+    }
+
+    button {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .navbar {
+        width: 250px;
+        height: 100%;
+        background-color: white;
+        position: fixed;
+        left: 0;
+        top: 0;
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    body {
+        color: black;
+        background: #D3D3D3;
+        font-family: 'Lato', sans-serif;
+        font-size: 15px;
+        line-height: 1.42857;
+        margin-left: 300px;
+        /* Increase the margin to shift the content further right */
+    }
+
+    .navbar a {
+        display: block;
+        width: 60%;
+        padding: 10px 20px;
+        text-decoration: none;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        margin: 10px 0;
+        border-radius: 5px;
+        background-color: gray;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .navbar a:hover {
+        background-color: #0056b3;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
         .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        textarea {
             width: 100%;
-            padding: 10px;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
         }
 
         .navbar {
-            width: 250px;
+            width: 200px;
             height: 100%;
-            background-color: white;
+            background-color: #333;
+            position: fixed;
+            left: 0;
+            top: 0;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            /* Stack logo and links vertically */
+            align-items: center;
+            /* Center content horizontally */
+        }
+
+        .content {
+            margin-left: 0;
+        }
+    }
+
+
+    @media (max-width: 768px) {
+        .container {
+            width: 100%;
+        }
+
+        .navbar {
+            width: 200px;
+            height: 100%;
+            background-color: #333;
             position: fixed;
             left: 0;
             top: 0;
@@ -174,126 +255,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             align-items: center;
         }
 
-        body {
-    color: black;
-    background: #D3D3D3;
-    font-family: 'Lato', sans-serif;
-    font-size: 15px;
-    line-height: 1.42857;
-    margin-left: 300px; /* Increase the margin to shift the content further right */
-}
-
-.navbar a {
-            display: block;
-            width: 60%;
-            padding: 10px 20px;
-            text-decoration: none;
-            text-align: center;
-            color: white;
-            font-weight: bold;
-            margin: 10px 0;
-            border-radius: 5px;
-            background-color: gray;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .navbar a:hover {
-            background-color: #0056b3;
-        }
         .content {
             margin-left: 0;
-            padding: 20px;
+        }
+    }
+
+    .logo {
+        width: 150px;
+        height: auto;
+        margin: 20px 0;
+    }
+
+    @media (max-width: 768px) {
+        .navbar {
+            width: 100%;
+            background-color: #007BFF;
+            padding: 10px;
+            align-items: flex-start;
         }
 
-        /* Media query for smaller screens */
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-            }
-
-            .navbar {
-                width: 200px;
-                height: 100%;
-                background-color: #333;
-                position: fixed;
-                left: 0;
-                top: 0;
-                color: white;
-                padding: 20px;
-                display: flex;
-                flex-direction: column;
-                /* Stack logo and links vertically */
-                align-items: center;
-                /* Center content horizontally */
-            }
-
-            .content {
-                margin-left: 0;
-            }
-        }
-
-       
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-            }
-
-            .navbar {
-                width: 200px;
-                height: 100%;
-                background-color: #333;
-                position: fixed;
-                left: 0;
-                top: 0;
-                color: white;
-                padding: 20px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .content {
-                margin-left: 0;
-            }
+        .navbar a {
+            padding: 10px 20px;
+            margin: 10px 0;
         }
 
         .logo {
-            width: 150px;
-            height: auto;
-            margin: 20px 0;
+            width: 100px;
+            margin: 10px 0;
         }
+    }
 
-        @media (max-width: 768px) {
-            .navbar {
-                width: 100%;
-                background-color: #007BFF;
-                padding: 10px;
-                align-items: flex-start;
-            }
+    .stats {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+    }
 
-            .navbar a {
-                padding: 10px 20px;
-                margin: 10px 0;
-            }
-
-            .logo {
-                width: 100px;
-                margin: 10px 0;
-            }
-        }
-
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-        }
-
-        .stat-box {
-            width: 30%;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            text-align: center;
-        }
-    </style>
+    .stat-box {
+        width: 30%;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        text-align: center;
+    }
+</style>
