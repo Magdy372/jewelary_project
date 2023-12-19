@@ -174,7 +174,7 @@ $totalUsers = $userController->getTotalUsers();
         <img src="alhedia.png" alt="Jewelry Website Logo" class="logo">
         <!-- Logo inside the navbar -->
         <a href="admin.php">Admin Dashboard</a>
-        <a href="add_admin.php">Add Admin</a>
+        <!-- <a href="add_admin.php">Add Admin</a> -->
         <a href="crud.php">Product</a>
         <a href="usercrud.php">Users</a>
         <a href="Admins.php">Admins</a>
@@ -187,13 +187,10 @@ $totalUsers = $userController->getTotalUsers();
                 <h3>Total Products</h3>
                 <h4><?php echo $totalProducts; ?></h4>
             </div>
-
             <div class="stat-box">
                 <h3>Total Admins</h3>
                 <h4><?php echo $totalAdmins; ?></h4>    
-            
             </div>
-
             <div class="stat-box">
                 <h3>Total Users</h3>
                 <h4><?php echo $totalUsers; ?></h4> 
