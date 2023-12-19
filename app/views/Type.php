@@ -1,5 +1,5 @@
 <?php
-define('__ROOT__', "../app/");
+define('__ROOT__', "../");
 require_once(__ROOT__. "model/Product.php");
 require_once(__ROOT__. "controller/ProductController.php");
   $model = new ProductType();

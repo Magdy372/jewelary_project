@@ -1,6 +1,6 @@
 <?php
 
-define('__ROOT__', "../app/");
+define('__ROOT__', "../");
 require_once(__ROOT__ . "model/Users.php");
 require_once(__ROOT__ . "controller/UserController.php");
 
@@ -40,10 +40,10 @@ if (isset($_POST['Submit'])){
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="img/favicon.png" />
+        <link rel="icon" href="../../img/favicon.png" />
         <!-- Place favicon.ico in the root directory -->
 		<!-- modernizr css -->
-        <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="../../js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
 	<style>
 	.error {color:#FF0000;}
@@ -60,7 +60,7 @@ if (isset($_POST['Submit'])){
 		<!-- header-start -->
 		<!-- mainmenu-area-start -->
 		
-		<?php include('../partials/header.php'); ?>
+		<?php include('../../partials/header.php'); ?>
 
 		<!-- header-end -->
 		<!-- mainmenu-area-end -->
@@ -154,7 +154,7 @@ if (isset($_POST['Submit'])){
 		<!-- footer-area-start -->
 		<!-- .copyright-area-start -->
 		
-		 <?php include('../partials/footer.php'); ?>
+		 <?php include('../../partials/footer.php'); ?>
 		
 		<!-- contact-area-end -->
 		<!-- footer-area-end -->

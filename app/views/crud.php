@@ -1,120 +1,90 @@
+<a href="Type.php">add product</a>
+<div class="navbar">
+        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
+        <a href="admin.php">Admin Dashboard</a>
+        <a href="add_admin.php">Add Admin</a>
+        <a href="crud.php">Product</a>
+        <a href="usercrud.php">Users</a>
+        <a href="Admins.php">Admins</a>
+
+        
+    </div>
 
 <?php
-
-
-
-define('__ROOT__', "../app/");
+define('__ROOT__', "../");
 require_once(__ROOT__ . "model/Product.php");
 require_once(__ROOT__ . "controller/ProductController.php");
 
 $model = new Product();
-$model2 = new ProductType();
 $controller = new ProductController($model);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["selectProductType"])) {
-        $_SESSION["Type"] = ($_POST["selectProductType"]);
-        $selectedProductType = $_SESSION["Type"];
-        $result = $model2->getOptionsForType($selectedProductType);
-    } elseif (isset($_POST["productName"], $_POST["description"], $_FILES["ProductPicture"], $_POST["price"])) {
-        // Retrieve form data
-        $productName = ($_POST["productName"]);
-        $description = ($_POST["description"]);
-        $productPictures = $_FILES['ProductPicture']['name'];
-        $price = ($_POST["price"]);
-        $optionsValues = $_POST["options"] ?? [];
 
-        // Check if product type is set in session
-        if (!isset($_SESSION["Type"])) {
-            echo "Error: Product type not set.";
-            exit();
-        }
+// Fetch products
+$products = $model->getAllProducts();
 
-        $productType = $_SESSION["Type"];
-
-        // Insert into the database
-        $controller->insertProduct($productName, $description, $productPictures, $price, $productType, $optionsValues);
-        header("Location: crud.php");
+if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+        case 'delete_product':
+            if (isset($_GET['product_id'])) {
+                $id = $_GET['product_id'];
+                $controller->deleteProduct($id);
+                header("Location: crud.php");
+                exit();
+            }
+            break;
     }
 }
 
+
+// HTML Table Header
+echo "<table border='1'>";
+echo "<tr>";
+echo "<th>Product Name</th>";
+echo "<th>Description</th>";
+echo "<th>Product Pictures</th>";
+echo "<th>Price</th>";
+echo "<th>Product Type</th>";
+echo "<th>Actions</th>";
+
+echo "</tr>";
+
+// Loop through products and display each row
+foreach ($products as $product) {
+    echo "<tr>";
+    echo "<td>{$product['ProductName']}</td>";
+    echo "<td>{$product['Description']}</td>";
+    $productPictures = explode(',', $product['ProductPicture']);
+    if (!empty($productPictures[0])) {
+        $imageSrc = "../../uploads/" . htmlspecialchars($productPictures[0]);
+    } else {
+        $imageSrc = "../../uploads/default.jpg";
+    }
+    echo '<td><img src="' . $imageSrc . '" width="80" height="80"></td>';
+    echo "<td>{$product['Price']}</td>";
+    $productTypeId = $product['Product_Type'];
+    $model2 = new ProductType($productTypeId);
+$controller = new ProductController($model2);
+    $productTypeName = $model2->getType();
+    echo "<td>{$productTypeName}</td>";
+    echo "<td>";
+
+    // Edit link
+    echo '<a class="edit-button" href="editproduct.php?edit_id=' . htmlspecialchars($product['id']) . '">Edit</a> ';
+
+    // Delete form using GET
+    echo '<form method="GET" action="crud.php" onsubmit="return confirm(\'Are you sure you want to delete this product?\');">';
+    echo '<input type="hidden" name="action" value="delete_product">';
+    echo '<input type="hidden" name="product_id" value="' . htmlspecialchars($product['id']) . '">';
+    echo '<button class="delete" type="submit">Delete</button>';
+    echo '</form>';
+
+    echo "</td>";
+    echo "</tr>";
+}
+
+// HTML Table Footer
+echo "</table>";
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
-</head>
-<body>
-<div class="navbar">
-    <img src="alhedia.png" alt="Jewelry Website Logo" class="logo">
-    <a href="admin.php">Admin Dashboard</a>
-    <a href="add_admin.php">Add Admin</a>
-    <a href="crud.php">Product</a>
-    <a href="usercrud.php">Users</a>
-    <a href="Admins.php">Admins</a>
-</div>
-
-<!-- Add Product Form -->
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-    <?php if (!isset($_SESSION["Type"])): ?>
-        <label for="selectProductType">Select Product Type:</label>
-        <select name="selectProductType" required>
-            <?php
-            $productTypes = $controller->getAllProductTypes();
-            foreach ($productTypes as $row) {
-                echo "<option value='{$row['ID']}'>{$row['Type']}</option>";
-            }
-            ?>
-        </select>
-        <input type="submit" value="Next">
-    <?php else: ?>
-        <label for="productName">Product Name:</label>
-        <input type="text" name="productName" required><br>
-
-        <label for="description">Description:</label>
-        <input type="text" name="description" required><br>
-
-        <label for="ProductPicture">Product Pictures:</label>
-        <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif"><br>
-
-        <label for="price">Price:</label>
-        <input type="number" name="price" required><br>
-
-        <!-- Fetch options values from the database -->
-        <?php
-        if (isset($result)) {
-            foreach ($result as $row) {
-                $optionId = $row['ID'];
-                $optionName = $row['Name'];
-        
-                echo "<label for='option_$optionId'>$optionName:</label>";
-        
-                // Check if the option is 'Size'
-                if ($optionName == 'Size') {
-                    echo "<input type='number' name='options[$optionId]' required><br>";
-                } else {
-                    // Fetch option values for the dropdown
-                    $optionValues = $model->getOptionValues($optionId);
-
-                    echo "<select name='options[$optionId]' required>";
-                    foreach ($optionValues as $optionValue) {
-                        echo "<option value='$optionValue'>$optionValue</option>";
-                    }
-                    echo "</select><br>";
-                }
-            }
-        }
-        ?>
-        
-        <input type="submit" value="Add Product">
-    <?php endif; ?>
-</form>
-</body>
-</html>
-
 <style>
         /* Base styles for the navbar and form */
         .container {

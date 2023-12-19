@@ -55,7 +55,7 @@
 		
 </head>
 <body>
-    <?php include('../partials/header.php'); ?>
+    <?php include('../../partials/header.php'); ?>
 
 
     <section class="about-us-section">
@@ -75,7 +75,7 @@
 
 
 
-    <?php include('../partials/footer.php'); ?>
+    <?php include('../../partials/footer.php'); ?>
 		<!-- contact-area-end -->		
 		
 		<!-- .copyright-area-end -->

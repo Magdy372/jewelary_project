@@ -8,18 +8,18 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="../img/favicon.png" />
+    <link rel="icon" href="../../img/favicon.png" />
     <!-- Place favicon.ico in the root directory -->
     <!-- google-font -->
 
     
     <!-- modernizr css -->
-    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="../../js/vendor/modernizr-2.8.3.min.js"></script>
     
 </head>
 
 <body>
-<?php include('../partials/header.php'); ?>
+<?php include('../../partials/header.php'); ?>
 
 <div class="container mt-5">
     <?php
@@ -62,7 +62,7 @@
                             $productID = $detail['ProductID'];
                             $productModel = new Product($productID);
                             $productPictures = explode(',', $productModel->getProductPicture());
-                            $imageSrc = !empty($productPictures[0]) ? "../uploads/" . $productPictures[0] : "../uploads/default.jpg";
+                            $imageSrc = !empty($productPictures[0]) ? "../../uploads/" . $productPictures[0] : "../../uploads/default.jpg";
                             ?>
                             <tr>
                                 <td><img src="<?php echo $imageSrc; ?>" alt="Product Image" width="100"></td>
@@ -92,7 +92,7 @@
     ?>
 </div>
 
-<?php include('../partials/footer.php'); ?>
+<?php include('../../partials/footer.php'); ?>
 
     <!-- .copyright-area-end -->
 

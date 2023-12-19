@@ -9,17 +9,17 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="icon" href="img/favicon.png" />
+	<link rel="icon" href="../../img/favicon.png" />
 	<!-- Place favicon.ico in the root directory -->
 	
 	<!-- modernizr css -->
-	<script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+	<script src="../../js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
 
 	<!-- header-start -->
-	<?php include('../partials/header.php'); ?>
+	<?php include('../../partials/header.php'); ?>
 	<?php
 	if ($_SESSION["UserID"] !== NULL) {
 
@@ -163,9 +163,9 @@ if (!is_null($cartObject) && !empty($cartObject)) {
         $sum += $Subtotal;
 
         if (!empty($ProductPicture[0])) {
-            $imageSrc = "../uploads/" . $ProductPicture[0];
+            $imageSrc = "../../uploads/" . $ProductPicture[0];
         } else {
-            $imageSrc = "uploads/default.jpg";
+            $imageSrc = "../../uploads/default.jpg";
         }
 ?>
         <tr>
@@ -237,7 +237,7 @@ $_SESSION['cartDetails'] = $cartDetails;
 	</div>
 	<!-- cart-main-area end -->
 	<!-- contact-area-start -->
-	<?php include('../partials/footer.php'); ?>
+	<?php include('../../partials/footer.php'); ?>
 	<!-- footer-area-end -->
 
 </body>

@@ -9,13 +9,13 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="img/favicon.png" />
+        <link rel="icon" href="../../img/favicon.png" />
         <!-- Place favicon.ico in the root directory -->
 		<!-- modernizr css -->
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="../../js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
-        <?php include('../partials/header.php'); ?>
+        <?php include('../../partials/header.php'); ?>
         	<!-- page-title-wrapper-end -->
 		<!-- bedroom-all-product-area-start -->
 		<div class="bedroom-all-product-area ptb-80">
@@ -151,9 +151,9 @@
         foreach ($products as $product) {
             $ProductPictures = explode(',', $product['ProductPicture']);
             if (!empty($ProductPictures[0])) {
-                $imageSrc = "../uploads/" . $ProductPictures[0];
+                $imageSrc = "../../uploads/" . $ProductPictures[0];
             } else {
-                $imageSrc = "../uploads/default.jpg";
+                $imageSrc = "../../uploads/default.jpg";
             }
             ?>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -201,7 +201,7 @@
                 </div>
             </div>
         </div>
-        <?php include('../partials/footer.php'); ?>
+        <?php include('../../partials/footer.php'); ?>
       <!-- .copyright-area-end -->
 		
     </body>

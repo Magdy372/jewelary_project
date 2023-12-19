@@ -12,12 +12,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/handlebars/4.7.7/handlebars.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-        <link rel="stylesheet" href="../css/sitemap.css">
+        <link rel="stylesheet" href="../../css/sitemap.css">
 
         <link rel="icon" href="img/favicon.png" />
         <!-- Place favicon.ico in the root directory -->
 		<!-- modernizr css -->
-        <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="../../js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -26,7 +26,7 @@
 
         <!-- Add your site or application content here -->
 		
-        <?php include('../partials/header.php'); ?>
+        <?php include('../../partials/header.php'); ?>
 
 		<!-- page-title-wrapper-start -->
 		<div class="page-title-wrapper">
@@ -698,7 +698,7 @@
       <!-- contact-area-start -->
       <!-- .copyright-area-start -->
       <!-- footer-area-start -->
-      <?php include('../partials/footer.php'); ?>
+      <?php include('../../partials/footer.php'); ?>
       <!-- footer-area-end -->
       <!-- .copyright-area-end -->
       <!-- contact-area-end -->

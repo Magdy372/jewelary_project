@@ -6,30 +6,37 @@
         <title>Home </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="../css/style.css">
-		<!-- google-font -->
-		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> 
-		<!-- all css here -->
-		<!-- bootstrap v3.3.6 css -->
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-		<!-- animate css -->
-        <link rel="stylesheet" href="../css/animate.css">
-		<!-- jquery-ui.min css -->
-        <link rel="stylesheet" href="../css/jquery-ui.min.css">
-		<!-- meanmenu css -->
-        <link rel="stylesheet" href="../css/meanmenu.min.css">
-		<!-- nivo-slider css -->
-        <link rel="stylesheet" href="../css/nivo-slider.css">		
-		<!-- owl.carousel css -->
-        <link rel="stylesheet" href="../css/owl.carousel.css">
-		<!--linearicons css -->
-        <link rel="stylesheet" href="../css/linearicons-icon-font.min.css">
-		<!-- font-awesome css -->
-        <link rel="stylesheet" href="../css/font-awesome.min.css">
-		<!-- style css -->
-		<link rel="stylesheet" href="../css/style.css">
-		<!-- responsive css -->
-        <link rel="stylesheet" href="../css/responsive.css" />
+		<link rel="stylesheet" href="../../css/style.css">
+		
+
+
+	<!-- google-font -->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+	<!-- all css here -->
+	<!-- bootstrap v3.3.6 css -->
+	<link rel="stylesheet" href="../../css/bootstrap.min.css">
+	<!-- animate css -->.
+	<link rel="stylesheet" href="../../css/animate.css">
+	<!-- jquery-ui.min css -->
+	<link rel="stylesheet" href="../../css/jquery-ui.min.css">
+	<!-- nivo-slider css -->
+	<link rel="stylesheet" href="../../css/nivo-slider.css">
+	<!-- magnific-popup css -->
+	<link rel="stylesheet" href="../../css/magnific-popup.css">
+	<!-- meanmenu css -->
+	<link rel="stylesheet" href="../../css/meanmenu.min.css">
+	<!-- owl.carousel css -->
+	<link rel="stylesheet" href="../../css/owl.carousel.css">
+	<!--linearicons css -->
+	<link rel="stylesheet" href="../../css/linearicons-icon-font.min.css">
+	<!-- font-awesome css -->
+	<link rel="stylesheet" href="../../css/font-awesome.min.css">
+	<!-- style css -->
+	<link rel="stylesheet" href="../../css/style.css">
+	<!-- responsive css -->
+	<link rel="stylesheet" href="../../css/responsive.css" />
+	<!-- modernizr css -->
+	<script src="../../js/vendor/modernizr-2.8.3.min.js"></script>
 
 		<style>
    
@@ -45,7 +52,7 @@
 <?php
 //session_start();
 
-define('__ROOT__', "../app/");
+define('__ROOT__', "../");
 require_once(__ROOT__ . "model/User.php");
 require_once(__ROOT__ . "controller/UserController.php");
 
@@ -185,7 +192,7 @@ if (isset($_GET['order_ID'])) {
 
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<div class="logo logo2">
-								<a href="index.php"><img src="../img/logo-4.jpg" alt="" /></a>
+								<a href="index.php"><img src="../../img/logo-4.jpg" alt="" /></a>
 							</div>					
 						</div>
 						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -246,9 +253,9 @@ if (isset($_GET['order_ID'])) {
 														}
 														if (!empty($ProductPicture[0])) {
 																							
-															$imageSrc = "../uploads/" . $ProductPicture[0];
+															$imageSrc = "../../uploads/" . $ProductPicture[0];
 														} else {
-															$imageSrc = "uploads/default.jpg";
+															$imageSrc = "../../uploads/default.jpg";
 														}
 											?>
 														<li>

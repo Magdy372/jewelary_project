@@ -8,14 +8,14 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="img/favicon.png" />
+        <link rel="icon" href="../../img/favicon.png" />
         <!-- Place favicon.ico in the root directory -->
         
         <!-- modernizr css -->
-        <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="../../js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
-    <?php include('../partials/header.php'); 
+    <?php include('../../partials/header.php'); 
 if (isset($_GET['details_id'])) {
     $productID = $_GET['details_id'];
     $Productmodel = new Product($productID);
@@ -51,7 +51,7 @@ if (isset($_GET['details_id'])) {
                                 foreach ($productImages as $index => $image) {
                                 ?>
                                     <div class="tab-pane<?php echo ($index === 0) ? ' active' : ''; ?>" id="view<?php echo $index + 1; ?>">
-                                        <a class="image-link" href="../uploads/<?php echo $image; ?>"><img src="../uploads/<?php echo $image; ?>" alt=""></a>
+                                        <a class="image-link" href="../../uploads/<?php echo $image; ?>"><img src="../../uploads/<?php echo $image; ?>" alt=""></a>
                                     </div>
                                 <?php
                                 }
@@ -64,7 +64,7 @@ if (isset($_GET['details_id'])) {
                                 ?>
                                     <li class="<?php echo ($index === 0) ? 'active' : ''; ?>">
                                         <a href="#view<?php echo $index + 1; ?>" data-toggle="tab">
-                                            <img style="width: 79px; height: 99px;" src="../uploads/<?php echo $image; ?>" alt="" />
+                                            <img style="width: 79px; height: 99px;" src="../../uploads/<?php echo $image; ?>" alt="" />
                                         </a>
                                     </li>
                                 <?php
@@ -210,7 +210,7 @@ echo '<span style ="font-size: 30px;
          
         
         <!-- contact-area-start -->
-        <?php include('../partials/footer.php'); ?>
+        <?php include('../../partials/footer.php'); ?>
         
     </body>
 </html>

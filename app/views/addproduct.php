@@ -1,40 +1,43 @@
+
 <?php
-$conn = mysqli_connect("172.232.216.8", "root", "Omarsalah123o", "Jewelry_project");
-define('__ROOT__', "../app/");
+
+
+
+define('__ROOT__', "../");
 require_once(__ROOT__ . "model/Product.php");
 require_once(__ROOT__ . "controller/ProductController.php");
 
-
-// Fetch the product details for editing
-$productId = $_GET['edit_id'] ?? null;
-$model = new Product($productId);
-$controller = new ProductController($model);
+$model = new Product();
 $model2 = new ProductType();
-if ($productId !== null) {
-    
-    $options = $model2->getOptionsForType($model->getProductType() );
-    $sovValues = $model->getProductSOVValues($productId);
-} else {
-    // Handle the case where $productId is not provided or invalid
-    echo "Error: Invalid product ID.";
-    exit();
-}
+$controller = new ProductController($model);
 
-if (isset($_POST['submit'])) {
-    $productName = $_POST["productName"];
-    $description = $_POST["description"];
-    $price = $_POST["price"];
-    $optionsValues = $_POST["options"] ?? [];
-    if (empty($_FILES['ProductPicture']['name'][0])) {
-        // No new pictures uploaded, reuse existing ones
-        $productPictures = $product['ProductPicture'];
-    } else {
-        $productPictures = $model->uploadProductPictures($_FILES);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["selectProductType"])) {
+        $_SESSION["Type"] = ($_POST["selectProductType"]);
+        $selectedProductType = $_SESSION["Type"];
+        $result = $model2->getOptionsForType($selectedProductType);
+    } elseif (isset($_POST["productName"], $_POST["description"], $_FILES["ProductPicture"], $_POST["price"])) {
+        // Retrieve form data
+        $productName = ($_POST["productName"]);
+        $description = ($_POST["description"]);
+        $productPictures = $_FILES['ProductPicture']['name'];
+        $price = ($_POST["price"]);
+        $optionsValues = $_POST["options"] ?? [];
+
+        // Check if product type is set in session
+        if (!isset($_SESSION["Type"])) {
+            echo "Error: Product type not set.";
+            exit();
+        }
+
+        $productType = $_SESSION["Type"];
+
+        // Insert into the database
+        $controller->insertProduct($productName, $description, $productPictures, $price, $productType, $optionsValues);
+        header("Location: crud.php");
     }
-
-    $controller->updateProduct($productId, $productName, $description, $productPictures, $price, $optionsValues);
-    header("Location: crud.php");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +45,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Product</title>
+    <title>Add Product</title>
 </head>
 <body>
 <div class="navbar">
@@ -54,76 +57,64 @@ if (isset($_POST['submit'])) {
     <a href="Admins.php">Admins</a>
 </div>
 
-<!-- Update Product Form -->
-<form method="post" enctype="multipart/form-data"> <!-- Add enctype for file uploads -->
-<form method="post" enctype="multipart/form-data"> <!-- Add enctype for file uploads -->
-    <input type="hidden" name="action" value="update_product">
-    <input type="hidden" name="productId" value="<?php echo $model->getProductId(); ?>">
-
-    <!-- Other form fields -->
-
-    <label for="productName">Product Name:</label>
-    <input type="text" name="productName" value="<?php echo $model->getProductName(); ?>" required><br>
-
-    <label for="description">Description:</label>
-    <input type="text" name="description" value="<?php echo $model->getDescription(); ?>" required><br>
-
-    <!-- Display existing product pictures -->
-    <?php
-    $productPictures = explode(',', $model->getProductPicture());
-    foreach ($productPictures as $picture) {
-        echo '<img src="../uploads/' . $picture . '" width="80" height="80">';
-    }
-    ?>
-    <label for="ProductPicture">Product Pictures:</label>
-    <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif"><br>
-
-    <!-- Add other input fields as needed -->
-
-    <label for="price">Price:</label>
-    <input type="text" name="price" value="<?php echo $model->getPrice(); ?>" required><br>
-    
-    <!-- Assuming $options contains the available options and $sovValues contains the SOV values -->
-    <div id="optionsContainer">
-        <?php foreach ($options as $option): ?>
+<!-- Add Product Form -->
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+    <?php if (!isset($_SESSION["Type"])): ?>
+        <label for="selectProductType">Select Product Type:</label>
+        <select name="selectProductType" required>
             <?php
-            // Fetch and display existing option value if needed
-            $existingOptionValue = ''; // Default value if no SOV value is found
-            foreach ($sovValues as $sov) {
-                if ($sov['Product_Type_S_O'] == $option['ID']) {
-                    $existingOptionValue = $sov['Value'];
-                    break;
-                }
+            $productTypes = $controller->getAllProductTypes();
+            foreach ($productTypes as $row) {
+                echo "<option value='{$row['ID']}'>{$row['Type']}</option>";
             }
             ?>
+        </select>
+        <input type="submit" value="Next">
+    <?php else: ?>
+        <label for="productName">Product Name:</label>
+        <input type="text" name="productName" required><br>
 
-            <label for="option_<?php echo $option['ID']; ?>"><?php echo $option['Name']; ?>:</label>
-            <?php
-            // Check if the option is 'Size'
-            if ($option['Name'] == 'Size') {
-                echo "<input type='number' name='options[{$option['ID']}]' value='{$existingOptionValue}' required><br>";
-            } else {
-                // Fetch option values for the dropdown
-                $optionValues = $model->getOptionValues($option['ID']);
+        <label for="description">Description:</label>
+        <input type="text" name="description" required><br>
 
-                echo "<select name='options[{$option['ID']}]' required>";
-                foreach ($optionValues as $optionValue) {
-                    $isSelected = ($existingOptionValue == $optionValue) ? 'selected' : '';
-                    echo "<option value='{$optionValue}' {$isSelected}>{$optionValue}</option>";
+        <label for="ProductPicture">Product Pictures:</label>
+        <input type="file" name="ProductPicture[]" multiple="multiple" accept=".jpg, .jpeg, .png, .gif"><br>
+
+        <label for="price">Price:</label>
+        <input type="number" name="price" required><br>
+
+        <!-- Fetch options values from the database -->
+        <?php
+        if (isset($result)) {
+            foreach ($result as $row) {
+                $optionId = $row['ID'];
+                $optionName = $row['Name'];
+        
+                echo "<label for='option_$optionId'>$optionName:</label>";
+        
+                // Check if the option is 'Size'
+                if ($optionName == 'Size') {
+                    echo "<input type='number' name='options[$optionId]' required><br>";
+                } else {
+                    // Fetch option values for the dropdown
+                    $optionValues = $model->getOptionValues($optionId);
+
+                    echo "<select name='options[$optionId]' required>";
+                    foreach ($optionValues as $optionValue) {
+                        echo "<option value='$optionValue'>$optionValue</option>";
+                    }
+                    echo "</select><br>";
                 }
-                echo "</select><br>";
             }
-            ?>
-        <?php endforeach; ?>
-    </div>
-
-    <input type="submit" name="submit" value="Update Product">
+        }
+        ?>
+        
+        <input type="submit" value="Add Product">
+    <?php endif; ?>
 </form>
 </body>
 </html>
 
-</body>
-</html>
 <style>
         /* Base styles for the navbar and form */
         .container {

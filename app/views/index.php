@@ -13,7 +13,7 @@
 		
     </head>
     <body>
-        <?php include('../partials/header.php'); ?>
+        <?php include('../../partials/header.php'); ?>
 		<!-- mainmenu-area-end -->
 		<!-- slider-area-start -->
 		
@@ -43,9 +43,9 @@
 										
 										$ProductPictures = explode(',', $product['ProductPicture']);
 										if (!empty($ProductPictures[0])) {
-											$imageSrc = "../uploads/" . $ProductPictures[0];
+											$imageSrc = "../../uploads/" . $ProductPictures[0];
 										} else {
-											$imageSrc = "../uploads/default.jpg";
+											$imageSrc = "../../uploads/default.jpg";
 										} ?>
 										<div class="col-lg-12">
 											<div class="single-new-product">
@@ -91,7 +91,7 @@
 							<div class="col-lg-12">
 								<div class="single-static-banner">
 									<div class="single-static-img">
-										<a href="shop.php"><img src="img/banner/ads-middle-grand.jpg" alt="" /></a>
+										<a href="shop.php"><img src="../../img/banner/ads-middle-grand.jpg" alt="" /></a>
 										<div class="single-static-text single-static-text-4">
 											<h3></h3>
 											<span></span>
@@ -129,9 +129,9 @@
 										
 										$ProductPictures = explode(',', $product['ProductPicture']);
 										if (!empty($ProductPictures[0])) {
-											$imageSrc = "../uploads/" . $ProductPictures[0];
+											$imageSrc = "../../uploads/" . $ProductPictures[0];
 										} else {
-											$imageSrc = "../uploads/default.jpg";
+											$imageSrc = "../../uploads/default.jpg";
 										} ?>
 										<div class="col-lg-12">
 											<div class="single-new-product">
@@ -180,19 +180,19 @@
 			<div class="static-slider-active">
 				<div class="static-single-slider">
 					<div class="static-slider-img">
-						<img src="img/banner/ads-middle-grand.jpg" alt="" />
+						<img src="../../img/banner/ads-middle-grand.jpg" alt="" />
 					</div>
 					
 				</div>	
 				<div class="static-single-slider">
 					<div class="static-slider-img">
-						<img src="img/banner/ads-middle-grand.jpg" alt="" />
+						<img src="../../img/banner/ads-middle-grand.jpg" alt="" />
 					</div>
 					
 				</div>	
 				<div class="static-single-slider">
 					<div class="static-slider-img">
-						<img src="img/banner/ads-middle-grand.jpg" alt="" />
+						<img src="../../img/banner/ads-middle-grand.jpg" alt="" />
 					</div>
 			
 				</div>			
@@ -220,9 +220,9 @@ if ($result) {
 		
 		$ProductPictures = explode(',', $product['ProductPicture']);
 		if (!empty($ProductPictures[0])) {
-			$imageSrc = "../uploads/" . $ProductPictures[0];
+			$imageSrc = "../../uploads/" . $ProductPictures[0];
 		} else {
-			$imageSrc = "../uploads/default.jpg";
+			$imageSrc = "../../uploads/default.jpg";
 		} ?>
 		<div class="col-lg-12">
 			<div class="single-new-product">
@@ -284,7 +284,7 @@ if ($result) {
 				</div>
 			</div>
 		</div>
-		<?php include('../partials/footer.php'); ?>
+		<?php include('../../partials/footer.php'); ?>
 		<!-- contact-area-end -->		
 		
 		<!-- .copyright-area-end -->
