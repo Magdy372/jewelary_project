@@ -108,7 +108,7 @@ if (!empty($_SESSION['UserID'])) {
     // Guests cannot access wishlist or add anything to it
     if (isset($_GET['wishlist_id']) || isset($_GET['cart_id']) || isset($_GET['cart']) || isset($_GET['wishlist']) ) {
         header("Location: customer-login.php");
-        exit;
+        exit();
     }
 }
 

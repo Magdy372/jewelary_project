@@ -66,7 +66,8 @@ class Users extends Model {
 			if (password_verify($Password , $storedPassword)) {
 				$_SESSION["UserID"]=$row["ID"];
 				$_SESSION["Name"]=$row["FName"];
-				header("Location:../public/index.php");
+				$_SESSION["user_role"]=$row["UserType_id"];
+				header("Location:../views/index.php");
 			}
 			else{
 				echo "Email or password is incorrect ;)";

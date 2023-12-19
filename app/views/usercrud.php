@@ -1,3 +1,19 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+$user_role = $_SESSION['user_role'];
+if ($user_role !== "1") {
+    // Redirect to another page or display an access denied message
+    header("Location: access_denied.php");
+    exit();
+}
+
+define('__ROOT__', "../");
+require_once(__ROOT__ . "model/Users.php");
+require_once(__ROOT__ . "model/User.php");
+require_once(__ROOT__ . "controller/UserController.php");
+?>
 <!DOCTYPE html>
 <html>
 
@@ -179,11 +195,7 @@
 
             <?php
 
-            define('__ROOT__', "../app/");
-            require_once(__ROOT__ . "model/Users.php");
-            require_once(__ROOT__ . "model/User.php");
-            require_once(__ROOT__ . "controller/UserController.php");
-
+            
 
             $model = new Users();
             $controller = new UserController($model);

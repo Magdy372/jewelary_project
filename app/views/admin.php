@@ -1,3 +1,15 @@
+<?php
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+$user_role = $_SESSION['user_role'];
+if ($user_role !== "1") {
+    // Redirect to another page or display an access denied message
+    header("Location: access_denied.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html>
 
