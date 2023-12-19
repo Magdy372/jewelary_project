@@ -41,9 +41,9 @@ include('../partials/header.php');
 
 if (isset($_GET['action']) && $_GET['action'] === 'proceedToCheckout') {
     $userID = $_SESSION['UserID'];
-    $Usermodel = new User($_SESSION['UserID']);
-    $addresses = $Usermodel->getAddressByUserID($userID);
-    // ... other actions
+    $addressObject = new Address($userID);
+    $addresses = $addressObject->loadAddressByUserID($userID);
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['placeOrder'])) {
@@ -72,17 +72,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['placeOrder'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['AddAddress'])) {
     $userID = $_SESSION['UserID'];
-    $model = new User($userID);
-
+    $model = new Address($userID);
+$controller = new UserController ($model);
     $newCountry = $_POST['newCountry'];
     $newStreet = $_POST['newStreet'];
     $newCity = $_POST['newCity'];
     $newApartmentNumber = $_POST['newApartmentNumber'];
     $newPostalCode = $_POST['newPostalCode'];
-    $addres = $model->createAddress($newCountry, $newStreet, $newCity, $newApartmentNumber, $newPostalCode, $userID);
-    $addresses = $model->getAddressByUserID($userID);
-    if ($addres) {
-        
+    $addres = $controller->createAddress($newCountry, $newStreet, $newCity, $newApartmentNumber, $newPostalCode, $userID);
+    if ($addressAdded) {
+        // Reload addresses after adding a new one
+        $addresses = $model->loadAddressByUserID($userID);
         header('Location: ' . $_SERVER['REQUEST_URI']);
         exit();
     } else {
@@ -220,16 +220,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['AddAddress'])) {
                     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <h3>Choose Address</h3>
                         <?php
-                         if (!empty($addresses)) {
+                        
+                        if (!empty($addresses)) {
                             foreach ($addresses as $address) {
-                                echo "<label>";
-                                echo "<input type='radio' name='selectedAddressID' value='{$address['address_id']}'>";
-                                echo "{$address['street']}, {$address['city']}, {$address['Country']}";
-                                echo "</label><br>";
+                                if ($address !== null && $address->getAddressID() !== null) {
+                                    echo "<label>";
+                                    echo "<input type='radio' name='selectedAddressID' value='{$address->getAddressID()}'>";
+                                    echo "{$address->getStreet()}, {$address->getCity()}, {$address->getCountry()}";
+                                    echo "</label><br>";
+                                } else {
+                                    echo "Debug: Address is null or has null ID<br>";
+                                }
                             }
                         } else {
                             echo "No addresses available.";
                         }
+                        
+                        
                         ?>
                         <div class="order-button-payment">
                             <input type="submit" name="placeOrder" value="Place order" />

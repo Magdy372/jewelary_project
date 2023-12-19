@@ -275,27 +275,7 @@ class User extends Model
 				  echo $sql;
 			  }
 	  }
-    public function createAddress($country, $street, $city, $apartmentNumber, $postalCode, $userID) {
-        $sql = "INSERT INTO `address` (`Country`, `street`, `city`, `apartmentnumber`, `PostalCode`, `UserID`)
-                VALUES ('$country', '$street', '$city', $apartmentNumber, $postalCode, $userID)";
-
-        return $this->connect()->query($sql);
     }
-    public function getAddressByUserID($userID) {
-        $sql = "SELECT * FROM `address` WHERE `UserID` = $userID";
-        $result = $this->connect()->query($sql);
-
-        $addresses = array();
-
-        if ($result->num_rows > 0) {
-            while ($row = $this->connect()->fetchRow($result)) {
-                $addresses[] = $row;
-            }
-        }
-
-        return $addresses;
-    }
-}
 
 
 $con = mysqli_connect("172.232.216.8", "root", "Omarsalah123o","Jewelry_project");
@@ -399,6 +379,116 @@ class pages {
 		return $Result;
 	}
 }
+class Address extends Model  {
+    public $address_id;
+    public $country;
+    public $street;
+    public $city;
+    public $apartmentNumber;
+    public $postalCode;
+    public $userID;
+
+    public function __construct($userID = null) {
+        $this->db = $this->connect();
+        if ($userID !== null) {
+            $this->loadAddressByUserID($userID);
+        }
+    }
+
+   
+    public function loadAddressByUserID($userID) {
+        $sql = "SELECT * FROM `address` WHERE `UserID` = $userID";
+        $result = $this->connect()->query($sql);
+
+        $addresses = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $address = new Address();
+                $address->setAttributes($row);
+                $addresses[] = $address;
+                
+            }
+        }
+
+        return $addresses;
+    }
+
+    private function setAttributes($row) {
+        $this->address_id=$row['address_id'];
+        $this->country = $row['Country'];
+        $this->street = $row['street'];
+        $this->city = $row['city'];
+        $this->apartmentNumber = $row['apartmentnumber'];
+        $this->postalCode = $row['PostalCode'];
+        $this->userID = $row['UserID'];
+    }
+    public function createAddress($country, $street, $city, $apartmentNumber, $postalCode, $userID) {
+        $sql = "INSERT INTO `address` (`Country`, `street`, `city`, `apartmentnumber`, `PostalCode`, `UserID`)
+                VALUES ('$country', '$street', '$city', $apartmentNumber, $postalCode, $userID)";
+
+        return $this->connect()->query($sql);
+    }
+
+    // Setters
+    public function setCountry($country) {
+        $this->country = $country;
+    }
+
+    public function setStreet($street) {
+        $this->street = $street;
+    }
+
+    public function setCity($city) {
+        $this->city = $city;
+    }
+
+    public function setApartmentNumber($apartmentNumber) {
+        $this->apartmentNumber = $apartmentNumber;
+    }
+
+    public function setPostalCode($postalCode) {
+        $this->postalCode = $postalCode;
+    }
+
+    public function setUserID($userID) {
+        $this->userID = $userID;
+    }
+
+    // Getters
+    public function getCountry() {
+        return $this->country;
+    }
+    public function getAddressID (){
+        return $this->address_id;
+    }
+
+    public function getStreet() {
+        return $this->street;
+    }
+
+    public function getCity() {
+        return $this->city;
+    }
+
+    public function getApartmentNumber() {
+        return $this->apartmentNumber;
+    }
+
+    public function getPostalCode() {
+        return $this->postalCode;
+    }
+
+    public function getUserID() {
+        return $this->userID;
+    }
+}
+
+
+    
+
+    // Add getters and setters as needed
+
 
 
 // class UserType extends User {

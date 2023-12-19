@@ -4,14 +4,15 @@ define('__ROOT__', "../app/");
 require_once(__ROOT__ . "model/Product.php");
 require_once(__ROOT__ . "controller/ProductController.php");
 
-$model = new Product();
-$controller = new ProductController($model);
 
 // Fetch the product details for editing
 $productId = $_GET['edit_id'] ?? null;
+$model = new Product($productId);
+$controller = new ProductController($model);
+$model2 = new ProductType();
 if ($productId !== null) {
-    $product = $model->getProductById($productId);
-    $options = $model->getOptionsForType($product['Product_Type']);
+    
+    $options = $model2->getOptionsForType($model->getProductType() );
     $sovValues = $model->getProductSOVValues($productId);
 } else {
     // Handle the case where $productId is not provided or invalid
@@ -55,20 +56,21 @@ if (isset($_POST['submit'])) {
 
 <!-- Update Product Form -->
 <form method="post" enctype="multipart/form-data"> <!-- Add enctype for file uploads -->
+<form method="post" enctype="multipart/form-data"> <!-- Add enctype for file uploads -->
     <input type="hidden" name="action" value="update_product">
-    <input type="hidden" name="productId" value="<?php echo $product['id']; ?>">
+    <input type="hidden" name="productId" value="<?php echo $model->getProductId(); ?>">
 
     <!-- Other form fields -->
 
     <label for="productName">Product Name:</label>
-    <input type="text" name="productName" value="<?php echo $product['ProductName']; ?>" required><br>
+    <input type="text" name="productName" value="<?php echo $model->getProductName(); ?>" required><br>
 
     <label for="description">Description:</label>
-    <input type="text" name="description" value="<?php echo $product['Description']; ?>" required><br>
+    <input type="text" name="description" value="<?php echo $model->getDescription(); ?>" required><br>
 
     <!-- Display existing product pictures -->
     <?php
-    $productPictures = explode(',', $product['ProductPicture']);
+    $productPictures = explode(',', $model->getProductPicture());
     foreach ($productPictures as $picture) {
         echo '<img src="../uploads/' . $picture . '" width="80" height="80">';
     }
@@ -79,8 +81,8 @@ if (isset($_POST['submit'])) {
     <!-- Add other input fields as needed -->
 
     <label for="price">Price:</label>
-    <input type="text" name="price" value="<?php echo $product['Price']; ?>" required><br>
-
+    <input type="text" name="price" value="<?php echo $model->getPrice(); ?>" required><br>
+    
     <!-- Assuming $options contains the available options and $sovValues contains the SOV values -->
     <div id="optionsContainer">
         <?php foreach ($options as $option): ?>

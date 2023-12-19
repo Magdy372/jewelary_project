@@ -2,7 +2,7 @@
 define('__ROOT__', "../app/");
 require_once(__ROOT__. "model/Product.php");
 require_once(__ROOT__. "controller/ProductController.php");
-  $model = new Product();
+  $model = new ProductType();
   $controller = new ProductController($model);
   $productTypes=$model->getAllProductTypes();
   

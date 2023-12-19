@@ -39,7 +39,7 @@ class ProductController extends Controller
     public function displayProduct($id)
     {
         
-        $Productobj = $this->model->getProductByID($id);
+        $Productobj = $this->model->getProductId();
         return $Productobj;
       
     }
@@ -54,6 +54,12 @@ class ProductController extends Controller
     public function deleteProduct($id)
     {
         $this->model->deleteProduct($id);
+    }
+    public function getAllProductTypes() {
+        $this->model->getAllProductTypes();
+    }
+    public function getOptionsForType($productType){
+        $this->model->getOptionsForType($productType);
     }
     
 }

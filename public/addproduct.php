@@ -8,13 +8,14 @@ require_once(__ROOT__ . "model/Product.php");
 require_once(__ROOT__ . "controller/ProductController.php");
 
 $model = new Product();
+$model2 = new ProductType();
 $controller = new ProductController($model);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["selectProductType"])) {
         $_SESSION["Type"] = ($_POST["selectProductType"]);
         $selectedProductType = $_SESSION["Type"];
-        $result = $model->getOptionsForType($selectedProductType);
+        $result = $model2->getOptionsForType($selectedProductType);
     } elseif (isset($_POST["productName"], $_POST["description"], $_FILES["ProductPicture"], $_POST["price"])) {
         // Retrieve form data
         $productName = ($_POST["productName"]);
@@ -62,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="selectProductType">Select Product Type:</label>
         <select name="selectProductType" required>
             <?php
-            $productTypes = $model->getAllProductTypes();
+            $productTypes = $controller->getAllProductTypes();
             foreach ($productTypes as $row) {
                 echo "<option value='{$row['ID']}'>{$row['Type']}</option>";
             }

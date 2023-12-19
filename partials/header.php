@@ -111,14 +111,14 @@ if (!empty($_SESSION['UserID'])) {
 
 if (isset($_GET['category'])) {
 	$typeid = $_GET['category'];
-	$Productmodel = new Product();
+	$Productmodel = new ProductType();
 		$Homecontroller = new HomeController($Productmodel);
 	$typeid = $_GET['category'];
 		$products=$Homecontroller->displaybytype($typeid);
 }
 else {
     // If no category is specified, display all products
-	$Productmodel = new Product();
+	$Productmodel = new ProductType();
 		$Homecontroller = new HomeController($Productmodel);
     $products = $Homecontroller->displaybytype();
 }

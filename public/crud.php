@@ -18,6 +18,7 @@ require_once(__ROOT__ . "controller/ProductController.php");
 $model = new Product();
 $controller = new ProductController($model);
 
+
 // Fetch products
 $products = $model->getAllProducts();
 
@@ -61,7 +62,9 @@ foreach ($products as $product) {
     echo '<td><img src="' . $imageSrc . '" width="80" height="80"></td>';
     echo "<td>{$product['Price']}</td>";
     $productTypeId = $product['Product_Type'];
-    $productTypeName = $model->getProductTypeName($productTypeId);
+    $model2 = new ProductType($productTypeId);
+$controller = new ProductController($model2);
+    $productTypeName = $model2->getType();
     echo "<td>{$productTypeName}</td>";
     echo "<td>";
 

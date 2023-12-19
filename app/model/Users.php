@@ -15,14 +15,7 @@ class Users extends Model {
 
 
     function InsertinDB_Static($FN, $LN, $EM, $PW) {
-		//trying to adding validation on Email to check if this email are token or no 
-		// $sql = "SELECT * FROM users WHERE Email = '$email'";
-        // $result = $this->$db->query($sql);
-    
-        // if ($result && $result->num_rows > 0) {
-        //     $EmailErr = "Email is already taken. Please, login.";
-        //     $emailTaken = true;
-        // }
+		
 
 		$sql1 = "insert into users(FName,LName,Email,Password,UserType_id) values ('$FN','$LN','$EM','$PW',2)"; //2 de user id 
 		if($this->db->query($sql1) === true){
@@ -38,7 +31,6 @@ class Users extends Model {
 	function InsertinDB_Static_admin($FN, $LN, $EM, $PW) {
 		$sql2 = "INSERT INTO users (FName, LName, Email, Password, UserType_id) VALUES ('$FN', '$LN', '$EM', '$PW', 1)"; //1 de admin id
 	
-		
 
 		if ($this->db->query($sql2) === true) {
 			echo "Records inserted successfully.";

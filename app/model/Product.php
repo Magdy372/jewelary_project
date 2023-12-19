@@ -6,6 +6,7 @@ require_once(__ROOT__ . "controller/ProductController.php");
 
 
 class Product extends Model {
+    public $productID;
     public $productName;
     public $description;
     public $productPicture;
@@ -28,6 +29,7 @@ class Product extends Model {
         $result = $this->db->query($sql);
     
         if ($result && $row = $result->fetch_assoc()) {
+            $this->productID= $row['id'];
             $this->productName = $row['ProductName'];
             $this->description = $row['Description'];
             $this->productPicture = $row['ProductPicture'];
@@ -53,19 +55,7 @@ class Product extends Model {
         }
         return $products;
     }
-    public function getProductTypeName($productTypeId) {
-        $productTypeId =$productTypeId;
-
-        $sql = "SELECT Type FROM product_type WHERE ID = $productTypeId";
-        $result = $this->connect()->query($sql);
-        
-        if ($result && $result->num_rows > 0) {
-            $row = $this->connect()->fetchRow($result);
-            return $row['Type'];
-        } else {
-            return 'Unknown'; // Default value if the product type is not found
-        }
-    }
+   
      public function getProductById($productId) {
         $productId = $productId;
         $sql = "SELECT * FROM product WHERE id = $productId";
@@ -158,12 +148,7 @@ class Product extends Model {
             error_log("Error inserting product: " . $stmtProduct->error);
         }
     }
-    
-    
-    
-    
 
-    
     public function updateProduct($productId, $productName, $description, $productPicture, $price, $optionsValues) {
         $productId = $productId;
         $productName = $productName;
@@ -207,56 +192,7 @@ class Product extends Model {
         $deleteProductQuery = "DELETE FROM product WHERE id = '$productId'";
         $this->connect()->query($deleteProductQuery);
     }
-    public function getAllProductTypes() {
-        $sql = "SELECT * FROM product_type";
-        $result = $this->connect()->query($sql);
-        $productTypes = [];
-        while ($row = $this->connect()->fetchRow($result)) {
-            $productTypes[] = $row;
-        }
-        return $productTypes;
-    }
-    public function getOptionsForType($productType) {
-        $productType = ($productType);
-
-        $sql = "SELECT options.ID, options.Name 
-                FROM product_type_s_o
-                INNER JOIN options ON product_type_s_o.Options = options.ID
-                WHERE product_type_s_o.Product_Type = $productType";
-
-        $result = $this->connect()->query($sql);
-        $options = [];
-        while ($row = $this->connect()->fetchRow($result)) {
-            $options[] = $row;
-        }
-        return $options;
-    }
-
-
-    function displaybytype($typeid = null) {
-    
-        if ($typeid !== null) {
-            $query = "SELECT * FROM product WHERE Product_Type = '$typeid'";
-        } else {
-            $query = "SELECT * FROM product";
-        }
-
-        $categoryResult = $this->connect()->query($query);
-
-       
-        if (!$categoryResult) {
-            die("Error in SQL query: " . mysqli_error($this->connect()));
-        }
-
-       
-        $products = [];
-        while ($row = mysqli_fetch_assoc($categoryResult)) {
-            $products[] = $row;
-        }
-
-        return $products;
-    }
-
+  
     public function getOptionValues($optionId) {
         $optionValuesQuery = "SELECT * FROM option_values WHERE Option_ID = '$optionId'";
         $optionValuesResult = $this->connect()->query($optionValuesQuery);
@@ -267,6 +203,19 @@ class Product extends Model {
         }
 
         return $optionValues;
+    }
+    public function getProductTypeName($productTypeId) {
+        $productTypeId =$productTypeId;
+
+        $sql = "SELECT Type FROM product_type WHERE ID = $productTypeId";
+        $result = $this->connect()->query($sql);
+        
+        if ($result && $result->num_rows > 0) {
+            $row = $this->connect()->fetchRow($result);
+            return $row['Type'];
+        } else {
+            return 'Unknown'; // Default value if the product type is not found
+        }
     }
     
      // Setters
@@ -295,6 +244,9 @@ class Product extends Model {
     }
 
     // Getters
+    public function getProductId() {
+        return $this->productID;
+    }
     public function getProductName() {
         return $this->productName;
     }
@@ -322,4 +274,99 @@ class Product extends Model {
         return $this->optionsValues;
     }
 }
+class ProductType extends Model {
+    private $id;
+    private $type;
+
+    public function __construct($id = null, $type = null) {
+        $this->db = $this->connect();
+        $this->id = $id;
+        $this->type = $type;
+
+        // If ID is provided, load the product type data
+        if (!is_null($id)) {
+            $this->readProductType($id);
+        }
+    }
+
+    public function readProductType($id) {
+        $sql = "SELECT * FROM product_type WHERE ID = $id";
+        $result = $this->db->query($sql);
+
+        if ($result && $row = $result->fetch_assoc()) {
+            $this->id = $row['ID'];
+            $this->type = $row['Type'];
+        }
+    }
+
+    public function getAllProductTypes() {
+        $sql = "SELECT * FROM product_type";
+        $result = $this->connect()->query($sql);
+        $productTypes = [];
+        while ($row = $this->connect()->fetchRow($result)) {
+            $productTypes[] = $row;
+        }
+        return $productTypes;
+    }
+    function displaybytype($typeid = null) {
+    
+        if ($typeid !== null) {
+            $query = "SELECT * FROM product WHERE Product_Type = '$typeid'";
+        } else {
+            $query = "SELECT * FROM product";
+        }
+
+        $categoryResult = $this->connect()->query($query);
+
+       
+        if (!$categoryResult) {
+            die("Error in SQL query: " . mysqli_error($this->connect()));
+        }
+
+       
+        $products = [];
+        while ($row = mysqli_fetch_assoc($categoryResult)) {
+            $products[] = $row;
+        }
+
+        return $products;
+    }
+    public function getOptionsForType($productType) {
+        $productType = ($productType);
+
+        $sql = "SELECT options.ID, options.Name 
+                FROM product_type_s_o
+                INNER JOIN options ON product_type_s_o.Options = options.ID
+                WHERE product_type_s_o.Product_Type = $productType";
+
+        $result = $this->connect()->query($sql);
+        $options = [];
+        while ($row = $this->connect()->fetchRow($result)) {
+            $options[] = $row;
+        }
+        return $options;
+    }
+  
+
+    // Getter for ID
+    public function getID() {
+        return $this->id;
+    }
+
+    // Getter for Type
+    public function getType() {
+        return $this->type;
+    }
+
+    // Setter for ID
+    public function setID($id) {
+        $this->id = $id;
+    }
+
+    // Setter for Type
+    public function setType($type) {
+        $this->type = $type;
+    }
+}
+
 ?>

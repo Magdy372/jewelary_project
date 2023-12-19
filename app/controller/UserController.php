@@ -198,5 +198,8 @@ class UserController extends Controller
         $check = $this->model-> deleteUser($Userobj);
         return $check;
     }
+    public function createAddress($country, $street, $city, $apartmentNumber, $postalCode, $userID){
+    return $this->model->createAddress($country, $street, $city, $apartmentNumber, $postalCode, $userID);
+    }
     
 }
