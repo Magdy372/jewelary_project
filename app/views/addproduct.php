@@ -86,11 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
             </select>
             <input type="submit" value="Next">
-<<<<<<< HEAD
         <?php else : ?>
-=======
-        <?php else: ?>
->>>>>>> 7a2daef77de5fd842b09ee4b8939bfbbf1e73615
             <label for="productName">Product Name:</label>
             <input type="text" name="productName" required><br>
 
