@@ -46,8 +46,8 @@ class ProductController extends Controller
     public function displayAllProduct()
     {
         
-        $this->model->getProducts();
-
+        $products = $this->model->getAllProducts();
+        return $products;
       
     }
 

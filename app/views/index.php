@@ -30,63 +30,59 @@
 							<h2>New Products</h2>
 						</div>	
 						<div class="row">
-							<div class="new-product-home-4-active">
-							<?php
+    <div class="new-product-home-4-active">
+        <?php
+        $Productmodel = new Product();
+        $Productcontroller = new ProductController($Productmodel);
 
-								$query = "SELECT * FROM product";
-								$result = mysqli_query($con, $query);
+        $products = $Productcontroller->displayAllProduct();
 
-								
-
-								if ($result) {
-									while ($product = mysqli_fetch_assoc($result)) {
-										
-										$ProductPictures = explode(',', $product['ProductPicture']);
-										if (!empty($ProductPictures[0])) {
-											$imageSrc = "../../uploads/" . $ProductPictures[0];
-										} else {
-											$imageSrc = "../../uploads/default.jpg";
-										} ?>
-										<div class="col-lg-12">
-											<div class="single-new-product">
-												<div class="product-img">
-												<a href="product-details.php?details_id=<?=$product['id'];?>">
-                                                    <img src="<?= $imageSrc ?>" class="first_img" alt="" />
-                                                   </a>
-												</div>
-												<div class="product-content text-center">
-													<a href="product-details.html"><h3><?=$product['ProductName']?></h3></a>
-													<div class="product-price-star">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o"></i>
-														<i class="fa fa-star-o"></i>
-													</div>
-													<div class="price">
-														<h4>EGP<?=$product['Price']?></h4> 
-														
-													</div>
-												</div>
-												<div class="product-icon-wrapper">
-													<div class="product-icon">
-														<ul>
-															<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-															<li><a href="index.php?wishlist_id=<?= $product['id']; ?>"><span class="lnr lnr-heart"></span></a></li>
-															<li><a href="index.php?cart_id=<?= $product['id']; ?>"><span class="lnr lnr-cart"></span></a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-										</div>
-									<?php 
-										}
-									}
-									?>
-
-				
-							</div>
-						</div>	
+        if (!empty($products)) {
+            foreach ($products as $product) {
+                $ProductPictures = explode(',', $product['ProductPicture']);
+                $imageSrc = !empty($ProductPictures[0]) ? "../../uploads/" . $ProductPictures[0] : "../../uploads/default.jpg";
+                ?>
+                <div class="col-lg-12">
+                    <div class="single-new-product">
+                        <div class="product-img">
+                            <a href="product-details.php?details_id=<?= $product['id']; ?>">
+                                <img src="<?= $imageSrc ?>" class="first_img" alt="" />
+                            </a>
+                        </div>
+                        <div class="product-content text-center">
+                            <a href="product-details.html"><h3><?= $product['ProductName'] ?></h3></a>
+                            <div class="product-price-star">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <div class="price">
+                                <h4>EGP<?= $product['Price'] ?></h4>
+                            </div>
+                        </div>
+                        <div class="product-icon-wrapper">
+                            <div class="product-icon">
+                                <ul>
+                                    <li><a href="#"><span class="lnr lnr-sync"></span></a></li>
+                                    <li><a href="index.php?wishlist_id=<?= $product['id']; ?>"><span
+                                                class="lnr lnr-heart"></span></a></li>
+                                    <li><a href="index.php?cart_id=<?= $product['id']; ?>"><span
+                                                class="lnr lnr-cart"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php
+            }
+        } else {
+            echo "No products available.";
+        }
+        ?>
+    </div>
+</div>
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="single-static-banner">
@@ -119,52 +115,47 @@
 					<div class="new-product-home-2-active">
 						<?php
 
-								$query = "SELECT * FROM product";
-								$result = mysqli_query($con, $query);
-
 								
 
-								if ($result) {
-									while ($product = mysqli_fetch_assoc($result)) {
-										
-										$ProductPictures = explode(',', $product['ProductPicture']);
-										if (!empty($ProductPictures[0])) {
-											$imageSrc = "../../uploads/" . $ProductPictures[0];
-										} else {
-											$imageSrc = "../../uploads/default.jpg";
-										} ?>
-										<div class="col-lg-12">
-											<div class="single-new-product">
-												<div class="product-img">
-												<a href="product-details.php?details_id=<?=$product['id'];?>">
-                                                    <img src="<?= $imageSrc ?>" class="first_img" alt="" />
-                                                   </a>
-												</div>
-												<div class="product-content text-center">
-													<a href="product-details.html"><h3><?=$product['ProductName']?></h3></a>
-													<div class="product-price-star">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o"></i>
-														<i class="fa fa-star-o"></i>
-													</div>
-													<div class="price">
-														<h4>EGP<?=$product['Price']?></h4> 
-														
-													</div>
-												</div>
-												<div class="product-icon-wrapper">
-													<div class="product-icon">
-														<ul>
-															<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-															<li><a href="index.php?wishlist_id=<?= $product['id']; ?>"><span class="lnr lnr-heart"></span></a></li>
-															<li><a href="index.php?cart_id=<?= $product['id']; ?>"><span class="lnr lnr-cart"></span></a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-										</div>
+								
+if (!empty($products)) {
+	foreach ($products as $product) {
+		$ProductPictures = explode(',', $product['ProductPicture']);
+		$imageSrc = !empty($ProductPictures[0]) ? "../../uploads/" . $ProductPictures[0] : "../../uploads/default.jpg";
+		?>
+		<div class="col-lg-12">
+			<div class="single-new-product">
+				<div class="product-img">
+					<a href="product-details.php?details_id=<?= $product['id']; ?>">
+						<img src="<?= $imageSrc ?>" class="first_img" alt="" />
+					</a>
+				</div>
+				<div class="product-content text-center">
+					<a href="product-details.html"><h3><?= $product['ProductName'] ?></h3></a>
+					<div class="product-price-star">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					</div>
+					<div class="price">
+						<h4>EGP<?= $product['Price'] ?></h4>
+					</div>
+				</div>
+				<div class="product-icon-wrapper">
+					<div class="product-icon">
+						<ul>
+							<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
+							<li><a href="index.php?wishlist_id=<?= $product['id']; ?>"><span
+										class="lnr lnr-heart"></span></a></li>
+							<li><a href="index.php?cart_id=<?= $product['id']; ?>"><span
+										class="lnr lnr-cart"></span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 									<?php 
 										}
 									}
@@ -210,29 +201,21 @@
 						<div class="feature-home-2-active feature-home-4-active">
 						<?php
 
-$query = "SELECT * FROM product";
-$result = mysqli_query($con, $query);
 
-
-
-if ($result) {
-	while ($product = mysqli_fetch_assoc($result)) {
-		
+if (!empty($products)) {
+	foreach ($products as $product) {
 		$ProductPictures = explode(',', $product['ProductPicture']);
-		if (!empty($ProductPictures[0])) {
-			$imageSrc = "../../uploads/" . $ProductPictures[0];
-		} else {
-			$imageSrc = "../../uploads/default.jpg";
-		} ?>
+		$imageSrc = !empty($ProductPictures[0]) ? "../../uploads/" . $ProductPictures[0] : "../../uploads/default.jpg";
+		?>
 		<div class="col-lg-12">
 			<div class="single-new-product">
 				<div class="product-img">
-				<a href="product-details.php?details_id=<?=$product['id'];?>">
-					<img src="<?= $imageSrc ?>" class="first_img" alt="" />
-				   </a>
+					<a href="product-details.php?details_id=<?= $product['id']; ?>">
+						<img src="<?= $imageSrc ?>" class="first_img" alt="" />
+					</a>
 				</div>
 				<div class="product-content text-center">
-					<a href="product-details.html"><h3><?=$product['ProductName']?></h3></a>
+					<a href="product-details.html"><h3><?= $product['ProductName'] ?></h3></a>
 					<div class="product-price-star">
 						<i class="fa fa-star"></i>
 						<i class="fa fa-star"></i>
@@ -241,16 +224,17 @@ if ($result) {
 						<i class="fa fa-star-o"></i>
 					</div>
 					<div class="price">
-						<h4>EGP<?=$product['Price']?></h4> 
-						
+						<h4>EGP<?= $product['Price'] ?></h4>
 					</div>
 				</div>
 				<div class="product-icon-wrapper">
 					<div class="product-icon">
 						<ul>
 							<li><a href="#"><span class="lnr lnr-sync"></span></a></li>
-							<li><a href="index.php?wishlist_id=<?= $product['id']; ?>"><span class="lnr lnr-heart"></span></a></li>
-							<li><a href="index.php?cart_id=<?= $product['id']; ?>"><span class="lnr lnr-cart"></span></a></li>
+							<li><a href="index.php?wishlist_id=<?= $product['id']; ?>"><span
+										class="lnr lnr-heart"></span></a></li>
+							<li><a href="index.php?cart_id=<?= $product['id']; ?>"><span
+										class="lnr lnr-cart"></span></a></li>
 						</ul>
 					</div>
 				</div>
