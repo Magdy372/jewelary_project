@@ -25,7 +25,7 @@ require_once(__ROOT__ . "controller/UserController.php");
 
 <body>
     <<div class="navbar">
-        <img src="alhedia.png" alt="Jewelry Website Logo" class="logo">
+    <img src="../../img/alhedia.png" alt="Jewelry Website Logo" class="logo"> 
         <a href="admin.php">Admin Dashboard</a>
         <!-- <a href="add_admin.php">Add Admin</a> -->
         <a href="crud.php">Product</a>
