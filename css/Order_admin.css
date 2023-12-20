@@ -1,0 +1,131 @@
+body {
+    color: #666666;
+    background: #D3D3D3;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    line-height: 1.42857;
+    padding-left: 250px; /* Add padding to the left of the content */
+}
+
+.navbar {
+    width: 250px;
+    height: 100%;
+    background-color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar a {
+    display: block;
+    width: 60%;
+    /* Set a fixed width for all buttons */
+    padding: 10px 20px;
+    text-decoration: none;
+    text-align: center;
+    /* Center the text */
+    color: white;
+    font-weight: bold;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: gray;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #0056b3;
+}
+
+.table-container {
+    width: 60%;
+    margin: 80px auto 0;
+    border-collapse: collapse;
+}
+
+table {
+    width: 70%;
+    margin-top: 20px;
+    margin-left: 5%; /* Adjusted the margin-left to shift the table to the left */
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 6px; /* Adjusted padding for a more compact layout */
+    text-align: left;
+}
+
+th {
+    background-color: #007BFF;
+    color: #f2f2f2;
+}
+
+.delete,
+.edit {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.delete {
+    background-color: #dc3545;
+    color: #fff;
+    border: 1px solid #dc3545;
+}
+
+.delete:hover {
+    background-color: #0056b3;
+}
+
+.edit {
+    background-color: #28a745;
+    color: #fff;
+    border: 1px solid #28a745;
+}
+
+.edit:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+    }
+
+    .navbar {
+        width: 200px;
+        height: 100%;
+        background-color: #333;
+        position: fixed;
+        left: 0;
+        top: 0;
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        /* Stack logo and links vertically */
+        align-items: center;
+        /* Center content horizontally */
+    }
+
+    .content {
+        margin-left: 0;
+    }
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+    margin: 20px 0;
+}
+.Details {
+    text-align: Center;
+    margin-right: 10%; /* Adjusted the margin-right to shift the "ahmed" div to the right */
+}

@@ -6,9 +6,6 @@ class OrderController extends Controller
     public function createOrder($userID,  $totalAmount, $status, $cartDetails, $selectedAddressID)
     {
 
-        // Validate and sanitize input if necessary
-
-        // Get user ID from the session
         $userID = $_SESSION['UserID'];
         $totalAmount = $_SESSION['cartDetails']['sum'];
         $status = 'Pending';
@@ -22,5 +19,18 @@ class OrderController extends Controller
         public function getOrdersByUserID($userID){
            return $this->model->getOrdersByUserID($userID);
         }  
-    }
-        ?>
+        
+        public function getAllOrders()
+        {
+            return $this->model->getAllOrders();
+        }
+        public function deleteOrder($OrderID)
+        {
+            return $this->model->deleteOrder($OrderID);
+        }
+        public function updateOrderStatus($orderId, $newStatus)
+        {
+            return $this->model->updateOrderStatus($orderId, $newStatus);
+        }
+}
+?>

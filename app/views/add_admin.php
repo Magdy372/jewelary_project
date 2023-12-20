@@ -59,9 +59,9 @@ if (isset($_POST['Submit'])) {
 <body>
 
     <div class="navbar">
-        <img src="../public/img/alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
+        <img src="../../img/alhedia.png" alt="Jewelry Website Logo" class="logo"> <!-- Logo inside the navbar -->
         <a href="admin.php">Admin Dashboard</a>
-        <!-- <a href="add_admin.php">Add Admin</a> -->
+        <a href="Order_admin.php">Orders</a>
         <a href="crud.php">Product</a>
         <a href="usercrud.php">Users</a>
         <a href="Admins.php">Admins</a>
