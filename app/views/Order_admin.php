@@ -2,8 +2,21 @@
 
 define('__ROOT__', "../");
 require_once(__ROOT__ . "model/OrderModel.php");
+require_once(__ROOT__ . "controller/OrderController.php");
 $orderModel = new OrderModel("models/Order");
 $orders = $orderModel->getOrders();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
+    $orderId = $_POST['order_id'];
+    $newStatus = $_POST['new_status'];
+
+    // Update the order status in the database
+    $orderModel->updateOrderStatus($orderId, $newStatus);
+    
+    // Redirect or display a success message as needed
+    header("Location: Order_admin.php");
+    exit();
+}
 
 $totalSales = array_sum(array_column($orders, 'TotalAmount'));
 ?>
@@ -33,9 +46,19 @@ $totalSales = array_sum(array_column($orders, 'TotalAmount'));
                     <td><?= $order['TotalAmount'] ?></td>
                     <td><?= $order['Status'] ?></td>
                     <td>
-                        <a href="edit_order.php?order_id=<?= $order['OrderID'] ?>">Edit</a>
+
+                    <form method="post">
+                            <input type="hidden" name="order_id" value="<?= $order['OrderID'] ?>">
+                            <select name="new_status">
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Done">Done</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                            <button type="submit" name="update_status">Update</button>
+                        </form>
+
+                    <a href="delete_order.php?order_id=<?= $order['OrderID'] ?>" onclick="return confirm('Are you sure you want to delete this order?')">Delete</a>
                         
-                        <a href="delete_order.php?order_id=<?= $order['OrderID'] ?>" onclick="return confirm('Are you sure you want to delete this order?')">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

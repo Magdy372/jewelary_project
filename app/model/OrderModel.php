@@ -118,6 +118,31 @@ class OrderModel extends Model
 
         return $orders;
     }
+
+    public function updateOrderStatus($orderId, $newStatus)
+    {
+        try {
+            $query = "UPDATE Order_table SET Status = '$newStatus' WHERE OrderID = '$orderId'";
+            $result = $this->db->query($query);
+
+            if (!$result) {
+                throw new Exception("Error updating order status: " . $this->db->error);
+            }
+
+            // Check the number of affected rows
+            $affectedRows = $this->db->affected_rows;
+
+            if ($affectedRows == 0) {
+                throw new Exception("No rows were updated. Check if the order ID exists.");
+            }
+        } catch (Exception $e) {
+            // Log or handle the exception appropriately
+            echo $e->getMessage();
+        }
+    }
+
+     
+    
 }
 class OrderDetails extends Model
 {
@@ -168,6 +193,7 @@ class OrderDetails extends Model
 
         return $details;
     }
+
     public function deleteOrder($orderID)
     {
         try {
@@ -189,5 +215,6 @@ class OrderDetails extends Model
             return false; // Return false to indicate an error
         }
     }
+
 }
 ?>
