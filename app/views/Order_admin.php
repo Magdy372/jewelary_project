@@ -1,15 +1,9 @@
 <?php
 
-<<<<<<< HEAD
-define('_ROOT_', "../");
-require_once(_ROOT_ . "model/OrderModel.php");
-require_once(_ROOT_ . "controller/OrderController.php");
-=======
 define('__ROOT__', "../");
 require_once(__ROOT__ . "model/OrderModel.php");
 require_once(__ROOT__ . "controller/OrderController.php");
->>>>>>> 7a2daef77de5fd842b09ee4b8939bfbbf1e73615
-$orderModel = new OrderModel("models/Order");
+$orderModel = new OrderModel();
 $orders = $orderModel->getOrders();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
@@ -18,11 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
 
     // Update the order status in the database
     $orderModel->updateOrderStatus($orderId, $newStatus);
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 7a2daef77de5fd842b09ee4b8939bfbbf1e73615
     // Redirect or display a success message as needed
     header("Location: Order_admin.php");
     exit();
@@ -57,11 +46,7 @@ $totalSales = array_sum(array_column($orders, 'TotalAmount'));
                     <td><?= $order['Status'] ?></td>
                     <td>
 
-<<<<<<< HEAD
                         <form method="post">
-=======
-                    <form method="post">
->>>>>>> 7a2daef77de5fd842b09ee4b8939bfbbf1e73615
                             <input type="hidden" name="order_id" value="<?= $order['OrderID'] ?>">
                             <select name="new_status">
                                 <option value="Cancelled">Cancelled</option>
@@ -71,13 +56,8 @@ $totalSales = array_sum(array_column($orders, 'TotalAmount'));
                             <button type="submit" name="update_status">Update</button>
                         </form>
 
-<<<<<<< HEAD
                         <a href="delete_order.php?order_id=<?= $order['OrderID'] ?>" onclick="return confirm('Are you sure you want to delete this order?')">Delete</a>
 
-=======
-                    <a href="delete_order.php?order_id=<?= $order['OrderID'] ?>" onclick="return confirm('Are you sure you want to delete this order?')">Delete</a>
-                        
->>>>>>> 7a2daef77de5fd842b09ee4b8939bfbbf1e73615
                     </td>
                 </tr>
             <?php endforeach; ?>

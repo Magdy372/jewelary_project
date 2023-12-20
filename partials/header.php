@@ -38,6 +38,7 @@
 	<link rel="stylesheet" href="../../css/responsive.css" />
 	<!-- modernizr css -->
 	<script src="../../js/vendor/modernizr-2.8.3.min.js"></script>
+	<script src="../../js/search.js"></script>
 
 	<style>
 		.mobile-menu {
@@ -197,10 +198,13 @@
 					</div>
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 						<div class="menu-search-box scnd-fix">
-							<form action="#">
-								<input type="text" placeholder="Search here..." />
-								<button><span class="lnr lnr-magnifier"></span></button>
-							</form>
+						<form action="#">
+                                <input type="text" id="searchTerm" placeholder="Search here..." oninput="searchProducts()">
+                                <div id="searchResults"></div>
+                                <div id="searchResults" class="search-results-container"></div>
+                                    <button><span class="lnr lnr-magnifier"></span></button>
+                                </form>
+
 						</div>
 					</div>
 					<?php if (!empty($_SESSION['UserID'])): ?>
@@ -634,3 +638,24 @@
 </body>
 
 </html>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+function searchProducts() {
+    // Get the search term from the input
+    var searchTerm = $('#searchTerm').val();
+
+    // Make an AJAX request to the server-side script
+    $.ajax({
+        type: 'GET',
+        url: '../../app/views/search_products.php', 
+        data: { searchTerm: searchTerm },
+        success: function(response) {
+            // Update the results container with the server response
+            $('#searchResults').html(response);
+        },
+        error: function() {
+            console.error('Error in AJAX request');
+        }
+    });
+}
+</script>
