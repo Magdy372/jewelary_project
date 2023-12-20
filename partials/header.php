@@ -66,7 +66,7 @@
 
 	require_once(__ROOT__ . "model/Product.php");
 	require_once(__ROOT__ . "controller/ProductController.php");
-	require_once(__ROOT__ . "controller/homeController.php");
+	require_once(__ROOT__ . "controller/HomeController.php");
 	require_once(__ROOT__ . "model/OrderModel.php");
 	require_once(__ROOT__ . "controller/OrderController.php");
 	// Check if a user is logged in
