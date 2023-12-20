@@ -1,6 +1,6 @@
 <?php
-require_once(__ROOT__ . "model/Model.php");
-require_once(__ROOT__ . "controller/OrderController.php");
+require_once(_ROOT_ . "model/Model.php");
+require_once(_ROOT_ . "controller/OrderController.php");
 ?>
 <?php
 
@@ -118,6 +118,31 @@ class OrderModel extends Model
 
         return $orders;
     }
+
+    public function updateOrderStatus($orderId, $newStatus)
+    {
+        try {
+            $query = "UPDATE Order_table SET Status = '$newStatus' WHERE OrderID = '$orderId'";
+            $result = $this->db->query($query);
+
+            if (!$result) {
+                throw new Exception("Error updating order status: " . $this->db->error);
+            }
+
+            // Check the number of affected rows
+            $affectedRows = $this->db->affected_rows;
+
+            if ($affectedRows == 0) {
+                throw new Exception("No rows were updated. Check if the order ID exists.");
+            }
+        } catch (Exception $e) {
+            // Log or handle the exception appropriately
+            echo $e->getMessage();
+        }
+    }
+
+     
+    
 }
 class OrderDetails extends Model
 {
@@ -168,5 +193,28 @@ class OrderDetails extends Model
 
         return $details;
     }
+
+    public function deleteOrder($orderID)
+    {
+        try {
+            // Delete order from Order_table
+            $sqlDeleteOrder = "DELETE FROM Order_table WHERE OrderID = '$orderID'";
+            $this->db->query($sqlDeleteOrder);
+
+            // Optionally, delete corresponding order details from OrderDetails table
+            // Uncomment the following lines if needed
+            /*
+            $sqlDeleteOrderDetails = "DELETE FROM OrderDetails WHERE OrderID = '$orderID'";
+            $this->db->query($sqlDeleteOrderDetails);
+            */
+
+            return true; // Return true if the deletion is successful
+        } catch (Exception $e) {
+            // Log the exception message
+            error_log("Error deleting order: " . $e->getMessage());
+            return false; // Return false to indicate an error
+        }
+    }
+
 }
 ?>

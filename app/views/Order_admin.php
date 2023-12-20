@@ -1,9 +1,24 @@
 <?php
 
-define('__ROOT__', "../");
-require_once(__ROOT__ . "model/OrderModel.php");
+define('_ROOT_', "../");
+require_once(_ROOT_ . "model/OrderModel.php");
+require_once(_ROOT_ . "controller/OrderController.php");
 $orderModel = new OrderModel("models/Order");
 $orders = $orderModel->getOrders();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
+    $orderId = $_POST['order_id'];
+    $newStatus = $_POST['new_status'];
+
+    // Update the order status in the database
+    $orderModel->updateOrderStatus($orderId, $newStatus);
+
+    // Redirect or display a success message as needed
+    header("Location: Order_admin.php");
+    exit();
+}
+
+$totalSales = array_sum(array_column($orders, 'TotalAmount'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +26,7 @@ $orders = $orderModel->getOrders();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders</title>
+    <title>Admin_Order</title>
 </head>
 
 <body>
@@ -22,6 +37,7 @@ $orders = $orderModel->getOrders();
                 <th>Address ID</th>
                 <th>Total Amount</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
             <?php foreach ($orders as $order) : ?>
                 <tr>
@@ -29,9 +45,29 @@ $orders = $orderModel->getOrders();
                     <td><?= $order['AddressID'] ?></td>
                     <td><?= $order['TotalAmount'] ?></td>
                     <td><?= $order['Status'] ?></td>
+                    <td>
+
+                        <form method="post">
+                            <input type="hidden" name="order_id" value="<?= $order['OrderID'] ?>">
+                            <select name="new_status">
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Done">Done</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                            <button type="submit" name="update_status">Update</button>
+                        </form>
+
+                        <a href="delete_order.php?order_id=<?= $order['OrderID'] ?>" onclick="return confirm('Are you sure you want to delete this order?')">Delete</a>
+
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </table>
+        <div>
+            <h3>Total Sales:</h3>
+            <p><?= $totalSales ?></p>
+        </div>
+
     <?php else : ?>
         <p>No orders found for the user.</p>
     <?php endif; ?>
