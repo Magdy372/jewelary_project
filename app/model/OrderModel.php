@@ -1,6 +1,6 @@
 <?php
-require_once(_ROOT_ . "model/Model.php");
-require_once(_ROOT_ . "controller/OrderController.php");
+require_once(__ROOT__ . "model/Model.php");
+require_once(__ROOT__ . "controller/ProductController.php");
 ?>
 <?php
 

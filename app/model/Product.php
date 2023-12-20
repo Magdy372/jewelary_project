@@ -80,7 +80,7 @@ class Product extends Model {
     return $sovValues;
 }
     public function uploadProductPictures($files) {
-        $targetDirectory = "../uploads/";
+        $targetDirectory = "../../uploads/";
         $uploadedFiles = [];
     
         foreach ($files['ProductPicture']['tmp_name'] as $key => $tmp_name) {
