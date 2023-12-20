@@ -71,7 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Add Product Form -->
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<<<<<<< HEAD
         <?php if (!isset($_SESSION["Type"])) : ?>
+=======
+        <?php if (!isset($_SESSION["Type"])): ?>
+>>>>>>> 7a2daef77de5fd842b09ee4b8939bfbbf1e73615
             <label for="selectProductType">Select Product Type:</label>
             <select name="selectProductType" required>
                 <?php
@@ -82,7 +86,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
             </select>
             <input type="submit" value="Next">
+<<<<<<< HEAD
         <?php else : ?>
+=======
+        <?php else: ?>
+>>>>>>> 7a2daef77de5fd842b09ee4b8939bfbbf1e73615
             <label for="productName">Product Name:</label>
             <input type="text" name="productName" required><br>
 
@@ -125,5 +133,185 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
     </form>
 </body>
+<<<<<<< HEAD
 
 </html>
+=======
+
+</html>
+
+<style>
+    /* Base styles for the navbar and form */
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+    }
+
+    button {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .navbar {
+        width: 250px;
+        height: 100%;
+        background-color: white;
+        position: fixed;
+        left: 0;
+        top: 0;
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    body {
+        color: black;
+        background: #D3D3D3;
+        font-family: 'Lato', sans-serif;
+        font-size: 15px;
+        line-height: 1.42857;
+        margin-left: 300px;
+        /* Increase the margin to shift the content further right */
+    }
+
+    .navbar a {
+        display: block;
+        width: 60%;
+        padding: 10px 20px;
+        text-decoration: none;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        margin: 10px 0;
+        border-radius: 5px;
+        background-color: gray;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .navbar a:hover {
+        background-color: #0056b3;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
+        .container {
+            width: 100%;
+        }
+
+        .navbar {
+            width: 200px;
+            height: 100%;
+            background-color: #333;
+            position: fixed;
+            left: 0;
+            top: 0;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            /* Stack logo and links vertically */
+            align-items: center;
+            /* Center content horizontally */
+        }
+
+        .content {
+            margin-left: 0;
+        }
+    }
+
+
+    @media (max-width: 768px) {
+        .container {
+            width: 100%;
+        }
+
+        .navbar {
+            width: 200px;
+            height: 100%;
+            background-color: #333;
+            position: fixed;
+            left: 0;
+            top: 0;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .content {
+            margin-left: 0;
+        }
+    }
+
+    .logo {
+        width: 150px;
+        height: auto;
+        margin: 20px 0;
+    }
+
+    @media (max-width: 768px) {
+        .navbar {
+            width: 100%;
+            background-color: #007BFF;
+            padding: 10px;
+            align-items: flex-start;
+        }
+
+        .navbar a {
+            padding: 10px 20px;
+            margin: 10px 0;
+        }
+
+        .logo {
+            width: 100px;
+            margin: 10px 0;
+        }
+    }
+
+    .stats {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+    }
+
+    .stat-box {
+        width: 30%;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        text-align: center;
+    }
+</style>
+>>>>>>> 7a2daef77de5fd842b09ee4b8939bfbbf1e73615

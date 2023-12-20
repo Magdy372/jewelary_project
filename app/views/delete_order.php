@@ -1,9 +1,15 @@
 <?php
 // delete_order.php
 
+<<<<<<< HEAD
 define('_ROOT_', "../");
 require_once(_ROOT_ . "controller/OrderController.php");
 require_once(_ROOT_ . "model/OrderModel.php"); // Adjust the path as needed
+=======
+define('__ROOT__', "../");
+require_once(__ROOT__ . "controller/OrderController.php");
+require_once(__ROOT__ . "model/OrderModel.php"); // Adjust the path as needed
+>>>>>>> 7a2daef77de5fd842b09ee4b8939bfbbf1e73615
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['order_id'])) {
     $orderID = $_GET['order_id'];
@@ -25,4 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['order_id'])) {
     header("Location: Order_admin.php");
     exit();
 }
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> 7a2daef77de5fd842b09ee4b8939bfbbf1e73615
