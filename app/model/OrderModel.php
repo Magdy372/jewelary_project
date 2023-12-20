@@ -201,14 +201,12 @@ class OrderDetails extends Model
             $sqlDeleteOrder = "DELETE FROM Order_table WHERE OrderID = '$orderID'";
             $this->db->query($sqlDeleteOrder);
 
-            // Optionally, delete corresponding order details from OrderDetails table
-            // Uncomment the following lines if needed
-            /*
+            
             $sqlDeleteOrderDetails = "DELETE FROM OrderDetails WHERE OrderID = '$orderID'";
             $this->db->query($sqlDeleteOrderDetails);
-            */
+            
 
-            return true; // Return true if the deletion is successful
+            return true; 
         } catch (Exception $e) {
             // Log the exception message
             error_log("Error deleting order: " . $e->getMessage());

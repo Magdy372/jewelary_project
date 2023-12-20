@@ -10,12 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
     $orderId = $_POST['order_id'];
     $newStatus = $_POST['new_status'];
 
-    // Update the order status in the database
     $orderModel->updateOrderStatus($orderId, $newStatus);
-    // Redirect or display a success message as needed
+
     header("Location: Order_admin.php");
     exit();
 }
+
 
 $totalSales = array_sum(array_column($orders, 'TotalAmount'));
 ?>
